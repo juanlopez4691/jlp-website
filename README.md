@@ -23,3 +23,13 @@ The site is hidden from search engines in two places. Remove both at launch:
 
 - the `robots` meta tag in `src/layouts/Main.astro`
 - the `X-Robots-Tag` rule in `public/_headers`
+
+## Security headers
+
+`public/_headers` sets basic security headers and a Content-Security-Policy in
+report-only mode. Browsers only log violations in the console, nothing is
+blocked. Once the design is settled and the console is clean, rename
+`Content-Security-Policy-Report-Only` to `Content-Security-Policy`.
+
+Headers from `_headers` apply to the deployed site and to `bun run preview`,
+not to `bun run dev`.

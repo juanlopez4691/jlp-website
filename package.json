@@ -12,6 +12,7 @@
     "build": "astro build"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.2",
     "tailwindcss": "^4.3.3"
   }

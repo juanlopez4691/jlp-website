@@ -9,7 +9,9 @@
   "scripts": {
     "astro": "astro",
     "dev": "astro dev",
-    "build": "astro build"
+    "build": "astro build",
+    "format": "prettier --write \"**/*.{ts,astro,js,mjs,json,jsonc,md,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,astro,js,mjs,json,jsonc,md,css}\""
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",

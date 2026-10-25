@@ -1,0 +1,15 @@
+# Build output and Astro cache
+dist/
+.astro/
+
+# Dependencies and lockfile
+node_modules/
+bun.lock
+
+# Environment variables and secrets
+.env
+.env.*
+.dev.vars*
+
+# Hosting platform
+.wrangler/

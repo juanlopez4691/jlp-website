@@ -1,10 +1,18 @@
 ---
+import { Image } from "astro:assets"
 import Main from "@/layouts/Main.astro"
+import portrait from "@/assets/joan-lopez.jpg"
 ---
 
 <Main title="Joan López | Desarrollador web">
   <main class="grid min-h-screen place-items-center p-4 text-center">
     <div class="max-w-2xl">
+      <Image
+        src={portrait}
+        alt="Joan López"
+        loading="eager"
+        class="mx-auto mb-6 size-36 rounded-full object-cover"
+      />
       <h1 class="text-4xl font-bold">Joan López</h1>
       <p class="mt-2 text-xl">Desarrollador web</p>
       <p class="mt-6">

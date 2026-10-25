@@ -19,6 +19,7 @@
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "eslint": "^10.10.0",
     "prettier": "^3.9.7",
     "prettier-plugin-astro": "^1.0.0",

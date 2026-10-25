@@ -10,6 +10,8 @@
     "astro": "astro",
     "dev": "astro dev",
     "build": "astro build",
+    "preview": "astro build && wrangler dev",
+    "deploy": "astro build && wrangler deploy",
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,astro,js,mjs,json,jsonc,md,css}\"",
     "format:check": "prettier --check \"**/*.{ts,astro,js,mjs,json,jsonc,md,css}\""

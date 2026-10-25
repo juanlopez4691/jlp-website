@@ -16,3 +16,10 @@ Cloudflare Workers.
 | `bun run deploy`  | Build and deploy to Cloudflare          |
 | `bun run lint`    | Run ESLint                              |
 | `bun run format`  | Format the code with Prettier           |
+
+## Work in progress
+
+The site is hidden from search engines in two places. Remove both at launch:
+
+- the `robots` meta tag in `src/layouts/Main.astro`
+- the `X-Robots-Tag` rule in `public/_headers`

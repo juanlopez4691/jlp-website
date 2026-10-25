@@ -3,4 +3,6 @@
   "compatibility_date": "2026-10-25",
   "assets": { "directory": "./dist" },
   "routes": [{ "pattern": "lojopez.dev", "custom_domain": true }],
+  "workers_dev": false,
+  "preview_urls": false,
 }

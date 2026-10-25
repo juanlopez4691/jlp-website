@@ -12,6 +12,7 @@
     "build": "astro build"
   },
   "dependencies": {
-    "astro": "^7.3.2"
+    "astro": "^7.3.2",
+    "tailwindcss": "^4.3.3"
   }
 }

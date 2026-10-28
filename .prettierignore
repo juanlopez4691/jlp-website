@@ -1,15 +1,43 @@
-# Build output and Astro cache
+# ==========================================
+# Build Output & Astro Cache
+# ==========================================
 dist/
+_astro/
 .astro/
 
-# Dependencies and lockfile
+# ==========================================
+# Dependencies & Lockfiles
+# ==========================================
 node_modules/
+.pnpm-store/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
 bun.lock
 
-# Environment variables and secrets
+# ==========================================
+# Environment Variables & Secrets
+# ==========================================
 .env
 .env.*
-.dev.vars*
 
-# Hosting platform
+# ==========================================
+# Hosting & Serverless Platforms
+# ==========================================
+.vercel/
+.netlify/
 .wrangler/
+
+# ==========================================
+# Editors, IDEs & AI Artifacts
+# ==========================================
+.vscode/
+.history/
+.idea/
+.cursor/
+.cursorupdates/
+.continue/
+.aide/
+.venv/
+venv/
+env/

@@ -7,4 +7,7 @@
 
 . "$(dirname "$0")/require-container.sh"
 
-docker compose exec -T app bunx lint-staged
+# --no-install keeps the hook on the lint-staged pinned in package.json instead
+# of silently downloading whatever is latest when the container's node_modules
+# is stale.
+docker compose exec -T app bunx --no-install lint-staged

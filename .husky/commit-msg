@@ -8,4 +8,8 @@ case "$1" in
     *) message_file="/app/$1" ;;
 esac
 
-docker compose exec -T app bunx commitlint --edit "$message_file"
+# --no-install keeps the hook on the commitlint pinned in package.json. Without
+# it, bunx falls back to commitlint@latest from the registry whenever the
+# container's node_modules is stale, and that copy cannot resolve the local
+# config's imports.
+docker compose exec -T app bunx --no-install commitlint --edit "$message_file"

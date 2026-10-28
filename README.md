@@ -28,7 +28,7 @@ or directly with [Bun](https://bun.sh/docs) installed on your system.
    ./scripts/setup.sh
    ```
 
-5. Visit **https://lojopez.test**.
+5. Visit **<https://lojopez.test>**.
 
 The dev server runs with hot reload, so changes show up straight away.
 
@@ -69,7 +69,7 @@ cd ../my-feature
 ./scripts/setup.sh
 ```
 
-That checkout is served at **https://my-feature.lojopez.test**, next to
+That checkout is served at **<https://my-feature.lojopez.test>**, next to
 `lojopez.test`. A single shared [Caddy](https://caddyserver.com/) router
 handles HTTPS for all of them, and `down.sh` only stops it once no checkout is
 using it.

@@ -14,7 +14,15 @@
     "deploy": "astro build && wrangler deploy",
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,astro,js,mjs,json,jsonc,md,css}\"",
-    "format:check": "prettier --check \"**/*.{ts,astro,js,mjs,json,jsonc,md,css}\""
+    "format:check": "prettier --check \"**/*.{ts,astro,js,mjs,json,jsonc,md,css}\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,astro}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{tsx,js,mjs,cjs,json,md,css,yaml,yml}": "prettier --write"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",

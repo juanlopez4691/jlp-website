@@ -105,6 +105,10 @@ stops them once the worktree is gone.
 
 The site is served at `http://localhost:4321`, without HTTPS.
 
+[!CAUTION]
+
+> The git hooks run inside the Docker container, so without it running you'll need `git commit --no-verify` to commit.
+
 #### Commands
 
 | Command           | What it does                            |

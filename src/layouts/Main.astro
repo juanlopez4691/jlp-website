@@ -20,7 +20,7 @@ const { title, locale } = Astro.props
     <meta name="robots" content="noindex, nofollow" />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="flex min-h-svh flex-col">
     <Header locale={locale} />
     <slot />
   </body>

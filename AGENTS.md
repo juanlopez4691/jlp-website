@@ -58,8 +58,10 @@ reporting work as done.
   when the design needs one and Tailwind has none; it goes in `theme.css`.
   The two radii with no class, 28px and 48px, are `rounded-[28px]` and
   `rounded-[48px]`.
-- **Breakpoints are the defaults**: base, `md` (768) and `xl` (1280). Sizes
-  step at these points; there is no fluid scaling and no `clamp()`.
+- **Breakpoints are the defaults, and only three are used**: base, `md` (768)
+  and `xl` (1280), the same as the Penpot variants. Do not use `sm`, `lg` or
+  `2xl`. Between 768 and 1279px the tablet layout applies; the header links and
+  the hero image appear from `xl`. There is no fluid scaling and no `clamp()`.
 - **Layout.** Blocks are full width. The inner container is
   `max-w-6xl mx-auto` (1152px), with `px-8` and `xl:px-16` as the gutter.
 - **Colors and fonts** come from `theme.css`: saffron, coral, teal, mint and
@@ -85,9 +87,9 @@ reporting work as done.
 
 ## Git
 
-- Agents may commit, on their own branch or worktree. Use the `git-commit`
-  skill. Never commit to `main`, and never push, merge or rebase onto `main`
-  unless asked.
+- Agents may commit, on their own branch in their own worktree. Use the
+  `git-commit` skill. Never commit to `main`, and never merge or rebase onto
+  `main`.
 - Conventional commits, enforced by commitlint: no scope, and the extra types
   `ai` and `content` exist.
 - One topic per commit. Concise, human-readable message, no "and", no body.
@@ -95,6 +97,39 @@ reporting work as done.
   running, start it with `./scripts/up.sh`. Never use `--no-verify`; if a hook
   fails, fix the cause or report it.
 - Do not touch `.env`, `bun.lock` or `dist/` by hand.
+
+## Workflow
+
+One feature or fix per worktree, one worktree per pull request.
+
+1. **Worktree.** From the main checkout, unless you are already in a worktree
+   that is not `main`:
+
+   ```bash
+   git worktree add ../jlp-website-<topic> -b <type>/<topic>
+   cd ../jlp-website-<topic>
+   ./scripts/setup.sh
+   ```
+
+   `<type>` is a commit type (`feat`, `fix`, `docs`, `ai`, ...) and `<topic>` is
+   short and in kebab-case, such as `feat/header`. The design repo stays at
+   `../jlp-website-design`. The site runs at
+   `https://<topic>.lojopez.test`, because the directory name drops the
+   `jlp-website-` prefix.
+
+2. **Work and commit** as described above.
+3. **Pull request.** When the checks pass, push the branch and open a draft PR
+   against `main` with `gh`:
+
+   ```bash
+   git push -u origin <type>/<topic>
+   gh pr create --draft --base main --title "<type>: <subject>" --body-file <file>
+   ```
+
+   The title follows the commit rules. The body is short: what changed, how
+   you checked it (the commands and the breakpoints you compared with Penpot),
+   and open questions or decisions the spec did not cover. End it with the
+   agent attribution line. Never merge the PR, and report its URL.
 
 ## Docs
 

@@ -29,10 +29,7 @@ const links = [
 ---
 
 <header data-site-header class={cn("bg-saffron", className)}>
-  <div
-    data-menu-bar
-    class="mx-auto flex max-w-6xl items-center justify-between px-8 py-8 xl:px-0"
-  >
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-8 py-8 xl:px-0">
     <nav
       aria-label={t.nav.sectionsLabel}
       class="hidden items-center gap-8 xl:flex"
@@ -52,11 +49,10 @@ const links = [
     />
   </div>
 
-  <div
+  <dialog
     id="site-menu"
     data-menu-panel
-    hidden
-    class="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-saffron xl:hidden"
+    class="fixed inset-0 size-full max-h-none max-w-none flex-col overflow-y-auto bg-saffron open:flex xl:hidden"
   >
     <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-8 py-8">
       <NavLang locale={locale} />
@@ -71,7 +67,7 @@ const links = [
     <nav
       aria-label={t.nav.sectionsLabel}
       data-menu-links
-      class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-8 pt-8 pb-8"
+      class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-8 py-8"
     >
       {links.map((link) => (
         <NavLink
@@ -82,58 +78,50 @@ const links = [
         </NavLink>
       ))}
     </nav>
-  </div>
+  </dialog>
 </header>
 
 <script>
   const header = document.querySelector<HTMLElement>("[data-site-header]")
 
   if (header) {
-    const bar = header.querySelector<HTMLElement>("[data-menu-bar]")
-    const panel = header.querySelector<HTMLElement>("[data-menu-panel]")
+    const panel = header.querySelector<HTMLDialogElement>("[data-menu-panel]")
     const buttons =
       header.querySelectorAll<HTMLButtonElement>("[data-menu-toggle]")
-    const page = document.querySelectorAll<HTMLElement>(
-      "body > *:not([data-site-header])"
-    )
     const menuLinks = header.querySelector<HTMLElement>("[data-menu-links]")
 
-    if (bar && panel) {
-      const setOpen = (open: boolean, focus = true) => {
-        panel.hidden = !open
-        bar.inert = open
-        document.documentElement.classList.toggle("overflow-hidden", open)
-        page.forEach((element) => {
-          element.inert = open
-        })
+    if (panel) {
+      const syncExpanded = () => {
         buttons.forEach((button) => {
-          button.setAttribute("aria-expanded", String(open))
+          button.setAttribute("aria-expanded", String(panel.open))
         })
-        if (!focus) return
-        if (open) menuLinks?.querySelector<HTMLElement>("a")?.focus()
-        else buttons[0]?.focus({ preventScroll: true })
       }
 
       buttons.forEach((button) => {
-        button.addEventListener("click", () => setOpen(panel.hidden === true))
+        button.addEventListener("click", () => {
+          if (panel.open) panel.close()
+          else {
+            panel.showModal()
+            menuLinks?.querySelector<HTMLElement>("a")?.focus()
+          }
+          syncExpanded()
+        })
       })
 
       panel.addEventListener("click", (event) => {
         const link =
           event.target instanceof Element && event.target.closest("a")
-        if (link) setOpen(false)
+        if (link) panel.close()
       })
 
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && !panel.hidden) setOpen(false)
-      })
-
-      // The panel is hidden from `xl` up: leaving the menu open there would
-      // keep the bar and the page inert, with no way to close it.
-      const wide = window.matchMedia("(min-width: 80rem)")
+      // Escape, and the focus it hands back to the button, come from the
+      // dialog. Growing past the panel's breakpoint does not: close it there.
+      const wide = window.matchMedia("(min-width: 80rem)") // Tailwind's `xl`
       wide.addEventListener("change", (event) => {
-        if (event.matches) setOpen(false, false)
+        if (event.matches) panel.close()
       })
+
+      panel.addEventListener("close", syncExpanded)
     }
 
     // Mark the section the URL points at, in the bar and in the panel.

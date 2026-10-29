@@ -1,0 +1,11 @@
+/*
+ * Design tokens from the "Color blocks" design (jlp-website-design).
+ * Only what Tailwind lacks is defined here. Spacing, type sizes, radii and
+ * breakpoints (md 768, lg 1024, xl 1280) use Tailwind defaults, and the
+ * container is max-w-6xl (1152px).
+ */
+@theme {
+  --font-display:
+    "Familjen Grotesk Variable", "Figtree Variable", system-ui, sans-serif;
+  --font-sans: "Figtree Variable", system-ui, sans-serif;
+}

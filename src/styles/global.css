@@ -1,1 +1,4 @@
 @import "tailwindcss";
+@import "@fontsource-variable/familjen-grotesk";
+@import "@fontsource-variable/figtree";
+@import "./theme.css";

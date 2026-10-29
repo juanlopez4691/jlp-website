@@ -1,7 +1,7 @@
 /*
  * Design tokens from the "Color blocks" design (jlp-website-design).
  * Only what Tailwind lacks is defined here. Spacing, type sizes, radii and
- * breakpoints (md 768, lg 1024, xl 1280) use Tailwind defaults, and the
+ * breakpoints (only md 768 and xl 1280 are used) use Tailwind defaults, and the
  * container is max-w-6xl (1152px).
  */
 @theme {

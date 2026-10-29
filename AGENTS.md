@@ -58,10 +58,11 @@ reporting work as done.
   when the design needs one and Tailwind has none; it goes in `theme.css`.
   The two radii with no class, 28px and 48px, are `rounded-[28px]` and
   `rounded-[48px]`.
-- **Breakpoints are the defaults, and only three are used**: base, `md` (768)
-  and `xl` (1280), the same as the Penpot variants. Do not use `sm`, `lg` or
-  `2xl`. Between 768 and 1279px the tablet layout applies; the header links and
-  the hero image appear from `xl`. There is no fluid scaling and no `clamp()`.
+- **Breakpoints are the defaults, and four are used**: base, `md` (768), `lg`
+  (1024) and `xl` (1280). Do not use `sm` or `2xl`. Between 768 and 1023px the
+  tablet layout applies. The header links show from `lg`, not from the `xl` of
+  its Penpot variant, and the hero image from `xl`. There is no fluid scaling
+  and no `clamp()`.
 - **Layout.** Blocks are full width. The inner container is
   `max-w-6xl mx-auto` (1152px), with `px-8` and `xl:px-16` as the gutter.
 - **Colors and fonts** come from `theme.css`: saffron, coral, teal, mint and

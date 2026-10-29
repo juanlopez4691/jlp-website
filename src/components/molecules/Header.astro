@@ -122,5 +122,22 @@ const links = [
         if (event.key === "Escape" && !panel.hidden) setOpen(false)
       })
     }
+
+    // Mark the section the URL points at, in the bar and in the panel.
+    const sectionLinks =
+      header.querySelectorAll<HTMLAnchorElement>("a[href*='#']")
+
+    const markSection = () => {
+      const { hash } = window.location
+      sectionLinks.forEach((link) => {
+        const current = hash !== "" && link.hash === hash
+        if (current) link.setAttribute("aria-current", "location")
+        else if (link.getAttribute("aria-current") === "location")
+          link.removeAttribute("aria-current")
+      })
+    }
+
+    markSection()
+    window.addEventListener("hashchange", markSection)
   }
 </script>

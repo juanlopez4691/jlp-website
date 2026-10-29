@@ -1,43 +1,8 @@
 ---
-import { Image } from "astro:assets"
-import Main from "@/layouts/Main.astro"
-import portrait from "@/assets/joan-lopez.jpg"
----
+import { getRelativeLocaleUrl } from "astro:i18n"
+import { defaultLocale } from "@/i18n"
 
-<Main title="Joan López | Desarrollador web">
-  <main class="grid min-h-screen place-items-center p-4">
-    <div class="max-w-3xl">
-      <div class="text-center">
-        <Image
-          src={portrait}
-          alt="Joan López"
-          loading="eager"
-          class="mx-auto mb-6 size-36 rounded-full object-cover"
-        />
-        <h1 class="text-4xl font-bold">Joan López</h1>
-      </div>
-      <div class="mt-10 grid divide-y divide-neutral-300 text-center sm:grid-cols-2 sm:divide-x sm:divide-y-0">
-        <section lang="en" class="pb-6 sm:pr-8 sm:pb-0 sm:text-right">
-          <p class="text-xl">Web developer</p>
-          <p class="mt-6">
-            I'm putting together my site to explain{" "}
-            <span class="inline-block">
-              how I can help you with your project.
-            </span>
-          </p>
-          <p class="mt-2">Coming soon.</p>
-        </section>
-        <section class="pt-6 sm:pt-0 sm:pl-8 sm:text-left">
-          <p class="text-xl">Desarrollador web</p>
-          <p class="mt-6">
-            Estoy preparando mi web para explicarte{" "}
-            <span class="inline-block">
-              cómo puedo ayudarte con tu proyecto.
-            </span>
-          </p>
-          <p class="mt-2">Muy pronto.</p>
-        </section>
-      </div>
-    </div>
-  </main>
-</Main>
+// The site root has no content of its own: it sends visitors to the default
+// language.
+return Astro.redirect(getRelativeLocaleUrl(defaultLocale))
+---

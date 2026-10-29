@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets"
+import Main from "@/layouts/Main.astro"
+import NavLang from "@/components/atoms/NavLang.astro"
+import portrait from "@/assets/joan-lopez.jpg"
+import { isLocale, locales, useTranslations } from "@/i18n"
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }))
+}
+
+const { lang } = Astro.params
+
+if (!isLocale(lang)) {
+  throw new Error(`Unsupported language: ${lang}`)
+}
+
+const t = useTranslations(lang)
+---
+
+<Main title={t.meta.title} locale={lang}>
+  <main class="grid min-h-screen place-items-center p-4">
+    <div class="max-w-xl text-center">
+      <Image
+        src={portrait}
+        alt="Joan López"
+        loading="eager"
+        class="mx-auto mb-6 size-36 rounded-full object-cover"
+      />
+      <h1 class="text-4xl font-bold">Joan López</h1>
+      <h2 class="text-xl">{t.home.role}</h2>
+      <p class="mt-6">
+        {t.home.intro} <span class="inline-block">{t.home.introEnd}</span>
+      </p>
+      <p class="mt-2">{t.home.soon}</p>
+      <NavLang locale={lang} class="mt-10 justify-center" />
+    </div>
+  </main>
+</Main>

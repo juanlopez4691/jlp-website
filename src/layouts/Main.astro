@@ -1,15 +1,18 @@
 ---
 import "@/styles/global.css"
+import type { Locale } from "@/i18n"
 
 interface Props {
   title: string
+  /** Language of the page, set on the `<html>` element. */
+  locale: Locale
 }
 
-const { title } = Astro.props
+const { title, locale } = Astro.props
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

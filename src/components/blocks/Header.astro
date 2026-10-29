@@ -100,7 +100,7 @@ const links = [
         })
         if (!focus) return
         if (open) menuLinks?.querySelector<HTMLElement>("a")?.focus()
-        else buttons[0]?.focus()
+        else buttons[0]?.focus({ preventScroll: true })
       }
 
       buttons.forEach((button) => {
@@ -110,7 +110,7 @@ const links = [
       panel.addEventListener("click", (event) => {
         const link =
           event.target instanceof Element && event.target.closest("a")
-        if (link) setOpen(false, false)
+        if (link) setOpen(false)
       })
 
       document.addEventListener("keydown", (event) => {

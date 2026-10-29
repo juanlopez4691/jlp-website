@@ -116,6 +116,13 @@ const links = [
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && !panel.hidden) setOpen(false)
       })
+
+      // The panel is hidden from `xl` up: leaving the menu open there would
+      // keep the bar and the page inert, with no way to close it.
+      const wide = window.matchMedia("(min-width: 80rem)")
+      wide.addEventListener("change", (event) => {
+        if (event.matches) setOpen(false, false)
+      })
     }
 
     // Mark the section the URL points at, in the bar and in the panel.

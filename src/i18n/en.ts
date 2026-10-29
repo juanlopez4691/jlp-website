@@ -7,6 +7,18 @@ export const en: Dictionary = {
   },
   nav: {
     languageLabel: "Language",
+    sectionsLabel: "Sections",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
+    links: {
+      services: "Services",
+      work: "Work",
+      recommendations: "Recommendations",
+      process: "Process",
+      experience: "Experience",
+      stack: "Stack",
+      contact: "Contact",
+    },
   },
   home: {
     role: "Web developer",

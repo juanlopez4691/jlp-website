@@ -8,6 +8,18 @@ export const es = {
   },
   nav: {
     languageLabel: "Idioma",
+    sectionsLabel: "Secciones",
+    openMenu: "Abrir menú",
+    closeMenu: "Cerrar menú",
+    links: {
+      services: "Servicios",
+      work: "Trabajo",
+      recommendations: "Recomendaciones",
+      process: "Proceso",
+      experience: "Experiencia",
+      stack: "Stack",
+      contact: "Contacto",
+    },
   },
   home: {
     role: "Desarrollador web",

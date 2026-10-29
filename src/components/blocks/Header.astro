@@ -27,7 +27,7 @@ const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
   <div class="mx-auto flex max-w-6xl items-center justify-between px-8 py-8 xl:px-0">
     <nav
       aria-label={t.nav.sectionsLabel}
-      class="hidden items-center gap-8 xl:flex"
+      class="hidden items-center gap-8 lg:flex"
     >
       {links.map((link) => (
         <NavLink href={link.href}>{link.label}</NavLink>
@@ -40,14 +40,14 @@ const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
       data-menu-toggle
       label={t.nav.openMenu}
       controls="site-menu"
-      class="xl:hidden"
+      class="lg:hidden"
     />
   </div>
 
   <dialog
     id="site-menu"
     data-menu-panel
-    class="fixed inset-0 size-full max-h-none max-w-none flex-col overflow-y-auto bg-saffron open:flex xl:hidden"
+    class="fixed inset-0 size-full max-h-none max-w-none flex-col overflow-y-auto bg-saffron open:flex lg:hidden"
   >
     <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-8 py-8">
       <NavLang locale={locale} />
@@ -111,7 +111,7 @@ const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
 
       // Escape, and the focus it hands back to the button, come from the
       // dialog. Growing past the panel's breakpoint does not: close it there.
-      const wide = window.matchMedia("(min-width: 80rem)") // Tailwind's `xl`
+      const wide = window.matchMedia("(min-width: 64rem)") // Tailwind's `lg`
       wide.addEventListener("change", (event) => {
         if (event.matches) panel.close()
       })

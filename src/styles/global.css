@@ -2,3 +2,9 @@
 @import "@fontsource-variable/familjen-grotesk";
 @import "@fontsource-variable/figtree";
 @import "./theme.css";
+
+@layer base {
+  body {
+    @apply bg-mint font-sans text-navy;
+  }
+}

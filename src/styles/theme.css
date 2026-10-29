@@ -5,6 +5,12 @@
  * container is max-w-6xl (1152px).
  */
 @theme {
+  --color-saffron: #f5b82e;
+  --color-coral: #ff7f5c;
+  --color-teal: #0d4a47;
+  --color-mint: #eef5f1;
+  --color-navy: #14213d;
+
   --font-display:
     "Familjen Grotesk Variable", "Figtree Variable", system-ui, sans-serif;
   --font-sans: "Figtree Variable", system-ui, sans-serif;

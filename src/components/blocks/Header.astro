@@ -44,7 +44,12 @@ const links = [
 
     <NavLang locale={locale} />
 
-    <MenuButton label={t.nav.openMenu} controls="site-menu" class="xl:hidden" />
+    <MenuButton
+      data-menu-toggle
+      label={t.nav.openMenu}
+      controls="site-menu"
+      class="xl:hidden"
+    />
   </div>
 
   <div
@@ -55,7 +60,12 @@ const links = [
   >
     <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-8 py-8">
       <NavLang locale={locale} />
-      <MenuButton label={t.nav.closeMenu} controls="site-menu" expanded />
+      <MenuButton
+        data-menu-toggle
+        label={t.nav.closeMenu}
+        controls="site-menu"
+        expanded
+      />
     </div>
 
     <nav

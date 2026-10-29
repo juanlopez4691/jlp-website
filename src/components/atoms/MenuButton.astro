@@ -1,25 +1,31 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import { cn } from "@/libs/utils"
 
-interface Props {
+interface Props extends HTMLAttributes<"button"> {
   /** Whether the menu this button controls is open. Swaps the icon. */
   expanded?: boolean
   /** Accessible name, such as "Open menu". */
   label: string
   /** Id of the panel this button controls. */
   controls?: string
-  class?: string
 }
 
-const { expanded = false, label, controls, class: className } = Astro.props
+const {
+  expanded = false,
+  label,
+  controls,
+  class: className,
+  ...rest
+} = Astro.props
 ---
 
 <button
+  {...rest}
   type="button"
   aria-label={label}
   aria-expanded={expanded}
   aria-controls={controls}
-  data-menu-toggle
   class={cn(
     "group size-6 text-navy outline-navy focus-visible:outline-2 focus-visible:outline-offset-4",
     className

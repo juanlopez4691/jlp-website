@@ -7,17 +7,9 @@ interface Props extends HTMLAttributes<"button"> {
   expanded?: boolean
   /** Accessible name, such as "Open menu". */
   label: string
-  /** Id of the panel this button controls. */
-  controls?: string
 }
 
-const {
-  expanded = false,
-  label,
-  controls,
-  class: className,
-  ...rest
-} = Astro.props
+const { expanded = false, label, class: className, ...rest } = Astro.props
 ---
 
 <button
@@ -25,7 +17,6 @@ const {
   type="button"
   aria-label={label}
   aria-expanded={expanded}
-  aria-controls={controls}
   class={cn(
     "group size-6 text-navy outline-navy focus-visible:outline-2 focus-visible:outline-offset-4",
     className

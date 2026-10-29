@@ -39,7 +39,7 @@ const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
     <MenuButton
       data-menu-toggle
       label={t.nav.openMenu}
-      controls="site-menu"
+      aria-controls="site-menu"
       class="lg:hidden"
     />
   </div>
@@ -54,7 +54,7 @@ const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
       <MenuButton
         data-menu-toggle
         label={t.nav.closeMenu}
-        controls="site-menu"
+        aria-controls="site-menu"
         expanded
       />
     </div>

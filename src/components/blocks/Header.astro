@@ -124,12 +124,10 @@ const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
       header.querySelectorAll<HTMLAnchorElement>("a[href*='#']")
 
     const markSection = () => {
-      const { hash } = window.location
       sectionLinks.forEach((link) => {
-        const current = hash !== "" && link.hash === hash
-        if (current) link.setAttribute("aria-current", "location")
-        else if (link.getAttribute("aria-current") === "location")
-          link.removeAttribute("aria-current")
+        if (link.hash === location.hash)
+          link.setAttribute("aria-current", "location")
+        else link.removeAttribute("aria-current")
       })
     }
 

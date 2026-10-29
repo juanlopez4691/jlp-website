@@ -20,5 +20,10 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      // Keep small scripts and assets as separate files too: an inlined
+      // `<script>` would need 'unsafe-inline' in the CSP.
+      assetsInlineLimit: 0,
+    },
   },
 })

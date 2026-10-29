@@ -17,15 +17,10 @@ const t = useTranslations(locale)
 const home = getRelativeLocaleUrl(locale)
 
 /** The seven sections of the home page, in the order of the design. */
-const links = [
-  { label: t.nav.links.services, anchor: "services" },
-  { label: t.nav.links.work, anchor: "work" },
-  { label: t.nav.links.recommendations, anchor: "recommendations" },
-  { label: t.nav.links.process, anchor: "process" },
-  { label: t.nav.links.experience, anchor: "experience" },
-  { label: t.nav.links.stack, anchor: "stack" },
-  { label: t.nav.links.contact, anchor: "contact" },
-].map(({ label, anchor }) => ({ label, href: `${home}#${anchor}` }))
+const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
+  label,
+  href: `${home}#${anchor}`,
+}))
 ---
 
 <header data-site-header class={cn("bg-saffron", className)}>

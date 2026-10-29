@@ -92,6 +92,7 @@ const links = [
       const setOpen = (open: boolean, focus = true) => {
         panel.hidden = !open
         bar.inert = open
+        document.documentElement.classList.toggle("overflow-hidden", open)
         page.forEach((element) => {
           element.inert = open
         })

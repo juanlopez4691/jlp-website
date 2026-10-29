@@ -9,12 +9,10 @@ import { useTranslations, type Locale } from "@/i18n"
 interface Props {
   /** Language of the current page. */
   locale: Locale
-  /** Pathname of the current page, so its own link gets `aria-current`. */
-  currentPath?: string
   class?: string
 }
 
-const { locale, currentPath, class: className } = Astro.props
+const { locale, class: className } = Astro.props
 const t = useTranslations(locale)
 const home = getRelativeLocaleUrl(locale)
 
@@ -40,9 +38,7 @@ const links = [
       class="hidden items-center gap-8 xl:flex"
     >
       {links.map((link) => (
-        <NavLink href={link.href} current={link.href === currentPath}>
-          {link.label}
-        </NavLink>
+        <NavLink href={link.href}>{link.label}</NavLink>
       ))}
     </nav>
 
@@ -70,7 +66,6 @@ const links = [
       {links.map((link) => (
         <NavLink
           href={link.href}
-          current={link.href === currentPath}
           class="font-display text-2xl font-bold leading-tight"
         >
           {link.label}

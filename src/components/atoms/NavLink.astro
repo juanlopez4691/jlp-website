@@ -4,17 +4,14 @@ import { cn } from "@/libs/utils"
 interface Props {
   /** Where the link points, already localized. */
   href: string
-  /** Marks the link for the page it points at, with `aria-current`. */
-  current?: boolean
   class?: string
 }
 
-const { href, current = false, class: className } = Astro.props
+const { href, class: className } = Astro.props
 ---
 
 <a
   href={href}
-  aria-current={current ? "page" : undefined}
   class={cn(
     "text-base font-semibold text-navy underline-offset-4 outline-navy focus-visible:outline-2 focus-visible:outline-offset-4 aria-[current]:underline",
     className

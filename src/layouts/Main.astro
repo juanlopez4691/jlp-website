@@ -21,7 +21,7 @@ const { title, locale } = Astro.props
     <title>{title}</title>
   </head>
   <body>
-    <Header locale={locale} currentPath={Astro.url.pathname} />
+    <Header locale={locale} />
     <slot />
   </body>
 </html>

@@ -1,0 +1,126 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n"
+import MenuButton from "@/components/atoms/MenuButton.astro"
+import NavLang from "@/components/atoms/NavLang.astro"
+import NavLink from "@/components/atoms/NavLink.astro"
+import { cn } from "@/libs/utils"
+import { useTranslations, type Locale } from "@/i18n"
+
+interface Props {
+  /** Language of the current page. */
+  locale: Locale
+  /** Pathname of the current page, so its own link gets `aria-current`. */
+  currentPath?: string
+  class?: string
+}
+
+const { locale, currentPath, class: className } = Astro.props
+const t = useTranslations(locale)
+const home = getRelativeLocaleUrl(locale)
+
+/** The seven sections of the home page, in the order of the design. */
+const links = [
+  { label: t.nav.links.services, anchor: "services" },
+  { label: t.nav.links.work, anchor: "work" },
+  { label: t.nav.links.recommendations, anchor: "recommendations" },
+  { label: t.nav.links.process, anchor: "process" },
+  { label: t.nav.links.experience, anchor: "experience" },
+  { label: t.nav.links.stack, anchor: "stack" },
+  { label: t.nav.links.contact, anchor: "contact" },
+].map(({ label, anchor }) => ({ label, href: `${home}#${anchor}` }))
+---
+
+<header data-site-header class={cn("bg-saffron", className)}>
+  <div
+    data-menu-bar
+    class="mx-auto flex max-w-6xl items-center justify-between px-8 py-8 xl:px-0"
+  >
+    <nav
+      aria-label={t.nav.sectionsLabel}
+      class="hidden items-center gap-8 xl:flex"
+    >
+      {links.map((link) => (
+        <NavLink href={link.href} current={link.href === currentPath}>
+          {link.label}
+        </NavLink>
+      ))}
+    </nav>
+
+    <NavLang locale={locale} />
+
+    <MenuButton label={t.nav.openMenu} controls="site-menu" class="xl:hidden" />
+  </div>
+
+  <div
+    id="site-menu"
+    data-menu-panel
+    hidden
+    class="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-saffron xl:hidden"
+  >
+    <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-8 py-8">
+      <NavLang locale={locale} />
+      <MenuButton label={t.nav.closeMenu} controls="site-menu" expanded />
+    </div>
+
+    <nav
+      aria-label={t.nav.sectionsLabel}
+      data-menu-links
+      class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-8 pt-8 pb-8"
+    >
+      {links.map((link) => (
+        <NavLink
+          href={link.href}
+          current={link.href === currentPath}
+          class="font-display text-2xl font-bold leading-tight"
+        >
+          {link.label}
+        </NavLink>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-site-header]")
+
+  if (header) {
+    const bar = header.querySelector<HTMLElement>("[data-menu-bar]")
+    const panel = header.querySelector<HTMLElement>("[data-menu-panel]")
+    const buttons =
+      header.querySelectorAll<HTMLButtonElement>("[data-menu-toggle]")
+    const page = document.querySelectorAll<HTMLElement>(
+      "body > *:not([data-site-header])"
+    )
+    const menuLinks = header.querySelector<HTMLElement>("[data-menu-links]")
+
+    if (bar && panel) {
+      const setOpen = (open: boolean, focus = true) => {
+        panel.hidden = !open
+        bar.inert = open
+        page.forEach((element) => {
+          element.inert = open
+        })
+        buttons.forEach((button) => {
+          button.setAttribute("aria-expanded", String(open))
+        })
+        if (!focus) return
+        if (open) menuLinks?.querySelector<HTMLElement>("a")?.focus()
+        else buttons[0]?.focus()
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => setOpen(panel.hidden === true))
+      })
+
+      panel.addEventListener("click", (event) => {
+        const link =
+          event.target instanceof Element && event.target.closest("a")
+        if (link) setOpen(false, false)
+      })
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !panel.hidden) setOpen(false)
+      })
+    }
+  }
+</script>

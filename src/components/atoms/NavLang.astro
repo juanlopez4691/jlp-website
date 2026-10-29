@@ -13,19 +13,25 @@ const { locale, class: className } = Astro.props
 const t = useTranslations(locale)
 ---
 
-<nav aria-label={t.nav.languageLabel} class={cn("flex gap-2", className)}>
-  {locales.map((code) => (
-    <a
-      href={getRelativeLocaleUrl(code)}
-      hreflang={code}
-      lang={code}
-      aria-current={code === locale ? "page" : undefined}
-      class={cn(
-        "text-sm font-semibold uppercase",
-        code === locale ? "underline underline-offset-4" : "opacity-70"
-      )}
-    >
-      {code}
-    </a>
+<nav
+  aria-label={t.nav.languageLabel}
+  class={cn("flex items-center gap-2 text-base", className)}
+>
+  {locales.map((code, index) => (
+    <>
+      {index > 0 && <span aria-hidden="true">/</span>}
+      <a
+        href={getRelativeLocaleUrl(code)}
+        hreflang={code}
+        lang={code}
+        aria-current={code === locale ? "page" : undefined}
+        class={cn(
+          "font-semibold uppercase underline-offset-4 outline-navy focus-visible:outline-2 focus-visible:outline-offset-4",
+          code === locale ? "underline" : "opacity-70"
+        )}
+      >
+        {code}
+      </a>
+    </>
   ))}
 </nav>

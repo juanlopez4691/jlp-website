@@ -43,12 +43,14 @@ Prefer the Docker environment (see `README.md`); run scripts in the container:
 ```bash
 docker compose exec app bun run lint
 docker compose exec app bun run format:check
+docker compose exec app bun run check
 docker compose exec app bun run build
 ```
 
 Without Docker: `bun install`, `bun run dev` (http://localhost:4321).
 
-Run `lint`, `format:check` and `build` before reporting work as done.
+Run `lint`, `format:check`, `check` (the Astro type check) and `build` before
+reporting work as done.
 
 ## Code rules
 

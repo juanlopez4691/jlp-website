@@ -63,7 +63,9 @@ reporting work as done.
   `2xl`. Between 768 and 1279px the tablet layout applies; the header links and
   the hero image appear from `xl`. There is no fluid scaling and no `clamp()`.
 - **Layout.** Blocks are full width. The inner container is
-  `max-w-6xl mx-auto` (1152px), with `px-8` and `xl:px-16` as the gutter.
+  `max-w-6xl mx-auto` (1152px), with `px-8` below `xl` and `xl:px-0` from `xl`.
+  At 1280 the container is exactly 1152 wide, and the margin is the space
+  around it.
 - **Colors and fonts** come from `theme.css`: saffron, coral, teal, mint and
   navy; Familjen Grotesk for display, Figtree for text. No gradients,
   shadows or emoji.

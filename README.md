@@ -89,17 +89,18 @@ service name from `compose.yaml`, and the command goes after it.
 docker compose exec app bun run lint
 ```
 
-| Script         | Run it                | What it does                                     |
-| -------------- | --------------------- | ------------------------------------------------ |
-| `dev`          | Starts by itself      | The dev server. The container runs it on start   |
-| `build`        | In the container      | Build the site into `dist/`                      |
-| `lint`         | In the container      | Run ESLint                                       |
-| `format`       | In the container      | Format the code with Prettier                    |
-| `format:check` | In the container      | Check the formatting without changing files      |
-| `astro`        | In the container      | The Astro CLI, for example `bun run astro check` |
-| `preview`      | On your machine       | Build, then serve `dist/` with Wrangler          |
-| `deploy`       | On your machine       | Build and deploy to Cloudflare                   |
-| `prepare`      | Runs on `bun install` | Sets up the git hooks. You never run it by hand  |
+| Script         | Run it                | What it does                                    |
+| -------------- | --------------------- | ----------------------------------------------- |
+| `dev`          | Starts by itself      | The dev server. The container runs it on start  |
+| `build`        | In the container      | Build the site into `dist/`                     |
+| `lint`         | In the container      | Run ESLint                                      |
+| `format`       | In the container      | Format the code with Prettier                   |
+| `format:check` | In the container      | Check the formatting without changing files     |
+| `check`        | In the container      | Type-check the `.astro` and TypeScript files    |
+| `astro`        | In the container      | The Astro CLI, for example `bun run astro add`  |
+| `preview`      | On your machine       | Build, then serve `dist/` with Wrangler         |
+| `deploy`       | On your machine       | Build and deploy to Cloudflare                  |
+| `prepare`      | Runs on `bun install` | Sets up the git hooks. You never run it by hand |
 
 `preview` and `deploy` start Wrangler. `deploy` needs your Cloudflare login,
 and the container only publishes the dev server's port, so run both with Bun on

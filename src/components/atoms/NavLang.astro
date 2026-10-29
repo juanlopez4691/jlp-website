@@ -1,0 +1,31 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n"
+import { cn } from "@/libs/utils"
+import { locales, useTranslations, type Locale } from "@/i18n"
+
+interface Props {
+  /** Language of the current page. */
+  locale: Locale
+  class?: string
+}
+
+const { locale, class: className } = Astro.props
+const t = useTranslations(locale)
+---
+
+<nav aria-label={t.nav.languageLabel} class={cn("flex gap-2", className)}>
+  {locales.map((code) => (
+    <a
+      href={getRelativeLocaleUrl(code)}
+      hreflang={code}
+      lang={code}
+      aria-current={code === locale ? "page" : undefined}
+      class={cn(
+        "text-sm font-semibold uppercase",
+        code === locale ? "underline underline-offset-4" : "opacity-70"
+      )}
+    >
+      {code}
+    </a>
+  ))}
+</nav>

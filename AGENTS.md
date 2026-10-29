@@ -26,8 +26,9 @@ The design is the source of truth. Do not invent layout, sizes or copy.
 src/
 ├── components/   atoms/, molecules/, blocks/ (PascalCase, same name as the design)
 ├── layouts/      Main.astro, the HTML shell
+├── i18n/         dictionaries (es.ts, en.ts) and useTranslations()
 ├── libs/         helpers, such as cn() in utils.ts
-├── pages/        routes
+├── pages/        routes; [lang]/ holds the localized pages
 ├── styles/       global.css and theme.css (Tailwind theme)
 └── assets/       images processed by Astro
 public/_headers   response headers, including the CSP
@@ -72,8 +73,13 @@ Run `lint`, `format:check` and `build` before reporting work as done.
   images and fonts. No inline `<style>` or `<script>`, no external hosts, no
   third-party scripts. `astro.config.mjs` keeps stylesheets as separate files
   for this reason.
-- **Languages.** The site has Spanish and English. How routing and copy are
-  organized is not decided yet; ask before building it.
+- **Languages.** Spanish (default) and English, at `/es/` and `/en/`, with
+  Astro's i18n routing; `/` redirects to `/es/`. Pages live in
+  `src/pages/[lang]/`. All copy is in the dictionaries `src/i18n/es.ts` and
+  `en.ts`, which must have the same keys (`en.ts` is typed against `es.ts`).
+  Components receive `locale` and read `useTranslations(locale)`; they hold no
+  copy. Build links with `getRelativeLocaleUrl` from `astro:i18n`. Adding a
+  language means updating `astro.config.mjs` and `src/i18n/index.ts`.
 
 ## Git
 

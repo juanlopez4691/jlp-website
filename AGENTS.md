@@ -66,6 +66,11 @@ reporting work as done.
   `max-w-6xl mx-auto` (1152px), with `px-8` below `xl` and `xl:px-0` from `xl`.
   At 1280 the container is exactly 1152 wide, and the margin is the space
   around it.
+- **Cards.** In every card the last part is pinned to the bottom, whatever the
+  length of the content: the pills of a work card (also the outline ones) and
+  the author name and role of a recommendation. Cards in a row share the
+  height of the tallest (`h-full`); the card is `flex flex-col` and the text
+  above the pinned part is `flex-1` (or the pinned part has `mt-auto`).
 - **Colors and fonts** come from `theme.css`: saffron, coral, teal, mint and
   navy; Familjen Grotesk for display, Figtree for text. No gradients,
   shadows or emoji.

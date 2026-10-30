@@ -1,0 +1,57 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n"
+import { Image } from "astro:assets"
+import Button from "@/components/atoms/Button.astro"
+import Pill from "@/components/atoms/Pill.astro"
+import blacksmith from "@/assets/blacksmith.webp"
+import { cn } from "@/libs/utils"
+import { useTranslations, type Locale } from "@/i18n"
+
+interface Props {
+  /** Language of the current page. */
+  locale: Locale
+  class?: string
+}
+
+const { locale, class: className } = Astro.props
+const t = useTranslations(locale)
+const home = getRelativeLocaleUrl(locale)
+/** Temporary: the files are not in the site yet. */
+const cvHref = `/downloads/cv-joan_lopez-${locale}.pdf`
+---
+
+<section class={cn("bg-saffron pb-16 md:pb-20", className)}>
+  <div class="mx-auto flex max-w-6xl items-start gap-8 px-8 xl:px-0">
+    <div class="flex-1 md:mx-auto md:max-w-140 xl:mx-0 xl:max-w-none">
+      <Pill kind="availability" class="w-full md:w-auto">
+        <span class="md:hidden">{t.hero.availabilityShort}</span>
+        <span class="hidden md:inline">{t.hero.availability}</span>
+      </Pill>
+      <h1 class="mt-6 text-5xl leading-none font-bold tracking-tight md:text-6xl xl:text-8xl xl:leading-h1">
+        {t.hero.title}
+      </h1>
+      <p class="mt-6 font-display text-2xl leading-tight font-medium">
+        {t.hero.role}
+      </p>
+      <p class="mt-3 font-display text-2xl leading-tight font-bold">
+        {t.hero.tagline}
+      </p>
+      <p class="mt-3 text-lg leading-relaxed">{t.hero.lead}</p>
+      <div class="mt-6 flex flex-col gap-4 md:flex-row">
+        <Button type="primary" href={`${home}#contact`}>
+          {t.hero.contact}
+        </Button>
+        <Button type="secondary" href={cvHref} download>
+          {t.hero.cv}
+        </Button>
+      </div>
+    </div>
+    <Image
+      src={blacksmith}
+      alt={t.hero.imageAlt}
+      width={656}
+      densities={[1, 2]}
+      class="hidden h-auto w-164 shrink-0 xl:block"
+    />
+  </div>
+</section>

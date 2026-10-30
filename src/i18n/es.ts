@@ -21,11 +21,17 @@ export const es = {
       contact: "Contacto",
     },
   },
-  home: {
-    role: "Desarrollador web",
-    intro: "Estoy preparando mi web para explicarte",
-    introEnd: "cómo puedo ayudarte con tu proyecto.",
-    soon: "Estará disponible pronto.",
+  hero: {
+    availability: "Abierto a trabajo freelance, contrato y jornada completa",
+    availabilityShort: "Abierto a freelance y jornada completa",
+    title: "Hola, soy Joan López",
+    role: "Desarrollador web senior.",
+    tagline:
+      "Forjo webs fiables con WordPress, WooCommerce, Laravel y Statamic.",
+    lead: "Me encargo de la parte técnica, desde la arquitectura al lanzamiento, para que tu proyecto funcione desde el primer día y siga siendo rápido, seguro y fácil de mantener.",
+    contact: "Cuéntame tu proyecto",
+    cv: "Descarga mi CV",
+    imageAlt: "Grabado de un herrero en el yunque",
   },
 }
 

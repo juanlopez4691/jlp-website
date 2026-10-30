@@ -12,7 +12,9 @@ Use the `backlog` skill.
 ## 1. Spec
 
 Input: a brief from Joan (a prompt, or a GitHub or Linear issue).
-For a GitHub issue, read it with `gh issue view <n>`.
+For a GitHub issue, read it with `gh issue view <n>` and check its labels
+(`gh issue view <n> --json labels`). If `ai:ready` is missing, stop and ask
+Joan before you write anything.
 
 1. Read the design as `AGENTS.md` says: `../jlp-website-design` (`README.md`,
    `tokens.json`, `components/<Name>/README.md`) and the Penpot page `02 Home`.

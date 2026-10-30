@@ -16,8 +16,9 @@ For a GitHub issue, read it with `gh issue view <n>` and check its labels
 (`gh issue view <n> --json labels`). If `ai:ready` is missing, stop and ask
 Joan before you write anything.
 
-1. Read the design as `AGENTS.md` says: `../jlp-website-design` (`README.md`,
-   `tokens.json`, `components/<Name>/README.md`) and the Penpot page `02 Home`.
+1. Read the design as `AGENTS.md` says: the design repo at
+   `~/Projects/personal/jlp-website-design` (`README.md`, `tokens.json`,
+   `components/<Name>/README.md`) and the Penpot page `02 Home`.
 2. Read the existing components, `src/i18n/` and `src/styles/theme.css`. Reuse
    atoms and molecules before specifying anything new.
 3. Write `.agents/work/spec.md` from `.agents/templates/spec.md`.

@@ -8,9 +8,10 @@ allowed-tools: Read, Glob, Grep, Bash(gh issue:*), Bash(gh repo view:*)
 
 Follow these steps in order.
 
-1. **Read the sources.** Read the design repo as `AGENTS.md` says
-   (`../jlp-website-design`: `README.md` and `components/<Name>/README.md`) and
-   take the blocks in the order of the `02 Home` page. Run
+1. **Read the sources.** Read the design repo as `AGENTS.md` says, at
+   `~/Projects/personal/jlp-website-design` (`README.md` and
+   `components/<Name>/README.md`), and take the blocks in the order of the
+   `02 Home` page. Run
    `gh issue list --state all` so nothing is duplicated. If the design repo does
    not list the blocks, ask Joan. Do not guess them. A block can have
    reference images at `components/<Name>/xl.png`, `md.png` and `base.png` in

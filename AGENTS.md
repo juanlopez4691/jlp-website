@@ -12,7 +12,9 @@ Bun, served as static assets from Cloudflare Workers.
 
 The design is the source of truth. Do not invent layout, sizes or copy.
 
-- Design repo: `../jlp-website-design`. Read `README.md`, `tokens.json` and
+- Design repo: `~/Projects/personal/jlp-website-design`. Use this path, not a
+  relative one, because worktrees can live elsewhere (Orca puts them in
+  `~/orca/workspaces/`). Read `README.md`, `tokens.json` and
   `components/<Name>/README.md` before building a component.
 - Penpot file: pages `00 Foundations`, `01 Components` and `02 Home`.
 - If the Penpot MCP tools are not loaded in your session, use
@@ -131,8 +133,7 @@ One feature or fix per worktree, one worktree per pull request.
    ```
 
    `<type>` is a commit type (`feat`, `fix`, `docs`, `ai`, ...) and `<topic>` is
-   short and in kebab-case, such as `feat/header`. The design repo stays at
-   `../jlp-website-design`. The site runs at
+   short and in kebab-case, such as `feat/header`. The site runs at
    `https://<topic>.lojopez.test`, because the directory name drops the
    `jlp-website-` prefix.
 

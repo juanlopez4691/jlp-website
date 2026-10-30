@@ -110,3 +110,7 @@ $RECYCLE.BIN/
 
 # Agent team work files (per worktree)
 .agents/work/
+
+# Downloads
+public/downloads/*
+

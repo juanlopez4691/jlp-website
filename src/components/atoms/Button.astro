@@ -1,0 +1,35 @@
+---
+import type { HTMLAttributes } from "astro/types"
+import { cn } from "@/libs/utils"
+
+interface Props extends HTMLAttributes<"a"> {
+  /** Visual style. `accent` and `secondary-on-dark` are not built yet. */
+  type: "primary" | "secondary"
+  /** Where the link points, already localized. */
+  href: string
+  class?: string
+}
+
+const { type, href, class: className, ...rest } = Astro.props
+
+/**
+ * Tailwind only sees complete class names, so each variant is a whole string
+ * in a lookup object instead of one built from pieces.
+ */
+const types = {
+  primary: "bg-navy text-mint hover:bg-transparent hover:text-navy",
+  secondary: "text-navy hover:bg-navy hover:text-mint",
+}
+---
+
+<a
+  {...rest}
+  href={href}
+  class={cn(
+    "inline-flex items-center justify-center border-2 border-navy px-5.5 py-2.5 text-base font-semibold transition-colors outline-navy focus-visible:outline-2 focus-visible:outline-offset-4",
+    types[type],
+    className
+  )}
+>
+  <slot />
+</a>

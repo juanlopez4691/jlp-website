@@ -15,6 +15,9 @@
     "Familjen Grotesk Variable", "Figtree Variable", system-ui, sans-serif;
   --font-sans: "Figtree Variable", system-ui, sans-serif;
 
+  /* h1 line height at xl (96px type, 91.2px leading). */
+  --leading-h1: 0.95;
+
   /* Label letter spacing (tracking-tight covers the display sizes). */
   --tracking-eyebrow: 1.84px;
   --tracking-tag: 1px;

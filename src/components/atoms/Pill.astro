@@ -1,0 +1,25 @@
+---
+import { cn } from "@/libs/utils"
+
+interface Props {
+  /** What the pill labels. Only `availability` is built so far. */
+  kind: "availability"
+  /** The surface the pill sits on. */
+  tone?: "on-light"
+  class?: string
+}
+
+const { kind, class: className } = Astro.props
+---
+
+<span
+  class={cn(
+    "inline-flex items-center gap-2 rounded-full bg-navy py-2 pr-4 pl-2.5 text-sm leading-normal font-semibold text-mint",
+    className
+  )}
+>
+  {kind === "availability" && (
+    <span class="size-2.5 shrink-0 rounded-full bg-saffron" />
+  )}
+  <slot />
+</span>

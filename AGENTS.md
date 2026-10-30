@@ -79,6 +79,12 @@ reporting work as done.
   properties in Penpot become props (`Button` takes `type`, `Pill` takes `kind`
   and `tone`). Merge classes with `cn()` so callers can override them. Text
   comes in as props or slots; components hold no copy.
+- **Section arrow.** A block that has the arrow takes the color of the block
+  above it as a prop (`arrow`: `saffron`, `coral`, `teal`, `mint` or `navy`; no
+  prop means no arrow), so the block can follow any other. The page sets the
+  prop from its own block order. Never hard-code the color inside a block.
+  Tailwind only sees complete class names, so map each color to its class in a
+  lookup object and do not build class names from strings.
 - **Accessibility.** Semantic HTML, a visible focus state, alt text on images,
   and the `jsx-a11y` lint rules must pass.
 - **CSP.** The policy in `public/_headers` allows only same-origin styles,

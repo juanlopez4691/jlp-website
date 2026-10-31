@@ -19,7 +19,7 @@ const column = "contents md:flex md:flex-col md:gap-6 xl:contents"
 
 <section class={cn("bg-navy py-8", className)}>
   <div class="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-8 xl:grid-cols-12 xl:gap-x-8 xl:px-0">
-    <div class={column}>
+    <dl class={column}>
       <Fact label={facts.stack.label} class="col-span-2 xl:col-span-3">
         {facts.stack.value}
       </Fact>
@@ -29,14 +29,14 @@ const column = "contents md:flex md:flex-col md:gap-6 xl:contents"
       <Fact label={facts.clients.label} class="xl:col-span-2">
         {facts.clients.value}
       </Fact>
-    </div>
-    <div class={column}>
+    </dl>
+    <dl class={column}>
       <Fact label={facts.location.label} class="xl:col-span-2">
         {facts.location.value}
       </Fact>
       <Fact label={facts.languages.label} class="xl:col-span-3">
         {facts.languages.value}
       </Fact>
-    </div>
+    </dl>
   </div>
 </section>

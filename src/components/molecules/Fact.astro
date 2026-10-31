@@ -11,10 +11,10 @@ const { label, class: className } = Astro.props
 ---
 
 <div class={cn("flex flex-col gap-1", className)}>
-  <p class="text-sm leading-normal font-semibold tracking-tag text-saffron uppercase">
+  <dt class="text-sm leading-normal font-semibold tracking-tag text-saffron uppercase">
     {label}
-  </p>
-  <p class="text-lg leading-relaxed text-mint">
+  </dt>
+  <dd class="text-lg leading-relaxed text-mint">
     <slot />
-  </p>
+  </dd>
 </div>

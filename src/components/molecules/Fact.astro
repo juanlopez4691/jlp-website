@@ -1,0 +1,20 @@
+---
+import { cn } from "@/libs/utils"
+
+interface Props {
+  /** The uppercase label above the value. */
+  label: string
+  class?: string
+}
+
+const { label, class: className } = Astro.props
+---
+
+<div class={cn("flex flex-col gap-1", className)}>
+  <p class="text-sm leading-normal font-semibold tracking-tag text-saffron uppercase">
+    {label}
+  </p>
+  <p class="text-lg leading-relaxed text-mint">
+    <slot />
+  </p>
+</div>

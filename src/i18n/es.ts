@@ -40,7 +40,7 @@ export const es = {
     },
     experience: { label: "Experiencia", value: "+25 años" },
     clients: { label: "Clientes", value: "+15 empresas desde 2021" },
-    location: { label: "Ubicación", value: "Área de Barcelona, España" },
+    location: { label: "Ubicación", value: "Cerca de Barcelona, España" },
     languages: { label: "Idiomas", value: "Español, catalán, inglés" },
   },
 }

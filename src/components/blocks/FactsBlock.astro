@@ -12,15 +12,18 @@ interface Props {
 const { locale, class: className } = Astro.props
 const { facts } = useTranslations(locale)
 
-// The column wrappers only exist as boxes on tablet (md to xl), where each column
-// stacks on its own; on phone and desktop they dissolve into the grid.
-const column = "contents md:flex md:flex-col md:gap-6 xl:contents"
+// The column wrappers only exist as boxes on tablet (md), where each column
+// stacks on its own; from lg, and on phone, they dissolve into the grid.
+const column = "contents md:flex md:flex-col md:gap-6 lg:contents"
 ---
 
 <section class={cn("bg-navy py-8", className)}>
-  <div class="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-8 xl:grid-cols-12 xl:gap-x-8 xl:px-0">
+  <div class="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-8 lg:grid-cols-3 xl:grid-cols-12 xl:gap-x-8 xl:px-0">
     <dl class={column}>
-      <Fact label={facts.stack.label} class="col-span-2 xl:col-span-3">
+      <Fact
+        label={facts.stack.label}
+        class="col-span-2 lg:col-span-1 xl:col-span-3"
+      >
         {facts.stack.value}
       </Fact>
       <Fact label={facts.experience.label} class="xl:col-span-2">

@@ -151,6 +151,12 @@ One feature or fix per worktree, one worktree per pull request.
    and open questions or decisions the spec did not cover. End it with the
    agent attribution line. Never merge the PR, and report its URL.
 
+   Agents post under Joan's `gh` login, so what an agent writes on GitHub must
+   be told apart from what Joan writes. Every comment, review and reply starts
+   with the line `**Agent: <role>**` and a blank line, where `<role>` is
+   `Senior Dev`, `PR reviewer` or `Coder`. A PR or issue body an agent creates
+   ends with `Agent: <role>` in its attribution line.
+
 ## Docs
 
 `README.md` explains how to run the site. Update it when a command, a

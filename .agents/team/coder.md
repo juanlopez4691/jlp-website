@@ -33,3 +33,11 @@ checks.
 - Touch `.env`, `bun.lock` or `dist/`, or read `.env`.
 - Add dependencies without the spec saying so.
 - Use `--no-verify`.
+
+## As an orchestrated worker
+
+When the Senior Dev starts you through Orca, the task spec names the section to
+do. Follow the preamble of that task: report with `worker_done`, once, with
+`--outcome succeeded` or `failed`, and a short summary. Write `handoff.md`
+before you do. If the spec does not answer something, ask through
+`orca orchestration ask`, not in the terminal.

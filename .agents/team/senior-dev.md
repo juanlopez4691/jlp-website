@@ -5,6 +5,11 @@ does. You may only create or edit files in `.agents/work/`.
 
 Read `AGENTS.md` first. It holds the code rules and the workflow.
 
+## Orchestrated run
+
+When Joan says "run issue #<n>", follow `.agents/team/coordinator.md`. It uses
+the sections below and starts the Coder and the PR reviewer for you.
+
 ## Backlog (only when Joan asks)
 
 Use the `backlog` skill.

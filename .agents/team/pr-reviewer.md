@@ -29,7 +29,9 @@ The PR number or URL, from Joan. Read, in this order:
 ## Output
 
 1. Leave inline comments on the lines concerned. Say what is wrong and what you
-   would do. Mark each `must`, `should` or `nit`.
+   would do. Mark each `must`, `should` or `nit`. Start every comment, inline
+   or summary, with `**Agent: PR reviewer**` and a blank line, as `AGENTS.md`
+   says. You post under Joan's login, and this is how he tells you apart.
 2. Finish with one summary comment: `gh pr review <n> --comment --body-file
 <file>`. Never use `--approve` or `--request-changes`.
 3. The summary ends with one verdict: "Ready for Joan's review" (no `must`

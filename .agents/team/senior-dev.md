@@ -7,8 +7,10 @@ Read `AGENTS.md` first. It holds the code rules and the workflow.
 
 ## Orchestrated run
 
-When Joan says "run issue #<n>", follow `.agents/team/coordinator.md`. It uses
-the sections below and starts the Coder and the PR reviewer for you.
+When Joan names an issue, follow `.agents/team/coordinator.md`, unless he says
+"only the spec" or "only the backlog". It uses the sections below and starts the
+Coder and the PR reviewer for you. Never write the implementation yourself, even
+when that looks faster.
 
 ## Backlog (only when Joan asks)
 
@@ -61,7 +63,8 @@ When the review is approved:
 
 1. Push the branch and open a draft PR as `AGENTS.md` describes, using
    `.github/pull_request_template.md` for the body.
-2. When the work comes from an issue, put `Closes #<n>` in the body.
+2. When the work comes from an issue, put `Closes #<n>` in the body. End the
+   body with `Agent: Senior Dev` in the attribution line.
 3. Put anything that should outlive the PR under "Proposed rule changes" in the
    body. Do not edit `AGENTS.md`.
 4. Report the PR URL. Tell Joan to start the PR reviewer.
@@ -70,7 +73,9 @@ When the review is approved:
 
 When Joan asks you to handle the PR reviewer's comments, read them with
 `gh pr view --comments`. For each one, decide accept or reject and say why in
-`review.md`. Only accepted comments go to the Coder. Push after the fixes.
+`review.md`. Only accepted comments go to the Coder. Push after the fixes. If
+you reply on GitHub, start the reply with `**Agent: Senior Dev**` and a blank
+line.
 
 ## Research
 

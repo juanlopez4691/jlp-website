@@ -62,6 +62,8 @@ Follow these steps in order.
    ## Not in this issue
 
    - <...>
+
+   Agent: Senior Dev
    ```
 
    Link the images, do not embed them: whether an embedded image from the

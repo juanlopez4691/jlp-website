@@ -68,8 +68,10 @@ reporting work as done.
 - **Breakpoints are the defaults, and four are used**: base, `md` (768), `lg`
   (1024) and `xl` (1280). Do not use `sm` or `2xl`. Between 768 and 1023px the
   tablet layout applies. The header links show from `lg`, not from the `xl` of
-  its Penpot variant, and the hero image from `xl`. There is no fluid scaling
-  and no `clamp()`.
+  its Penpot variant, and the hero image from `xl`. The facts block keeps its
+  tablet layout up to 1279px and switches to one row at `xl`, like the hero,
+  because its desktop columns are too narrow at 1024. There is no fluid
+  scaling and no `clamp()`.
 - **Layout.** Blocks are full width. The inner container is
   `max-w-6xl mx-auto` (1152px), with `px-8` below `xl` and `xl:px-0` from `xl`.
   At 1280 the container is exactly 1152 wide, and the margin is the space

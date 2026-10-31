@@ -21,13 +21,14 @@ const cvHref = `/downloads/cv-joan_lopez-${locale}.pdf`
 
 <section class={cn("bg-saffron pb-16 md:pb-20", className)}>
   <div class="mx-auto flex max-w-6xl items-start gap-8 px-8 xl:px-0">
-    <div class="flex-1 md:mx-auto md:max-w-140 xl:mx-0 xl:max-w-none">
+    <div class="flex-1 md:mx-auto md:max-w-140 lg:mx-0 lg:w-116 lg:max-w-none lg:flex-none">
       <Pill kind="availability" class="w-full md:w-auto">
         <span class="md:hidden">{t.hero.availabilityShort}</span>
         <span class="hidden md:inline">{t.hero.availability}</span>
       </Pill>
       <h1 class="mt-6 text-5xl leading-none font-bold tracking-tight md:text-6xl xl:text-8xl xl:leading-h1">
-        {t.hero.title}
+        {t.hero.greeting} <br class="hidden lg:inline" />
+        {t.hero.name}
       </h1>
       <p class="mt-6 font-display text-2xl leading-tight font-medium">
         {t.hero.role}
@@ -53,7 +54,7 @@ const cvHref = `/downloads/cv-joan_lopez-${locale}.pdf`
       format="avif"
       quality={35}
       fetchpriority="high"
-      class="hidden h-auto w-164 shrink-0 xl:block"
+      class="hidden h-auto min-w-0 flex-1 lg:block"
     />
   </div>
 </section>

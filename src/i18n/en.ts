@@ -23,7 +23,8 @@ export const en: Dictionary = {
   hero: {
     availability: "Open to freelance, contract and full-time work",
     availabilityShort: "Open to freelance and full-time work",
-    title: "Hello, I'm Joan López",
+    greeting: "Hello, I'm",
+    name: "Joan López",
     role: "Senior web developer.",
     tagline:
       "I forge reliable sites with WordPress, WooCommerce, Laravel and Statamic.",

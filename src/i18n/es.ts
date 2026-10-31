@@ -24,7 +24,8 @@ export const es = {
   hero: {
     availability: "Abierto a trabajo freelance, contrato y jornada completa",
     availabilityShort: "Abierto a freelance y jornada completa",
-    title: "Hola, soy Joan López",
+    greeting: "Hola, soy",
+    name: "Joan López",
     role: "Desarrollador web senior.",
     tagline:
       "Forjo webs fiables con WordPress, WooCommerce, Laravel y Statamic.",

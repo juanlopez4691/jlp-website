@@ -18,7 +18,7 @@ const dictionaries: Record<Locale, Dictionary> = { es, en }
  *
  * @param locale - The language of the current page.
  *
- * @returns The dictionary, so a component reads `t.hero.title`.
+ * @returns The dictionary, so a component reads `t.hero.name`.
  */
 export function useTranslations(locale: Locale): Dictionary {
   return dictionaries[locale]

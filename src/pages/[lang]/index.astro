@@ -3,6 +3,7 @@ import Main from "@/layouts/Main.astro"
 import HeroBlock from "@/components/blocks/HeroBlock.astro"
 import FactsBlock from "@/components/blocks/FactsBlock.astro"
 import ServicesBlock from "@/components/blocks/ServicesBlock.astro"
+import WorkBlock from "@/components/blocks/WorkBlock.astro"
 import { isLocale, locales, useTranslations } from "@/i18n"
 
 export function getStaticPaths() {
@@ -23,5 +24,6 @@ const t = useTranslations(lang)
     <HeroBlock locale={lang} />
     <FactsBlock locale={lang} />
     <ServicesBlock locale={lang} arrow="navy" />
+    <WorkBlock locale={lang} arrow="coral" />
   </main>
 </Main>

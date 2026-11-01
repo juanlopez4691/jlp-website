@@ -1,0 +1,64 @@
+---
+import Pill from "@/components/atoms/Pill.astro"
+import { cn } from "@/libs/utils"
+
+interface Props {
+  /** The client name, plain uppercase text. */
+  client: string
+  /** The project, one line or two. */
+  title: string
+  /** The outcome. Outline cards do not show it. */
+  result?: string
+  /** Technologies, up to four. */
+  chips: string[]
+  /** Transparent card with a mint border, for "More work". */
+  outline?: boolean
+  /** The title element. Outline cards sit under the "More work" `h3`. */
+  heading?: "h3" | "h4"
+  class?: string
+}
+
+const {
+  client,
+  title,
+  result,
+  chips,
+  outline = false,
+  heading = "h3",
+  class: className,
+} = Astro.props
+
+const Heading = heading
+---
+
+<article
+  class={cn(
+    "flex h-full flex-col gap-4 rounded-lg p-6",
+    outline ? "border-[1.5px] border-mint text-mint" : "bg-mint text-navy",
+    className
+  )}
+>
+  <div class="flex flex-col gap-1">
+    <p class="text-sm leading-normal font-semibold tracking-tag uppercase">
+      {client}
+    </p>
+    <Heading class="text-2xl leading-tight font-bold">{title}</Heading>
+  </div>
+  <div class="flex flex-1 flex-col gap-4">
+    <p class="text-base leading-relaxed">
+      <slot />
+    </p>
+    {result && <p class="text-base leading-normal font-semibold">{result}</p>}
+  </div>
+  {chips.length > 0 && (
+    <ul class="flex flex-wrap gap-2">
+      {chips.map((chip) => (
+        <li>
+          <Pill kind="chip" tone={outline ? "on-dark" : "on-light"}>
+            {chip}
+          </Pill>
+        </li>
+      ))}
+    </ul>
+  )}
+</article>

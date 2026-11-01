@@ -2,22 +2,30 @@
 import { cn } from "@/libs/utils"
 
 interface Props {
-  /** What the pill labels. Only `availability` is built so far. */
-  kind: "availability"
-  /** The surface the pill sits on. Only `on-light` is built so far. */
-  tone?: "on-light"
+  /** What the pill labels: the hero availability or a technology chip. */
+  kind: "availability" | "chip"
+  /** The surface the pill sits on. Colors the text of a chip only. */
+  tone?: "on-light" | "on-dark"
   class?: string
 }
 
-const { kind, class: className } = Astro.props
+const { kind, tone = "on-light", class: className } = Astro.props
+
+/** Whole class strings, so Tailwind sees them. */
+const kinds = {
+  availability:
+    "inline-flex items-center gap-2 rounded-full bg-navy py-2 pr-4 pl-2.5 text-sm leading-normal font-semibold text-mint",
+  chip: "inline-flex items-center rounded-full border-[1.5px] border-current px-3 py-1 text-sm leading-pill font-medium",
+}
+
+/** Only the chip has a tone: the availability pill is always on light. */
+const tones = {
+  "on-light": "text-navy",
+  "on-dark": "text-mint",
+}
 ---
 
-<span
-  class={cn(
-    "inline-flex items-center gap-2 rounded-full bg-navy py-2 pr-4 pl-2.5 text-sm leading-normal font-semibold text-mint",
-    className
-  )}
->
+<span class={cn(kinds[kind], kind === "chip" && tones[tone], className)}>
   {kind === "availability" && (
     <span class="size-2.5 shrink-0 rounded-full bg-saffron" />
   )}

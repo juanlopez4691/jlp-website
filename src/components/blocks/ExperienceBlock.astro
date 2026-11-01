@@ -1,0 +1,48 @@
+---
+import type { ComponentProps } from "astro/types"
+import SectionArrow from "@/components/atoms/SectionArrow.astro"
+import SectionHeader from "@/components/molecules/SectionHeader.astro"
+import JobRow from "@/components/molecules/JobRow.astro"
+import { cn } from "@/libs/utils"
+import { useTranslations, type Locale } from "@/i18n"
+
+interface Props {
+  /** Language of the current page. */
+  locale: Locale
+  /** Color of the block above. Without it, the block has no arrow. */
+  arrow?: ComponentProps<typeof SectionArrow>["color"]
+  class?: string
+}
+
+const { locale, arrow, class: className } = Astro.props
+const { experience } = useTranslations(locale)
+
+/** The first job opens the log and the last one closes it. */
+const position = (index: number): "first" | "middle" | "last" => {
+  if (index === 0) return "first"
+  if (index === experience.jobs.length - 1) return "last"
+  return "middle"
+}
+---
+
+<section
+  id="experience"
+  class={cn("relative bg-mint py-16 text-navy md:py-20", className)}
+>
+  {arrow && <SectionArrow color={arrow} />}
+  <div class="mx-auto max-w-6xl px-8 xl:px-0">
+    <SectionHeader eyebrow={experience.eyebrow} title={experience.title} />
+    <ol class="mt-12 grid grid-cols-[auto_1fr] gap-x-6 pl-8">
+      {experience.jobs.map((job, index) => (
+        <JobRow
+          period={job.period}
+          title={job.title}
+          company={job.company}
+          position={position(index)}
+        >
+          {job.body}
+        </JobRow>
+      ))}
+    </ol>
+  </div>
+</section>

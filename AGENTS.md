@@ -69,7 +69,9 @@ reporting work as done.
   (1024) and `xl` (1280). Do not use `sm` or `2xl`. Between 768 and 1023px the
   tablet layout applies. The header links show from `lg`, not from the `xl` of
   its Penpot variant, and the hero image from `lg`, where it shrinks and the
-  text keeps its width. There is no fluid scaling and no `clamp()`.
+  text keeps its width. The quote block grows from `lg`: its marks are 224px
+  wide (192 on tablet, 288 on desktop) and its text column 768px (640 on
+  tablet, 896 on desktop). There is no fluid scaling and no `clamp()`.
 - **Layout.** Blocks are full width. The inner container is
   `max-w-6xl mx-auto` (1152px), with `px-8` below `xl` and `xl:px-0` from `xl`.
   At 1280 the container is exactly 1152 wide, and the margin is the space

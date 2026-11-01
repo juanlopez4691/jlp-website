@@ -163,47 +163,47 @@ export const es = {
       {
         id: "carlos-alberto-garcia-de-la-calera-dassi",
         name: "Carlos Alberto García de la Calera Dassi",
-        role: "Senior Product Manager, client · Translated from Spanish",
+        role: "Senior Product Manager, cliente",
         href: "https://www.linkedin.com/in/carlos-garcia-calera-dassi/",
         quote: [
-          "I had the chance to work with Joan and my experience was excellent. He is a WordPress developer with solid technical ability, especially notable for the quality and clarity of his code and his concern for building scalable, maintainable solutions.",
+          "Tuve la oportunidad de trabajar con Joan y mi experiencia fue excelente. Es un desarrollador WordPress con una sólida capacidad técnica, que destaca especialmente por la calidad y la claridad de su código y por su preocupación por construir soluciones escalables y mantenibles.",
         ],
       },
       {
         id: "manuel-bruschi",
         name: "Manuel Bruschi",
-        role: "Co-Founder and CEO, Timeular (now EARLY)",
+        role: "Cofundador y CEO, Timeular (ahora EARLY) · Traducido del inglés",
         href: "https://www.linkedin.com/in/manuel-bruschi/",
         quote: [
-          "WooCommerce and payment systems can be a beasts, but Joan's optimistic attitude, attention to detail, extensive experience, and persistence managed to tame them. Besides that everyone within the company loved to have his uplifting attitude around.",
+          "WooCommerce y los sistemas de pago pueden ser una bestia, pero la actitud optimista de Joan, su atención al detalle, su amplia experiencia y su constancia consiguieron domarlos. Además, a todo el mundo en la empresa le encantaba tener cerca su actitud positiva.",
         ],
       },
       {
         id: "julia-mestieri",
         name: "Julià Mestieri Ferrer",
-        role: "Web developer colleague at netzstrategen",
+        role: "Compañero desarrollador web en netzstrategen · Traducido del inglés",
         href: "https://www.linkedin.com/in/julia-mestieri-ferrer/",
         quote: [
-          "I had the chance to work with Joan for about 1 year at netzstrategen. Both of us were web developers in the same team and worked together in lots of big and small projects: corporate sites, e-commerce, media publishers...",
-          "I learned a lot from Joan. His huge experience is supporting all his decisions. He can manage customers and projects assertively and meeting all the best expectations.",
+          "Tuve la oportunidad de trabajar con Joan cerca de un año en netzstrategen. Los dos éramos desarrolladores web en el mismo equipo y trabajamos juntos en muchos proyectos grandes y pequeños: webs corporativas, comercio electrónico, medios de comunicación...",
+          "Aprendí mucho de Joan. Su enorme experiencia respalda todas sus decisiones. Sabe gestionar clientes y proyectos con seguridad y cumplir las mejores expectativas.",
         ],
       },
       {
         id: "jordi-pallares",
         name: "Jordi Pallarés",
-        role: "IT consultant and developer, XMi Tech",
+        role: "Consultor IT y desarrollador, XMi Tech · Traducido del inglés",
         href: "https://www.linkedin.com/in/jordi-pallares-1b527418/",
         quote: [
-          "I had the pleasure of working with Joan on several projects. He is an excellent developer and someone I've always been able to rely on. He takes ownership of his work, pays close attention to detail, and consistently delivers high-quality results.",
+          "Tuve el placer de trabajar con Joan en varios proyectos. Es un desarrollador excelente y alguien en quien siempre he podido confiar. Se responsabiliza de su trabajo, cuida mucho los detalles y entrega siempre resultados de gran calidad.",
         ],
       },
       {
         id: "tom-mursell",
         name: "Tom Mursell",
-        role: "CMO, Timeular (now EARLY)",
+        role: "CMO, Timeular (ahora EARLY) · Traducido del inglés",
         href: "https://www.linkedin.com/in/mursell/",
         quote: [
-          "Joan's great to work with. He's super supportive, knowledgeable, great at what he does and always there to help carry the team through hard projects (we worked on our fair share of those together).",
+          "Es un placer trabajar con Joan. Siempre te apoya, sabe mucho, es muy bueno en lo que hace y siempre está ahí para sacar adelante al equipo en los proyectos difíciles (y juntos pasamos por unos cuantos).",
         ],
       },
     ],

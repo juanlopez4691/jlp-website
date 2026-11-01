@@ -86,11 +86,11 @@ const [featured, ...rest] = recommendations.items
         href={recommendations.allHref}
         target="_blank"
         rel="noopener noreferrer"
-        class="self-end text-base leading-normal font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+        class="inline-flex items-baseline gap-2 self-end text-base leading-normal font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
       >
         {recommendations.all}
         <span class="sr-only">{recommendations.newTab}</span>
-        <IconExternalLink class="ml-2" />
+        <IconExternalLink />
       </a>
     </div>
   </div>

@@ -11,5 +11,48 @@
         ]
       }
     ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(orca status:*)",
+      "Bash(orca skills:*)",
+      "Bash(orca orchestration:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr comment:*)",
+      "Bash(gh pr review:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git fetch:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git branch --show-current)",
+      "Bash(git push:*)",
+      "Bash(./scripts/up.sh:*)",
+      "Bash(docker compose ps:*)",
+      "Bash(docker compose exec app bun run:*)"
+    ],
+    "deny": [
+      "Bash(gh pr merge:*)",
+      "Bash(gh pr close:*)",
+      "Bash(gh pr review --approve:*)",
+      "Bash(gh pr review --request-changes:*)",
+      "Bash(gh issue close:*)",
+      "Bash(gh issue delete:*)",
+      "Bash(gh repo delete:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push origin main:*)",
+      "Bash(orca orchestration reset:*)",
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
   }
 }

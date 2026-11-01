@@ -5,6 +5,7 @@ import FactsBlock from "@/components/blocks/FactsBlock.astro"
 import ServicesBlock from "@/components/blocks/ServicesBlock.astro"
 import QuoteBlock from "@/components/blocks/QuoteBlock.astro"
 import WorkBlock from "@/components/blocks/WorkBlock.astro"
+import RecommendationsBlock from "@/components/blocks/RecommendationsBlock.astro"
 import { isLocale, locales, useTranslations } from "@/i18n"
 
 export function getStaticPaths() {
@@ -27,5 +28,6 @@ const t = useTranslations(lang)
     <ServicesBlock locale={lang} arrow="navy" />
     <QuoteBlock locale={lang} arrow="mint" />
     <WorkBlock locale={lang} arrow="coral" />
+    <RecommendationsBlock locale={lang} arrow="teal" />
   </main>
 </Main>

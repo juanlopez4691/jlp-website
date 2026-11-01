@@ -32,6 +32,7 @@ export const es = {
     lead: "Me encargo de la parte técnica, desde la arquitectura al lanzamiento, para que tu proyecto funcione desde el primer día y siga siendo rápido, seguro y fácil de mantener.",
     contact: "Cuéntame tu proyecto",
     cv: "Descarga mi CV",
+    cvHref: "/downloads/cv-joan_lopez-es.pdf",
     imageAlt: "Grabado de un herrero en el yunque",
   },
   facts: {

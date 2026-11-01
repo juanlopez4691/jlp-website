@@ -1,16 +1,17 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import { cn } from "@/libs/utils"
 
-interface Props {
+interface Props extends HTMLAttributes<"a"> {
   /** Where the link points, already localized. */
   href: string
-  class?: string
 }
 
-const { href, class: className } = Astro.props
+const { href, class: className, ...rest } = Astro.props
 ---
 
 <a
+  {...rest}
   href={href}
   class={cn(
     "text-base font-semibold text-navy underline-offset-4 outline-navy focus-visible:outline-2 focus-visible:outline-offset-4 aria-[current]:underline",

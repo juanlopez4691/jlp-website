@@ -1,0 +1,63 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n"
+import NavLink from "@/components/atoms/NavLink.astro"
+import { cn } from "@/libs/utils"
+import { useTranslations, type Locale } from "@/i18n"
+
+interface Props {
+  /** Language of the current page. */
+  locale: Locale
+  class?: string
+}
+
+const { locale, class: className } = Astro.props
+const t = useTranslations(locale)
+const cvHref = `/downloads/cv-joan_lopez-${locale}.pdf`
+const year = new Date().getFullYear()
+---
+
+<footer class={cn("bg-navy py-6 text-mint", className)}>
+  <div class="mx-auto flex max-w-6xl flex-col items-start gap-4 px-8 md:min-h-8 md:flex-row md:items-center md:justify-between xl:px-0">
+    <ul class="flex flex-wrap items-center gap-x-3 gap-y-2">
+      <li>
+        <NavLink href={cvHref} download class="text-mint outline-mint">
+          {t.hero.cv}
+        </NavLink>
+      </li>
+      <li class="flex items-center gap-3">
+        <span aria-hidden="true" class="leading-relaxed">
+          •
+        </span>
+        <NavLink
+          href={t.footer.githubHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-mint outline-mint"
+        >
+          {t.footer.github}
+          <span class="sr-only">{t.recommendations.newTab}</span>
+        </NavLink>
+      </li>
+    </ul>
+    <ul class="flex flex-wrap items-center gap-x-3 gap-y-2">
+      {t.footer.legal.map(({ label, slug }, index) => (
+        <li class={index === 0 ? undefined : "flex items-center gap-3"}>
+          {index > 0 && (
+            <span aria-hidden="true" class="leading-relaxed">
+              •
+            </span>
+          )}
+          <NavLink
+            href={getRelativeLocaleUrl(locale, `${slug}/`)}
+            class="text-mint outline-mint"
+          >
+            {label}
+          </NavLink>
+        </li>
+      ))}
+    </ul>
+    <p class="leading-relaxed">
+      © {year} {t.hero.name}
+    </p>
+  </div>
+</footer>

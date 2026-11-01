@@ -1,0 +1,92 @@
+---
+import type { ComponentProps } from "astro/types"
+import { Image } from "astro:assets"
+import Button from "@/components/atoms/Button.astro"
+import SectionArrow from "@/components/atoms/SectionArrow.astro"
+import SectionHeader from "@/components/molecules/SectionHeader.astro"
+import telephones from "@/assets/telephones.webp"
+import { cn } from "@/libs/utils"
+
+interface Props {
+  /** The uppercase label above the title. */
+  eyebrow: string
+  /** The heading of the block. */
+  title: string
+  /** Email address, shown as a mailto link and used by the email button. */
+  address: string
+  /** Label of the email button. */
+  emailLabel: string
+  /** Label of the LinkedIn button. */
+  linkedinLabel: string
+  /** LinkedIn profile URL. */
+  linkedinHref: string
+  /** Visually hidden note after the LinkedIn link, which opens a new tab. */
+  newTab: string
+  /** The line of text under the buttons. */
+  note: string
+  /** Color of the block above. Without it, the block has no arrow. */
+  arrow?: ComponentProps<typeof SectionArrow>["color"]
+  class?: string
+}
+
+const {
+  eyebrow,
+  title,
+  address,
+  emailLabel,
+  linkedinLabel,
+  linkedinHref,
+  newTab,
+  note,
+  arrow,
+  class: className,
+} = Astro.props
+---
+
+<section
+  id="contact"
+  class={cn(
+    "relative overflow-hidden bg-teal py-16 text-mint md:py-20",
+    className
+  )}
+>
+  <Image
+    src={telephones}
+    alt=""
+    width={628}
+    densities={[1, 2]}
+    format="avif"
+    quality={35}
+    class="pointer-events-none absolute top-1.5 -right-10.5 hidden h-auto w-157 md:block"
+  />
+  <div class="relative mx-auto max-w-6xl px-8 xl:px-0">
+    <SectionHeader
+      tone="on-dark"
+      eyebrow={eyebrow}
+      title={title}
+      class="flex flex-col gap-4 xl:max-w-178.5"
+    />
+    <a
+      href={`mailto:${address}`}
+      class="mt-4 inline-block text-3xl leading-none font-normal tracking-tight wrap-break-word text-saffron focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-saffron md:text-5xl xl:text-7xl"
+    >
+      {address}
+    </a>
+    <div class="mt-10 flex flex-col gap-4 md:flex-row">
+      <Button type="accent" href={`mailto:${address}`}>
+        {emailLabel}
+      </Button>
+      <Button
+        type="secondary-on-dark"
+        href={linkedinHref}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {linkedinLabel}
+        <span class="sr-only">{newTab}</span>
+      </Button>
+    </div>
+    <p class="mt-4 text-base leading-relaxed">{note}</p>
+  </div>
+  {arrow && <SectionArrow color={arrow} />}
+</section>

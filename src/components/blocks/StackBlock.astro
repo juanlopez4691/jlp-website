@@ -1,0 +1,40 @@
+---
+import type { ComponentProps } from "astro/types"
+import SectionArrow from "@/components/atoms/SectionArrow.astro"
+import SectionHeader from "@/components/molecules/SectionHeader.astro"
+import StackGroup from "@/components/molecules/StackGroup.astro"
+import { cn } from "@/libs/utils"
+import { useTranslations, type Locale } from "@/i18n"
+
+interface Props {
+  /** Language of the current page. */
+  locale: Locale
+  /** Color of the block above. Without it, the block has no arrow. */
+  arrow?: ComponentProps<typeof SectionArrow>["color"]
+  class?: string
+}
+
+const { locale, arrow, class: className } = Astro.props
+const { stack } = useTranslations(locale)
+---
+
+<section
+  id="stack"
+  class={cn("relative bg-navy py-16 text-mint md:py-20", className)}
+>
+  {arrow && <SectionArrow color={arrow} />}
+  <div class="mx-auto max-w-6xl px-8 xl:px-0">
+    <SectionHeader tone="on-dark" eyebrow={stack.eyebrow} title={stack.title} />
+    <ul class="mt-12 grid gap-8 md:grid-cols-2 md:gap-x-6 lg:grid-cols-3 lg:gap-10">
+      {stack.groups.map((group) => (
+        <li>
+          <StackGroup
+            label={group.label}
+            chips={group.chips}
+            core={group.core}
+          />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

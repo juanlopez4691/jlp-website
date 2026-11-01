@@ -3,11 +3,11 @@ import { cn } from "@/libs/utils"
 
 interface Props {
   /**
-   * What the pill labels: the hero availability, a technology chip or the
-   * period of a job.
+   * What the pill labels: the hero availability, a technology chip (outline or
+   * filled) or the period of a job.
    */
-  kind: "availability" | "chip" | "date"
-  /** The surface the pill sits on. Colors the text of a chip only. */
+  kind: "availability" | "chip" | "date" | "chip-filled"
+  /** The surface the pill sits on. Colors the text of an outline chip only. */
   tone?: "on-light" | "on-dark"
   class?: string
 }
@@ -20,9 +20,11 @@ const kinds = {
     "inline-flex items-center gap-2 rounded-full bg-navy py-2 pr-4 pl-2.5 text-sm leading-normal font-semibold text-mint",
   chip: "inline-flex items-center rounded-full border-[1.5px] border-current px-3 py-1 text-sm leading-pill font-medium",
   date: "inline-flex items-center rounded-full bg-saffron px-4 py-2 text-sm leading-normal font-semibold whitespace-nowrap text-navy",
+  "chip-filled":
+    "inline-flex items-center rounded-full border-[1.5px] border-saffron bg-saffron px-3 py-1 text-sm leading-pill font-medium text-navy",
 }
 
-/** Only the chip has a tone: the availability pill is always on light. */
+/** Only the outline chip has a tone: the availability and filled chips do not. */
 const tones = {
   "on-light": "text-navy",
   "on-dark": "text-mint",

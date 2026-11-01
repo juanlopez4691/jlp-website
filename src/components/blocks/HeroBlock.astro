@@ -16,7 +16,6 @@ interface Props {
 const { locale, class: className } = Astro.props
 const t = useTranslations(locale)
 const home = getRelativeLocaleUrl(locale)
-const cvHref = `/downloads/cv-joan_lopez-${locale}.pdf`
 ---
 
 <section class={cn("bg-saffron pb-16 md:pb-20", className)}>
@@ -41,7 +40,7 @@ const cvHref = `/downloads/cv-joan_lopez-${locale}.pdf`
         <Button type="primary" href={`${home}#contact`}>
           {t.hero.contact}
         </Button>
-        <Button type="secondary" href={cvHref} download>
+        <Button type="secondary" href={t.hero.cvHref} download>
           {t.hero.cv}
         </Button>
       </div>

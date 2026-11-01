@@ -12,7 +12,6 @@ interface Props {
 
 const { locale, class: className } = Astro.props
 const t = useTranslations(locale)
-const cvHref = `/downloads/cv-joan_lopez-${locale}.pdf`
 const year = new Date().getFullYear()
 ---
 
@@ -20,7 +19,7 @@ const year = new Date().getFullYear()
   <div class="mx-auto flex max-w-6xl flex-col items-start gap-4 px-8 md:min-h-8 md:flex-row md:items-center md:justify-between xl:px-0">
     <ul class="flex flex-wrap items-center gap-x-3 gap-y-2">
       <li>
-        <NavLink href={cvHref} download class="text-mint outline-mint">
+        <NavLink href={t.hero.cvHref} download class="text-mint outline-mint">
           {t.hero.cv}
         </NavLink>
       </li>

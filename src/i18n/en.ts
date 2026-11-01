@@ -31,6 +31,7 @@ export const en: Dictionary = {
     lead: "I take care of the technical side, from architecture to launch, so your project works on day one and stays fast, secure and easy to maintain.",
     contact: "Tell me about your project",
     cv: "Download my CV",
+    cvHref: "/downloads/cv-joan_lopez-en.pdf",
     imageAlt: "Woodcut of a blacksmith at the anvil",
   },
   facts: {

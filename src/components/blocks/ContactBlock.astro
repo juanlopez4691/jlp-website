@@ -6,41 +6,18 @@ import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import telephones from "@/assets/telephones.webp"
 import { cn } from "@/libs/utils"
+import { useTranslations, type Locale } from "@/i18n"
 
 interface Props {
-  /** The uppercase label above the title. */
-  eyebrow: string
-  /** The heading of the block. */
-  title: string
-  /** Email address, shown as a mailto link and used by the email button. */
-  address: string
-  /** Label of the email button. */
-  emailLabel: string
-  /** Label of the LinkedIn button. */
-  linkedinLabel: string
-  /** LinkedIn profile URL. */
-  linkedinHref: string
-  /** Visually hidden note after the LinkedIn link, which opens a new tab. */
-  newTab: string
-  /** The line of text under the buttons. */
-  note: string
+  /** Language of the current page. */
+  locale: Locale
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
   class?: string
 }
 
-const {
-  eyebrow,
-  title,
-  address,
-  emailLabel,
-  linkedinLabel,
-  linkedinHref,
-  newTab,
-  note,
-  arrow,
-  class: className,
-} = Astro.props
+const { locale, arrow, class: className } = Astro.props
+const { contact, recommendations } = useTranslations(locale)
 ---
 
 <section
@@ -62,31 +39,31 @@ const {
     />
     <SectionHeader
       tone="on-dark"
-      eyebrow={eyebrow}
-      title={title}
+      eyebrow={contact.eyebrow}
+      title={contact.title}
       class="flex flex-col gap-4 md:max-w-176 xl:max-w-178.5"
     />
     <a
-      href={`mailto:${address}`}
+      href={`mailto:${contact.address}`}
       class="mt-4 inline-block text-3xl leading-none font-normal tracking-tight wrap-break-word text-saffron focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-saffron md:text-5xl xl:text-7xl"
     >
-      {address}
+      {contact.address}
     </a>
     <div class="mt-10 flex flex-col gap-4 md:flex-row">
-      <Button type="accent" href={`mailto:${address}`}>
-        {emailLabel}
+      <Button type="accent" href={`mailto:${contact.address}`}>
+        {contact.email}
       </Button>
       <Button
         type="secondary-on-dark"
-        href={linkedinHref}
+        href={contact.linkedinHref}
         target="_blank"
         rel="noopener noreferrer"
       >
-        {linkedinLabel}
-        <span class="sr-only">{newTab}</span>
+        {contact.linkedin}
+        <span class="sr-only">{recommendations.newTab}</span>
       </Button>
     </div>
-    <p class="mt-4 text-base leading-relaxed">{note}</p>
+    <p class="mt-4 text-base leading-relaxed">{contact.note}</p>
   </div>
   {arrow && <SectionArrow color={arrow} />}
 </section>

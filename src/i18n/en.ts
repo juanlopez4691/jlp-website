@@ -369,4 +369,13 @@ export const en: Dictionary = {
     linkedinHref: "https://www.linkedin.com/in/juanlopez4691/",
     note: "I reply in Spanish, Catalan or English.",
   },
+  footer: {
+    github: "GitHub",
+    githubHref: "https://github.com/juanlopez4691",
+    legal: [
+      { label: "Legal notice", slug: "legal-notice" },
+      { label: "Privacy", slug: "privacy" },
+      { label: "Cookies", slug: "cookies" },
+    ],
+  },
 }

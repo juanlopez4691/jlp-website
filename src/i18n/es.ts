@@ -379,6 +379,15 @@ export const es = {
     linkedinHref: "https://www.linkedin.com/in/juanlopez4691/",
     note: "Respondo en castellano, catalán o inglés.",
   },
+  footer: {
+    github: "GitHub",
+    githubHref: "https://github.com/juanlopez4691",
+    legal: [
+      { label: "Aviso legal", slug: "aviso-legal" },
+      { label: "Privacidad", slug: "privacidad" },
+      { label: "Cookies", slug: "cookies" },
+    ],
+  },
 }
 
 export type Dictionary = typeof es

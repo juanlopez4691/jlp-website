@@ -1,0 +1,80 @@
+---
+import Pill from "@/components/atoms/Pill.astro"
+import { cn } from "@/libs/utils"
+
+/**
+ * A list item. Must sit in an `<ol>` with `grid grid-cols-[auto_1fr] pl-8`:
+ * the `auto` column holds the date pill and `pl-8` is the graph column.
+ */
+interface Props {
+  /** The job period, such as "Jan 2021 to Present". */
+  period: string
+  /** The role, such as "Senior Web Developer". */
+  title: string
+  /** The company, on its own line under the title. */
+  company: string
+  /** Where the row sits in the log. Draws the line and colors the node. */
+  position: "first" | "middle" | "last"
+  class?: string
+}
+
+const { period, title, company, position, class: className } = Astro.props
+
+/**
+ * Layout, so change these values together: the graph column is the 32px
+ * `pl-8` on the list; the line is centred 12px into it, which is `-left-5`
+ * (12 − 32) from the row and `left-3` inside the `right-full w-8` box beside
+ * the pill; `top-5` and `h-4` start and end the line inside the 14px node,
+ * which sits on the centre of the 37px pill (the pill never wraps).
+ */
+const spines = {
+  first: "top-5 bottom-0",
+  middle: "top-0 bottom-0",
+  last: "top-0 h-4",
+}
+
+const nodes = {
+  first: "bg-saffron",
+  middle: "bg-navy",
+  last: "bg-navy",
+}
+---
+
+<li
+  class={cn(
+    "relative col-span-2 grid grid-cols-subgrid gap-y-3",
+    position !== "last" && "pb-10",
+    className
+  )}
+>
+  <span
+    aria-hidden="true"
+    class={cn(
+      "absolute -left-5 w-0.5 -translate-x-1/2 bg-navy",
+      spines[position]
+    )}
+  />
+  <div class="relative self-start">
+    <span aria-hidden="true" class="absolute top-0 right-full h-full w-8">
+      <span class="absolute top-1/2 right-0 left-3 h-[1.5px] -translate-y-1/2 bg-navy" />
+      <span
+        class={cn(
+          "absolute top-1/2 left-3 size-3.5 -translate-1/2 rounded-full border-2 border-navy",
+          nodes[position]
+        )}
+      />
+    </span>
+    <Pill kind="date" class="w-full">
+      {period}
+    </Pill>
+  </div>
+  <div class="col-span-2 flex flex-col gap-2 md:col-span-1">
+    <div class="flex flex-col gap-1">
+      <h3 class="font-display text-2xl leading-tight font-bold">{title}</h3>
+      <p class="text-base leading-relaxed">{company}</p>
+    </div>
+    <p class="text-base leading-relaxed">
+      <slot />
+    </p>
+  </div>
+</li>

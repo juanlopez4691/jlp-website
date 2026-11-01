@@ -1,0 +1,54 @@
+---
+import type { ComponentProps } from "astro/types"
+import QuoteMark from "@/assets/icons/quote-mark.svg"
+import SectionArrow from "@/components/atoms/SectionArrow.astro"
+import { cn } from "@/libs/utils"
+import { useTranslations, type Locale } from "@/i18n"
+
+interface Props {
+  /** Language of the current page. */
+  locale: Locale
+  /** Color of the block above. Without it, the block has no arrow. */
+  arrow?: ComponentProps<typeof SectionArrow>["color"]
+  class?: string
+}
+
+const { locale, arrow, class: className } = Astro.props
+const { quote } = useTranslations(locale)
+---
+
+<section
+  class={cn(
+    "relative overflow-hidden bg-coral py-16 text-navy md:py-20",
+    className
+  )}
+>
+  <!-- The marks come first so the container paints over them. -->
+  <QuoteMark
+    aria-hidden="true"
+    class="pointer-events-none absolute -top-2 left-4 w-32 text-mint opacity-30 md:-top-3 md:left-10 md:w-48 xl:-top-4 xl:w-72"
+  />
+  <QuoteMark
+    aria-hidden="true"
+    class="pointer-events-none absolute right-4 -bottom-2 w-32 rotate-180 text-mint opacity-30 md:right-10 md:-bottom-3 md:w-48 xl:-bottom-4 xl:w-72"
+  />
+  {arrow && <SectionArrow color={arrow} />}
+  <div class="relative mx-auto max-w-6xl px-8 xl:px-0">
+    <figure class="mx-auto md:max-w-160 xl:max-w-4xl">
+      <blockquote>
+        <p class="text-2xl leading-snug font-light tracking-tight md:text-3xl xl:text-4xl">
+          {quote.text}
+        </p>
+      </blockquote>
+      <figcaption class="mt-4 flex flex-col md:flex-row md:items-center md:gap-2">
+        <span class="text-lg leading-normal">{quote.name}</span>
+        <span class="text-base leading-relaxed">
+          <span aria-hidden="true" class="hidden md:inline">
+            ·{" "}
+          </span>
+          {quote.role}
+        </span>
+      </figcaption>
+    </figure>
+  </div>
+</section>

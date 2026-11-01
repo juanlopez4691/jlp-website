@@ -16,6 +16,7 @@ const year = new Date().getFullYear()
 ---
 
 <footer class={cn("bg-navy py-6 text-mint", className)}>
+  {/* Penpot's md and xl footers are 80px; py-6 plus the 26px row is 74, so md:min-h-8 adds the other 6px. */}
   <div class="mx-auto flex max-w-6xl flex-col items-start gap-4 px-8 md:min-h-8 md:flex-row md:items-center md:justify-between xl:px-0">
     <ul class="flex flex-wrap items-center gap-x-3 gap-y-2">
       <li>

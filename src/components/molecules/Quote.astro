@@ -1,0 +1,70 @@
+---
+import { Image } from "astro:assets"
+import type { ImageMetadata } from "astro"
+import IconExternalLink from "@/components/atoms/IconExternalLink.astro"
+import { cn } from "@/libs/utils"
+
+interface Props {
+  /** The `Style` variant: the big quote that sits in the navy card. */
+  featured?: boolean
+  /** Name of the person. */
+  name: string
+  /** Their role and company. */
+  role: string
+  /** Their LinkedIn profile. */
+  href: string
+  /** Their photo; hidden below lg. Without it, no photo. */
+  photo?: ImageMetadata
+  /** The visually hidden note after each external link. */
+  newTab: string
+  class?: string
+}
+
+const {
+  featured = false,
+  name,
+  role,
+  href,
+  photo,
+  newTab,
+  class: className,
+} = Astro.props
+---
+
+<figure class={cn("flex h-full flex-col justify-between gap-8", className)}>
+  <blockquote
+    class={cn(
+      "space-y-7",
+      featured
+        ? "text-2xl leading-snug font-light tracking-tight md:text-3xl xl:text-4xl"
+        : "text-lg leading-relaxed"
+    )}
+  >
+    <slot />
+  </blockquote>
+  <figcaption class="flex items-center gap-2">
+    {photo && (
+      <Image
+        src={photo}
+        alt=""
+        width={50}
+        height={50}
+        densities={[1, 2]}
+        class="hidden size-12.5 rounded-full lg:block"
+      />
+    )}
+    <div class="flex flex-col gap-0.5">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-lg leading-relaxed font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+      >
+        {name}
+        <span class="sr-only">{newTab}</span>
+        <IconExternalLink />
+      </a>
+      <p class="text-base leading-relaxed">{role}</p>
+    </div>
+  </figcaption>
+</figure>

@@ -1,0 +1,35 @@
+---
+import { cn } from "@/libs/utils"
+
+interface Props {
+  /** Color of the block above, which the arrow seems to come from. */
+  color: "saffron" | "coral" | "teal" | "mint" | "navy"
+  class?: string
+}
+
+const { color, class: className } = Astro.props
+
+/**
+ * Tailwind only sees complete class names, so each color is a whole class
+ * string in a lookup object instead of one built from pieces.
+ */
+const colors = {
+  saffron: "fill-saffron",
+  coral: "fill-coral",
+  teal: "fill-teal",
+  mint: "fill-mint",
+  navy: "fill-navy",
+}
+---
+
+<svg
+  aria-hidden="true"
+  viewBox="0 0 96 40"
+  class={cn(
+    "absolute top-0 left-1/2 h-10 w-24 -translate-x-1/2",
+    colors[color],
+    className
+  )}
+>
+  <path d="M0 0H96A48 40 0 0 0 48 40A48 40 0 0 0 0 0Z" />
+</svg>

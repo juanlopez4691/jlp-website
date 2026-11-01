@@ -370,6 +370,15 @@ export const es = {
       },
     ],
   },
+  contact: {
+    eyebrow: "Contacto",
+    title: "Hablemos de lo que estás construyendo.",
+    address: "hello@lojopez.dev",
+    email: "Escríbeme",
+    linkedin: "LinkedIn",
+    linkedinHref: "https://www.linkedin.com/in/juanlopez4691/",
+    note: "Respondo en castellano, catalán o inglés.",
+  },
 }
 
 export type Dictionary = typeof es

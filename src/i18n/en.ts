@@ -360,4 +360,13 @@ export const en: Dictionary = {
       },
     ],
   },
+  contact: {
+    eyebrow: "Contact me",
+    title: "Let's talk about what you're building.",
+    address: "hello@lojopez.dev",
+    email: "Email me",
+    linkedin: "LinkedIn",
+    linkedinHref: "https://www.linkedin.com/in/juanlopez4691/",
+    note: "I reply in Spanish, Catalan or English.",
+  },
 }

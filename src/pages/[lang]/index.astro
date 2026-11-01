@@ -1,6 +1,7 @@
 ---
 import Main from "@/layouts/Main.astro"
 import HeroBlock from "@/components/blocks/HeroBlock.astro"
+import FactsBlock from "@/components/blocks/FactsBlock.astro"
 import { isLocale, locales, useTranslations } from "@/i18n"
 
 export function getStaticPaths() {
@@ -19,5 +20,6 @@ const t = useTranslations(lang)
 <Main title={t.meta.title} locale={lang}>
   <main class="flex-1">
     <HeroBlock locale={lang} />
+    <FactsBlock locale={lang} />
   </main>
 </Main>

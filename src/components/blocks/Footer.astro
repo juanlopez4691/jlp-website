@@ -10,51 +10,63 @@ interface Props {
   class?: string
 }
 
+interface FooterLink {
+  label: string
+  href: string
+  download?: boolean
+  target?: string
+  rel?: string
+  hint?: string
+}
+
 const { locale, class: className } = Astro.props
 const t = useTranslations(locale)
 const year = new Date().getFullYear()
+
+const primaryLinks: FooterLink[] = [
+  { label: t.hero.cv, href: t.hero.cvHref, download: true },
+  {
+    label: t.footer.github,
+    href: t.footer.githubHref,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    hint: t.recommendations.newTab,
+  },
+]
+
+const legalLinks: FooterLink[] = t.footer.legal.map(({ label, slug }) => ({
+  label,
+  href: getRelativeLocaleUrl(locale, `${slug}/`),
+}))
+
+const linkGroups = [primaryLinks, legalLinks]
 ---
 
 <footer class={cn("bg-navy py-6 text-mint", className)}>
   <div class="mx-auto flex max-w-6xl flex-col items-start gap-4 px-8 md:min-h-8 md:flex-row md:items-center md:justify-between xl:px-0">
-    <ul class="flex flex-wrap items-center gap-x-3 gap-y-2">
-      <li>
-        <NavLink href={t.hero.cvHref} download class="text-mint outline-mint">
-          {t.hero.cv}
-        </NavLink>
-      </li>
-      <li class="flex items-center gap-3">
-        <span aria-hidden="true" class="leading-relaxed">
-          •
-        </span>
-        <NavLink
-          href={t.footer.githubHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-mint outline-mint"
-        >
-          {t.footer.github}
-          <span class="sr-only">{t.recommendations.newTab}</span>
-        </NavLink>
-      </li>
-    </ul>
-    <ul class="flex flex-wrap items-center gap-x-3 gap-y-2">
-      {t.footer.legal.map(({ label, slug }, index) => (
-        <li class={index === 0 ? undefined : "flex items-center gap-3"}>
-          {index > 0 && (
-            <span aria-hidden="true" class="leading-relaxed">
-              •
-            </span>
-          )}
-          <NavLink
-            href={getRelativeLocaleUrl(locale, `${slug}/`)}
-            class="text-mint outline-mint"
-          >
-            {label}
-          </NavLink>
-        </li>
-      ))}
-    </ul>
+    {linkGroups.map((links) => (
+      <ul class="flex flex-wrap items-center gap-x-3 gap-y-2">
+        {links.map((link, index) => (
+          <li class="flex items-center gap-3">
+            {index > 0 && (
+              <span aria-hidden="true" class="leading-relaxed">
+                •
+              </span>
+            )}
+            <NavLink
+              href={link.href}
+              download={link.download}
+              target={link.target}
+              rel={link.rel}
+              class="text-mint outline-mint"
+            >
+              {link.label}
+              {link.hint && <span class="sr-only">{link.hint}</span>}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    ))}
     <p class="leading-relaxed">
       © {year} {t.hero.name}
     </p>

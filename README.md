@@ -268,6 +268,19 @@ Commits follow [Conventional Commits](https://www.conventionalcommits.org/),
 with no scope, and two extra types: `content` for site copy and `ai` for agent
 instructions. [commitlint](https://commitlint.js.org/) checks every message.
 
+### Agent team
+
+Issues are worked by a small team of agents, coordinated through
+[Orca](https://www.onorca.dev/):
+
+- **Senior Dev** (Claude Code) writes the spec, reviews the work and opens a
+  draft pull request.
+- **Coder** (OpenCode) implements the spec and commits.
+- **PR reviewer** (Claude Code) reviews the pull request cold.
+
+Joan approves the spec and merges the pull request. Roles, work files and the
+full flow are in [`.agents/team/README.md`](./.agents/team/README.md).
+
 ## License
 
 [MIT](./LICENSE)

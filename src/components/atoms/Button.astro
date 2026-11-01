@@ -3,8 +3,8 @@ import type { HTMLAttributes } from "astro/types"
 import { cn } from "@/libs/utils"
 
 interface Props extends HTMLAttributes<"a"> {
-  /** Visual style. `accent` and `secondary-on-dark` are not built yet. */
-  type: "primary" | "secondary"
+  /** Visual style. Use `accent` and `secondary-on-dark` on dark blocks. */
+  type: "primary" | "secondary" | "accent" | "secondary-on-dark"
   /** Where the link points, already localized. */
   href: string
 }
@@ -18,6 +18,10 @@ const { type, class: className, ...rest } = Astro.props
 const types = {
   primary: "bg-navy text-mint hover:bg-transparent hover:text-navy",
   secondary: "text-navy hover:bg-navy hover:text-mint",
+  accent:
+    "border-saffron bg-saffron text-navy outline-saffron hover:bg-transparent hover:text-saffron",
+  "secondary-on-dark":
+    "border-mint text-mint outline-mint hover:bg-mint hover:text-navy",
 }
 ---
 

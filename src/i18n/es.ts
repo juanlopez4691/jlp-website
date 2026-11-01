@@ -23,7 +23,7 @@ export const es = {
   },
   hero: {
     availability: "Abierto a trabajo freelance, contrato y jornada completa",
-    availabilityShort: "Abierto a freelance y jornada completa",
+    availabilityShort: "Abierto a trabajo freelance y jornada completa",
     greeting: "Hola, soy",
     name: "Joan López",
     role: "Desarrollador web senior.",

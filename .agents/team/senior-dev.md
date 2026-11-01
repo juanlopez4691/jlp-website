@@ -27,7 +27,9 @@ Joan before you write anything.
    `~/Projects/personal/jlp-website-design` (`README.md`, `tokens.json`,
    `components/<Name>/README.md`) and the Penpot page `02 Home`.
 2. Read the existing components, `src/i18n/` and `src/styles/theme.css`. Reuse
-   atoms and molecules before specifying anything new.
+   atoms and molecules before specifying anything new. Take the block's
+   position on Home from the page order in `02 Home` (also in
+   `figma-build-guide.md`), and name the block it follows in the spec.
 3. Write `.agents/work/spec.md` from `.agents/templates/spec.md`.
 4. Never invent layout, sizes or copy. If the design does not say, put it under
    "Open questions". If a question blocks the work, stop and ask Joan.
@@ -61,13 +63,16 @@ Input: `.agents/work/handoff.md` and the branch.
 
 When the review is approved:
 
-1. Push the branch and open a draft PR as `AGENTS.md` describes, using
+1. Run `git fetch origin` and `git rebase origin/main`, then run the four
+   checks again. If the rebase conflicts, run `git rebase --abort`, stop and
+   tell Joan.
+2. Push the branch and open a draft PR as `AGENTS.md` describes, using
    `.github/pull_request_template.md` for the body.
-2. When the work comes from an issue, put `Closes #<n>` in the body. End the
+3. When the work comes from an issue, put `Closes #<n>` in the body. End the
    body with `Agent: Senior Dev` in the attribution line.
-3. Put anything that should outlive the PR under "Proposed rule changes" in the
+4. Put anything that should outlive the PR under "Proposed rule changes" in the
    body. Do not edit `AGENTS.md`.
-4. Report the PR URL. Tell Joan to start the PR reviewer.
+5. Report the PR URL. Tell Joan to start the PR reviewer.
 
 ## 4. PR comments
 

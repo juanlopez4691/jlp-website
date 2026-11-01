@@ -43,11 +43,14 @@ resume after its last line instead of starting again.
 
 1. The issue has the `ai:ready` label. If not, stop and ask Joan.
 2. You are in a worktree, not on `main`.
-3. `orca status --json` succeeds.
-4. Run `orca skills get orchestration --full` and read it. If a flag in this
+3. The branch contains `origin/main`: run `git fetch origin` and
+   `git merge-base --is-ancestor origin/main HEAD`. If it fails, stop and
+   ask Joan to rebase before you write the spec.
+4. `orca status --json` succeeds.
+5. Run `orca skills get orchestration --full` and read it. If a flag in this
    file differs from the guide, the guide wins and you tell Joan.
-5. Use `--json` on every `orca` command.
-6. Create the Run with
+6. Use `--json` on every `orca` command.
+7. Create the Run with
    `orca orchestration run-create --objective "Issue #<n>: <title>"`. Your first
    message to Joan is one line: `Coordinator run <run id> for issue #<n>`.
 

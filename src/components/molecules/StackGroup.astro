@@ -1,0 +1,33 @@
+---
+import Pill from "@/components/atoms/Pill.astro"
+import { cn } from "@/libs/utils"
+
+interface Props {
+  /** The group name, shown as an uppercase saffron label. */
+  label: string
+  /** The technologies. Any number; they wrap. */
+  chips: string[]
+  /** Core group: saffron-filled chips instead of mint outline ones. */
+  core?: boolean
+  class?: string
+}
+
+const { label, chips, core = false, class: className } = Astro.props
+---
+
+<div class={cn("flex flex-col gap-3", className)}>
+  <h3 class="font-sans text-sm leading-normal font-semibold tracking-eyebrow text-saffron uppercase">
+    {label}
+  </h3>
+  {chips.length > 0 && (
+    <ul class="flex flex-wrap gap-2">
+      {chips.map((chip) => (
+        <li>
+          <Pill kind={core ? "chip-filled" : "chip"} tone="on-dark">
+            {chip}
+          </Pill>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>

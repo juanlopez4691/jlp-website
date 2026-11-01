@@ -1,0 +1,33 @@
+---
+import { cn } from "@/libs/utils"
+
+interface Props {
+  /** The service, one line at xl. */
+  title: string
+  /** The fill of the card. */
+  tone: "saffron" | "coral" | "teal"
+  class?: string
+}
+
+const { title, tone, class: className } = Astro.props
+
+/** Whole class strings, so Tailwind sees them. */
+const tones = {
+  saffron: "bg-saffron text-navy",
+  coral: "bg-coral text-navy",
+  teal: "bg-teal text-mint",
+}
+---
+
+<article
+  class={cn(
+    "flex h-full flex-col gap-4 rounded-tr-[48px] rounded-bl-[48px] p-8",
+    tones[tone],
+    className
+  )}
+>
+  <h3 class="text-2xl leading-tight font-bold">{title}</h3>
+  <p class="text-base leading-relaxed">
+    <slot />
+  </p>
+</article>

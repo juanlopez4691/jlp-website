@@ -1,0 +1,30 @@
+---
+import { cn } from "@/libs/utils"
+
+interface Props {
+  /** The uppercase label above the title. */
+  eyebrow: string
+  /** The heading of the block. */
+  title: string
+  /** The surface the header sits on. */
+  tone?: "on-light" | "on-dark"
+  class?: string
+}
+
+const { eyebrow, title, tone = "on-light", class: className } = Astro.props
+
+/** Whole class strings, so Tailwind sees them. */
+const tones = {
+  "on-light": "text-navy",
+  "on-dark": "text-mint",
+}
+---
+
+<div class={cn(tones[tone], className)}>
+  <p class="text-sm leading-normal font-semibold tracking-eyebrow uppercase">
+    {eyebrow}
+  </p>
+  <h2 class="text-4xl leading-none font-bold tracking-tight md:text-5xl xl:text-6xl">
+    {title}
+  </h2>
+</div>

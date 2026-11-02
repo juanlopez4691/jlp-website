@@ -39,7 +39,7 @@ const links = Object.entries(navigation.sections).map(([anchor, label]) => ({
       ))}
     </nav>
 
-    <NavLang locale={locale} />
+    <NavLang locale={locale} class="font-semibold" />
 
     <MenuButton
       data-menu-toggle
@@ -55,7 +55,7 @@ const links = Object.entries(navigation.sections).map(([anchor, label]) => ({
     class="fixed inset-0 size-full max-h-none max-w-none flex-col overflow-y-auto bg-saffron open:flex lg:hidden"
   >
     <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-8 py-8">
-      <NavLang locale={locale} />
+      <NavLang locale={locale} class="font-semibold" />
       <MenuButton
         data-menu-toggle
         label={header.closeMenu}

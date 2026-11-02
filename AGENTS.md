@@ -81,6 +81,12 @@ reporting work as done.
   the author name and role of a recommendation. Cards in a row share the
   height of the tallest (`h-full`); the card is `flex flex-col` and the text
   above the pinned part is `flex-1` (or the pinned part has `mt-auto`).
+- **Buttons.** A light fill (saffron, mint) gets an ink border only where it
+  would blend into the block behind it; on a dark block it has none. Keyboard
+  focus is `:focus-visible` only: a 2px gap and a 2px outline outside the
+  border, mint gap and ink ring on light blocks, ink gap and saffron ring on
+  dark blocks. No `box-shadow` or `ring-*`, so the focus stays visible in
+  forced-colors mode.
 - **Colors and fonts** come from `theme.css`: saffron, coral, teal, mint and
   navy; Familjen Grotesk for display, Figtree for text. No gradients,
   shadows or emoji.

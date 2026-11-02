@@ -25,7 +25,7 @@ is the visual reference. Components here keep the names used in the design.
 src/
 ├── assets/       images processed by Astro
 ├── components/   atoms/, molecules/ and blocks/, named like the design
-├── i18n/         dictionaries (es.ts, en.ts) and the translation helper
+├── i18n/         copy, one file per section in es/ and en/, and the helper
 ├── layouts/      the HTML shell
 ├── libs/         helpers, such as the class merge utility
 ├── pages/        routes; [lang]/ holds the localized pages
@@ -217,13 +217,26 @@ The site is in Spanish (`/es/`, the default) and English (`/en/`), using
 [Astro's i18n routing](https://docs.astro.build/en/guides/internationalization/).
 The root `/` redirects to `/es/`.
 
-All copy lives in two dictionaries, `src/i18n/es.ts` and `src/i18n/en.ts`.
-`en.ts` is typed against `es.ts`, so a missing or extra key fails the type
-check. Components get the language as a `locale` prop and read their text with
-`useTranslations(locale)`.
+All copy lives in `src/i18n/es/` and `src/i18n/en/`, one file per section, such
+as `hero.ts` or `footer.ts`. Each `en/` file is typed against its `es/`
+counterpart, so a missing or extra key fails the type check: the `es/` file
+exports its shape as `<Name>Copy` (`HeroCopy`) and the `en/` file uses it.
+Components get the language as a `locale` prop and read only their own section,
+plus `navigation` for the shared links: `const hero = useTranslations(locale,
+"hero")`. The `copySections` map in `eslint.config.js` enforces that, and a new
+component must be added to it before it reads its own section.
+
+Page copy lives in `src/i18n/{es,en}/pages/<page>.ts`, one file per page,
+exported as `<name>Page` (`homePage`, later `legalNoticePage`); the `es/` file
+ends with `satisfies PageCopy`, which checks its overrides. A section file
+is a block's default copy. A page can replace part of it with the block's
+`copy` prop, keeping the override under the block's section name in that page's
+own file, so each language has it too. The merge is shallow, so an overridden
+list replaces the whole list, and `navigation` cannot be overridden.
 
 To add a language, add its code to `i18n.locales` in `astro.config.mjs` and to
-`locales` in `src/i18n/index.ts`, then create its dictionary.
+`locales` in `src/i18n/index.ts`, then create its folder with the same files as
+`src/i18n/es/`.
 
 ## Work in progress
 

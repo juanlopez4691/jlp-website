@@ -39,13 +39,13 @@ const quote = { ...useTranslations(locale, "quote"), ...copy }
   <div class="relative mx-auto max-w-6xl px-8 xl:px-0">
     <figure class="mx-auto md:max-w-160 lg:max-w-3xl xl:max-w-4xl">
       <blockquote>
-        <p class="text-2xl leading-snug tracking-tight md:text-3xl xl:text-4xl">
+        <p class="text-2xl leading-tight tracking-tight md:text-3xl xl:text-4xl">
           {quote.text}
         </p>
       </blockquote>
       <figcaption class="mt-4 flex flex-col md:flex-row md:items-center md:gap-2">
-        <span class="text-lg leading-normal">{quote.name}</span>
-        <span class="text-base leading-relaxed">
+        <span class="text-lg leading-normal font-semibold">{quote.name}</span>
+        <span class="text-lg leading-normal">
           <span aria-hidden="true" class="hidden md:inline">
             ·{" "}
           </span>

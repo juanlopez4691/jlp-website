@@ -382,6 +382,7 @@ export const es = {
     note: "Respondo en castellano, catalán o inglés.",
   },
   footer: {
+    navLabel: "Navegación del pie",
     github: "GitHub",
     githubHref: "https://github.com/juanlopez4691",
     legal: [

@@ -372,6 +372,7 @@ export const en: Dictionary = {
     note: "I reply in Spanish, Catalan or English.",
   },
   footer: {
+    navLabel: "Footer navigation",
     github: "GitHub",
     githubHref: "https://github.com/juanlopez4691",
     legal: [

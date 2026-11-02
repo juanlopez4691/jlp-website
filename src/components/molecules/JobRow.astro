@@ -35,8 +35,8 @@ const spines = {
 
 const nodes = {
   first: "bg-saffron",
-  middle: "bg-navy",
-  last: "bg-navy",
+  middle: "bg-ink",
+  last: "bg-ink",
 }
 ---
 
@@ -50,16 +50,16 @@ const nodes = {
   <span
     aria-hidden="true"
     class={cn(
-      "absolute -left-5 w-0.5 -translate-x-1/2 bg-navy",
+      "absolute -left-5 w-0.5 -translate-x-1/2 bg-ink",
       spines[position]
     )}
   />
   <div class="relative self-start">
     <span aria-hidden="true" class="absolute top-0 right-full h-full w-8">
-      <span class="absolute top-1/2 right-0 left-3 h-[1.5px] -translate-y-1/2 bg-navy" />
+      <span class="absolute top-1/2 right-0 left-3 h-[1.5px] -translate-y-1/2 bg-ink" />
       <span
         class={cn(
-          "absolute top-1/2 left-3 size-3.5 -translate-1/2 rounded-full border-2 border-navy",
+          "absolute top-1/2 left-3 size-3.5 -translate-1/2 rounded-full border-2 border-ink",
           nodes[position]
         )}
       />

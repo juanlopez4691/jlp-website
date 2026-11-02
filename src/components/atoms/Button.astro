@@ -16,10 +16,10 @@ const { type, class: className, ...rest } = Astro.props
  * in a lookup object instead of one built from pieces.
  */
 const types = {
-  primary: "bg-navy text-mint hover:bg-transparent hover:text-navy",
-  secondary: "text-navy hover:bg-navy hover:text-mint",
+  primary: "bg-ink text-mint hover:bg-transparent hover:text-navy",
+  secondary: "text-ink hover:bg-navy hover:text-mint",
   accent:
-    "border-saffron bg-saffron text-navy outline-saffron hover:bg-transparent hover:text-saffron",
+    "border-saffron bg-saffron text-ink outline-saffron hover:bg-transparent hover:text-saffron",
   "secondary-on-dark":
     "border-mint text-mint outline-mint hover:bg-mint hover:text-navy",
 }
@@ -28,7 +28,7 @@ const types = {
 <a
   {...rest}
   class={cn(
-    "inline-flex items-center justify-center border-2 border-navy px-5.5 py-2.5 text-base font-semibold transition-colors outline-navy focus-visible:outline-2 focus-visible:outline-offset-4",
+    "inline-flex items-center justify-center border-2 border-ink px-5.5 py-2.5 text-base font-semibold transition-colors outline-ink focus-visible:outline-2 focus-visible:outline-offset-4",
     types[type],
     className
   )}

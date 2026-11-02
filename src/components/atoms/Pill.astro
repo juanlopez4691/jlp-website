@@ -17,16 +17,16 @@ const { kind, tone = "on-light", class: className } = Astro.props
 /** Whole class strings, so Tailwind sees them. */
 const kinds = {
   availability:
-    "inline-flex items-center gap-2 rounded-full bg-navy py-2 pr-4 pl-2.5 text-sm leading-normal font-semibold text-mint",
+    "inline-flex items-center gap-2 rounded-full bg-ink py-2 pr-4 pl-2.5 text-sm leading-normal font-semibold text-mint",
   chip: "inline-flex items-center rounded-full border-[1.5px] border-current px-3 py-1 text-sm leading-pill font-medium",
-  date: "inline-flex items-center rounded-full bg-saffron px-4 py-2 text-sm leading-normal font-semibold whitespace-nowrap text-navy",
+  date: "inline-flex items-center rounded-full bg-saffron px-4 py-2 text-sm leading-normal font-semibold whitespace-nowrap text-ink",
   "chip-filled":
-    "inline-flex items-center rounded-full border-[1.5px] border-saffron bg-saffron px-3 py-1 text-sm leading-pill font-medium text-navy",
+    "inline-flex items-center rounded-full border-[1.5px] border-saffron bg-saffron px-3 py-1 text-sm leading-pill font-medium text-ink",
 }
 
 /** Only the outline chip has a tone: the availability and filled chips do not. */
 const tones = {
-  "on-light": "text-navy",
+  "on-light": "text-ink",
   "on-dark": "text-mint",
 }
 ---

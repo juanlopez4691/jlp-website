@@ -5,7 +5,7 @@
 
 @layer base {
   body {
-    @apply bg-mint font-sans text-navy;
+    @apply bg-mint font-sans text-ink;
   }
 
   /* Titles use the display font. Sizes and tracking are set per component. */

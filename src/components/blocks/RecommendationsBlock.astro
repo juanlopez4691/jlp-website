@@ -22,7 +22,8 @@ interface Props {
 }
 
 const { locale, arrow, class: className } = Astro.props
-const { recommendations } = useTranslations(locale)
+const recommendations = useTranslations(locale, "recommendations")
+const navigation = useTranslations(locale, "navigation")
 
 /** The photos, keyed by the item id the dictionary uses. */
 const photos: Record<string, ImageMetadata> = {
@@ -56,7 +57,7 @@ const [featured, ...rest] = recommendations.items
           role={featured.role}
           href={featured.href}
           photo={photos[featured.id]}
-          newTab={recommendations.newTab}
+          newTab={navigation.newTab}
         >
           {featured.quote.map((paragraph) => (
             <p>{paragraph}</p>
@@ -72,7 +73,7 @@ const [featured, ...rest] = recommendations.items
                 role={item.role}
                 href={item.href}
                 photo={photos[item.id]}
-                newTab={recommendations.newTab}
+                newTab={navigation.newTab}
               >
                 {item.quote.map((paragraph) => (
                   <p>{paragraph}</p>
@@ -89,7 +90,7 @@ const [featured, ...rest] = recommendations.items
         class="inline-flex items-baseline gap-2 self-end text-base leading-normal font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
       >
         {recommendations.all}
-        <span class="sr-only">{recommendations.newTab}</span>
+        <span class="sr-only">{navigation.newTab}</span>
         <IconExternalLink />
       </a>
     </div>

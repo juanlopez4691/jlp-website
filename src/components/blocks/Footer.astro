@@ -21,12 +21,13 @@ interface FooterLink {
 }
 
 const { locale, class: className } = Astro.props
-const t = useTranslations(locale)
+const footer = useTranslations(locale, "footer")
+const navigation = useTranslations(locale, "navigation")
 const home = getRelativeLocaleUrl(locale)
 const year = new Date().getFullYear()
 
 /** Home and the page sections, in the order of the design, which lays them out as two columns of four (`grid-rows-4`). */
-const siteLinks: FooterLink[] = Object.entries(t.nav.links).map(
+const siteLinks: FooterLink[] = Object.entries(navigation.sections).map(
   ([anchor, label]) => ({
     label,
     href: anchor === "home" ? home : `${home}#${anchor}`,
@@ -35,23 +36,27 @@ const siteLinks: FooterLink[] = Object.entries(t.nav.links).map(
 
 const externalLinks: FooterLink[] = [
   {
-    label: t.contact.linkedin,
-    href: t.contact.linkedinHref,
+    label: navigation.external.linkedin.label,
+    href: navigation.external.linkedin.href,
     target: "_blank",
     rel: "noopener noreferrer",
-    hint: t.recommendations.newTab,
+    hint: navigation.newTab,
   },
   {
-    label: t.footer.github,
-    href: t.footer.githubHref,
+    label: navigation.external.github.label,
+    href: navigation.external.github.href,
     target: "_blank",
     rel: "noopener noreferrer",
-    hint: t.recommendations.newTab,
+    hint: navigation.newTab,
   },
-  { label: t.hero.cv, href: t.hero.cvHref, download: true },
+  {
+    label: navigation.external.cv.label,
+    href: navigation.external.cv.href,
+    download: true,
+  },
 ]
 
-const legalLinks: FooterLink[] = t.footer.legal.map(({ label, slug }) => ({
+const legalLinks: FooterLink[] = navigation.legal.map(({ label, slug }) => ({
   label,
   href: getRelativeLocaleUrl(locale, `${slug}/`),
 }))
@@ -60,7 +65,7 @@ const legalLinks: FooterLink[] = t.footer.legal.map(({ label, slug }) => ({
 <footer class={cn("bg-navy py-8 text-mint", className)}>
   <div class="mx-auto flex max-w-6xl flex-col gap-8 px-8 xl:px-0">
     <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-      <nav aria-label={t.footer.navLabel}>
+      <nav aria-label={footer.navLabel}>
         <ul class="grid w-max grid-flow-col grid-rows-4 gap-x-12 gap-y-2">
           {siteLinks.map((link) => (
             <li>
@@ -111,7 +116,7 @@ const legalLinks: FooterLink[] = t.footer.legal.map(({ label, slug }) => ({
       </ul>
 
       <p class="text-sm leading-tight">
-        © {year} {t.hero.name}
+        © {year} {footer.name}
       </p>
     </div>
   </div>

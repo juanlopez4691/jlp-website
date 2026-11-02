@@ -17,7 +17,8 @@ interface Props {
 }
 
 const { locale, arrow, class: className } = Astro.props
-const { contact, recommendations } = useTranslations(locale)
+const contact = useTranslations(locale, "contact")
+const navigation = useTranslations(locale, "navigation")
 ---
 
 <section
@@ -55,12 +56,12 @@ const { contact, recommendations } = useTranslations(locale)
       </Button>
       <Button
         type="secondary-on-dark"
-        href={contact.linkedinHref}
+        href={navigation.external.linkedin.href}
         target="_blank"
         rel="noopener noreferrer"
       >
-        {contact.linkedin}
-        <span class="sr-only">{recommendations.newTab}</span>
+        {navigation.external.linkedin.label}
+        <span class="sr-only">{navigation.newTab}</span>
       </Button>
     </div>
     <p class="mt-4 text-base leading-relaxed">{contact.note}</p>

@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { locale, class: className } = Astro.props
-const { facts } = useTranslations(locale)
+const facts = useTranslations(locale, "facts")
 
 // The column wrappers only exist as boxes on tablet (md), where each column
 // stacks on its own; from lg, and on phone, they dissolve into the grid.

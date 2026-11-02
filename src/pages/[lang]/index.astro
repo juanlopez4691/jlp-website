@@ -22,10 +22,10 @@ if (!isLocale(lang)) {
   throw new Error(`Unsupported language: ${lang}`)
 }
 
-const t = useTranslations(lang)
+const homePage = useTranslations(lang, "homePage")
 ---
 
-<Main title={t.meta.title} locale={lang}>
+<Main title={homePage.title} locale={lang}>
   <main class="flex-1">
     <HeroBlock locale={lang} />
     <FactsBlock locale={lang} />

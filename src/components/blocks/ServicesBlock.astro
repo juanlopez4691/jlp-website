@@ -15,7 +15,7 @@ interface Props {
 }
 
 const { locale, arrow, class: className } = Astro.props
-const { services } = useTranslations(locale)
+const services = useTranslations(locale, "services")
 
 /** The fill rotates per card, as the design has it. */
 const tones = ["saffron", "coral", "teal", "teal", "saffron", "coral"] as const

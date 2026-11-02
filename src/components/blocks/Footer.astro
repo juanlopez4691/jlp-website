@@ -1,5 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n"
+import IconExternalLink from "@/components/atoms/IconExternalLink.astro"
 import NavLink from "@/components/atoms/NavLink.astro"
 import { cn } from "@/libs/utils"
 import { useTranslations, type Locale } from "@/i18n"
@@ -21,10 +22,25 @@ interface FooterLink {
 
 const { locale, class: className } = Astro.props
 const t = useTranslations(locale)
+const home = getRelativeLocaleUrl(locale)
 const year = new Date().getFullYear()
 
-const primaryLinks: FooterLink[] = [
-  { label: t.hero.cv, href: t.hero.cvHref, download: true },
+/** Home and the page sections, in the order of the design, which lays them out as two columns of four (`grid-rows-4`). */
+const siteLinks: FooterLink[] = Object.entries(t.nav.links).map(
+  ([anchor, label]) => ({
+    label,
+    href: anchor === "home" ? home : `${home}#${anchor}`,
+  })
+)
+
+const externalLinks: FooterLink[] = [
+  {
+    label: t.contact.linkedin,
+    href: t.contact.linkedinHref,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    hint: t.recommendations.newTab,
+  },
   {
     label: t.footer.github,
     href: t.footer.githubHref,
@@ -32,43 +48,71 @@ const primaryLinks: FooterLink[] = [
     rel: "noopener noreferrer",
     hint: t.recommendations.newTab,
   },
+  { label: t.hero.cv, href: t.hero.cvHref, download: true },
 ]
 
 const legalLinks: FooterLink[] = t.footer.legal.map(({ label, slug }) => ({
   label,
   href: getRelativeLocaleUrl(locale, `${slug}/`),
 }))
-
-const linkGroups = [primaryLinks, legalLinks]
 ---
 
-<footer class={cn("bg-navy py-6 text-mint", className)}>
-  <div class="mx-auto flex max-w-6xl flex-col items-start gap-4 px-8 md:min-h-8 md:flex-row md:items-center md:justify-between xl:px-0">
-    {linkGroups.map((links) => (
-      <ul class="flex flex-wrap items-center gap-x-3 gap-y-2">
-        {links.map((link, index) => (
-          <li class="flex items-center gap-3">
-            {index > 0 && (
-              <span aria-hidden="true" class="leading-relaxed">
-                •
-              </span>
-            )}
+<footer class={cn("bg-navy py-8 text-mint", className)}>
+  <div class="mx-auto flex max-w-6xl flex-col gap-8 px-8 xl:px-0">
+    <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+      <nav aria-label={t.footer.navLabel}>
+        <ul class="grid w-max grid-flow-col grid-rows-4 gap-x-12 gap-y-2">
+          {siteLinks.map((link) => (
+            <li>
+              <NavLink href={link.href} class="text-mint outline-mint">
+                {link.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <ul class="flex flex-col items-start gap-2">
+        {externalLinks.map((link) => (
+          <li>
             <NavLink
               href={link.href}
               download={link.download}
               target={link.target}
               rel={link.rel}
-              class="text-mint outline-mint"
+              class={cn(
+                "text-mint outline-mint",
+                link.hint && "inline-flex items-baseline gap-2"
+              )}
             >
               {link.label}
               {link.hint && <span class="sr-only">{link.hint}</span>}
+              {link.hint && <IconExternalLink />}
             </NavLink>
           </li>
         ))}
       </ul>
-    ))}
-    <p class="leading-relaxed">
-      © {year} {t.hero.name}
-    </p>
+    </div>
+
+    <div class="flex flex-col gap-4 border-t border-mint py-2 md:flex-row md:items-baseline md:justify-between md:gap-0">
+      <ul class="flex flex-wrap items-center gap-x-4 gap-y-2 md:gap-x-3">
+        {legalLinks.map((link, index) => (
+          <li class="flex items-center gap-4 md:gap-3">
+            {index > 0 && (
+              <span aria-hidden="true" class="text-xs">
+                •
+              </span>
+            )}
+            <NavLink href={link.href} class="text-mint outline-mint">
+              {link.label}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+
+      <p class="text-sm leading-tight">
+        © {year} {t.hero.name}
+      </p>
+    </div>
   </div>
 </footer>

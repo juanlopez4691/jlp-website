@@ -11,6 +11,7 @@ export const en: Dictionary = {
     openMenu: "Open menu",
     closeMenu: "Close menu",
     links: {
+      home: "Home",
       services: "Services",
       work: "Work",
       recommendations: "Recommendations",

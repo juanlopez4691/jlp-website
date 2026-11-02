@@ -12,6 +12,7 @@ export const es = {
     openMenu: "Abrir menú",
     closeMenu: "Cerrar menú",
     links: {
+      home: "Inicio",
       services: "Servicios",
       work: "Trabajo",
       recommendations: "Recomendaciones",

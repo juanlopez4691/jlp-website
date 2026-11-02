@@ -33,7 +33,7 @@ The design is the source of truth. Do not invent layout, sizes or copy.
 src/
 ├── components/   atoms/, molecules/, blocks/ (PascalCase, same name as the design)
 ├── layouts/      Main.astro, the HTML shell
-├── i18n/         dictionaries (es.ts, en.ts) and useTranslations()
+├── i18n/         copy, one file per section in es/ and en/, and the helper
 ├── libs/         helpers, such as cn() in utils.ts
 ├── pages/        routes; [lang]/ holds the localized pages
 ├── styles/       global.css and theme.css (Tailwind theme)
@@ -102,11 +102,25 @@ reporting work as done.
   for this reason.
 - **Languages.** Spanish (default) and English, at `/es/` and `/en/`, with
   Astro's i18n routing; `/` redirects to `/es/`. Pages live in
-  `src/pages/[lang]/`. All copy is in the dictionaries `src/i18n/es.ts` and
-  `en.ts`, which must have the same keys (`en.ts` is typed against `es.ts`).
-  Components receive `locale` and read `useTranslations(locale)`; they hold no
-  copy. Build links with `getRelativeLocaleUrl` from `astro:i18n`. Adding a
-  language means updating `astro.config.mjs` and `src/i18n/index.ts`.
+  `src/pages/[lang]/`. All copy is in `src/i18n/es/` and `src/i18n/en/`, one
+  file per section, and each `en/` file is typed against its `es/` counterpart,
+  so keys cannot drift: the `es/` file exports its shape as `<Name>Copy`
+  (`HeroCopy`) and the `en/` file uses it. Components receive `locale` and read
+  only their own section, plus `navigation` for the shared links:
+  `const hero = useTranslations(locale, "hero")`. They hold no copy. The
+  `copySections` map in `eslint.config.js` enforces it, and a new component must
+  be added to that map before it reads its own section. Page copy lives in
+  `src/i18n/{es,en}/pages/<page>.ts`, one file per page, exported as
+  `<name>Page` (`homePage`, later `legalNoticePage`), so it never collides with
+  a block section such as `contact`. The `es/` file ends with
+  `satisfies PageCopy`, which checks its overrides. A section file is its
+  block's default copy, and a page replaces part of it with the `copy` prop,
+  keeping the override under the block's section name in that page's own file,
+  with the same shape in every language. The merge is shallow, so an overridden
+  list replaces the whole list, and `navigation` cannot be overridden. Build
+  links with `getRelativeLocaleUrl` from `astro:i18n`. Adding a language means
+  updating `astro.config.mjs` and `src/i18n/index.ts`, and creating its folder
+  with the same files.
 
 ## Git
 

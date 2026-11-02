@@ -17,7 +17,6 @@ Change the Coder here, nowhere else.
 - Coder model: `opencode-go/deepseek-v4.1-flash`
 - Reviewer agent: `claude`
 - Review rounds: at most 3
-- Wait for a worker: 900000 ms per check
 
 ## Hard rules
 
@@ -67,11 +66,12 @@ resume after its last line instead of starting again.
       rounds. Finish with `worker_done`."
    2. Start the worker with `worker-start --task <id> --worktree current
 --agent <coder agent> --model <coder model>`.
-   3. Wait with `check --wait --types worker_done,escalation,question
---timeout-ms <wait>`, then `check --ack <deliveryId>`. Answer a
-      `question` from the spec. If the spec does not answer it, ask Joan.
+   3. End your turn. Orca wakes you when the worker reports. Run the `check`
+      command the wake gives you and handle the whole batch. Answer a
+      `question` with `reply` from the spec. If the spec does not answer it,
+      ask Joan.
    4. Heartbeats and terminal activity mean the worker is alive, not done.
-      Do not stop it only because it has not finished. If a wait times out,
+      Do not stop it only because it has not finished. If a worker seems stuck,
       look with `worker-show` and `worker-read`, then decide.
    5. After an accepted `worker_done`, run `worker-release`.
    6. Check that `.agents/work/handoff.md` exists and that the code changed
@@ -85,7 +85,7 @@ resume after its last line instead of starting again.
 4. **PR review.** Create a task and start a worker with the reviewer agent. Its
    task spec is: "You are the PR reviewer. Read
    `.agents/team/pr-reviewer.md` and review PR #<number>. Do not read
-   `.agents/work/`." Wait, then release it.
+   `.agents/work/`." End your turn until Orca wakes you, then release it.
 5. **Comments.** Do "4. PR comments" in `senior-dev.md`. Send the accepted ones
    to the Coder as one more round, then push.
 6. **Finish.** Tell Joan the PR is ready for review, with the URL, the number of

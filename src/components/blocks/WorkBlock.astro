@@ -15,7 +15,7 @@ interface Props {
 }
 
 const { locale, arrow, class: className } = Astro.props
-const { work } = useTranslations(locale)
+const work = useTranslations(locale, "work")
 ---
 
 <section

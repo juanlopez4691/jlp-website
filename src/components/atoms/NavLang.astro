@@ -10,11 +10,11 @@ interface Props {
 }
 
 const { locale, class: className } = Astro.props
-const t = useTranslations(locale)
+const navLang = useTranslations(locale, "navLang")
 ---
 
 <nav
-  aria-label={t.nav.languageLabel}
+  aria-label={navLang.label}
   class={cn("flex items-center gap-2 text-base", className)}
 >
   {locales.map((code, index) => (

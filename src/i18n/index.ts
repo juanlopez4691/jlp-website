@@ -1,5 +1,5 @@
-import { en } from "./en"
-import { es, type Dictionary } from "./es"
+import * as en from "./en"
+import * as es from "./es"
 
 /**
  * Supported languages. Keep in sync with `i18n.locales` in astro.config.mjs,
@@ -11,17 +11,29 @@ export type Locale = (typeof locales)[number]
 
 export const defaultLocale: Locale = "es"
 
+/**
+ * The copy of every section, one file per section in `./es` and `./en`, so a
+ * component reads only what it needs. The Spanish files define the shape.
+ */
+export type Dictionary = typeof es
+export type Section = keyof Dictionary
+
 const dictionaries: Record<Locale, Dictionary> = { es, en }
 
 /**
- * Returns the copy for a language.
+ * Returns one section of the copy for a language. A component asks for its own
+ * section, and for `navigation` when it needs a shared link.
  *
  * @param locale - The language of the current page.
+ * @param section - The section to read, such as `hero` or `navigation`.
  *
- * @returns The dictionary, so a component reads `t.hero.name`.
+ * @returns The copy of that section only.
  */
-export function useTranslations(locale: Locale): Dictionary {
-  return dictionaries[locale]
+export function useTranslations<S extends Section>(
+  locale: Locale,
+  section: S
+): Dictionary[S] {
+  return dictionaries[locale][section]
 }
 
 /**

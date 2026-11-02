@@ -15,7 +15,7 @@ interface Props {
 }
 
 const { locale, arrow, class: className } = Astro.props
-const { experience } = useTranslations(locale)
+const experience = useTranslations(locale, "experience")
 
 /** The first job opens the log and the last one closes it. */
 const position = (index: number): "first" | "middle" | "last" => {

@@ -13,11 +13,12 @@ interface Props {
 }
 
 const { locale, class: className } = Astro.props
-const t = useTranslations(locale)
+const header = useTranslations(locale, "header")
+const navigation = useTranslations(locale, "navigation")
 const home = getRelativeLocaleUrl(locale)
 
 /** Home and the page sections, in the order of the design. */
-const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
+const links = Object.entries(navigation.sections).map(([anchor, label]) => ({
   label,
   href: anchor === "home" ? home : `${home}#${anchor}`,
 }))
@@ -26,7 +27,7 @@ const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
 <header data-site-header class={cn("bg-saffron", className)}>
   <div class="mx-auto flex max-w-6xl items-center justify-between px-8 py-8 xl:px-0">
     <nav
-      aria-label={t.nav.sectionsLabel}
+      aria-label={header.sectionsLabel}
       class="hidden items-center gap-8 lg:flex"
     >
       {links.map((link) => (
@@ -40,7 +41,7 @@ const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
 
     <MenuButton
       data-menu-toggle
-      label={t.nav.openMenu}
+      label={header.openMenu}
       aria-controls="site-menu"
       class="lg:hidden"
     />
@@ -55,14 +56,14 @@ const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
       <NavLang locale={locale} />
       <MenuButton
         data-menu-toggle
-        label={t.nav.closeMenu}
+        label={header.closeMenu}
         aria-controls="site-menu"
         expanded
       />
     </div>
 
     <nav
-      aria-label={t.nav.sectionsLabel}
+      aria-label={header.sectionsLabel}
       data-menu-links
       class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-8 py-8"
     >

@@ -16,7 +16,7 @@ interface Props {
 }
 
 const { locale, arrow, class: className } = Astro.props
-const { process } = useTranslations(locale)
+const process = useTranslations(locale, "process")
 ---
 
 <section

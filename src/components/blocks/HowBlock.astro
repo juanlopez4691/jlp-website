@@ -5,18 +5,20 @@ import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import Step from "@/components/molecules/Step.astro"
 import Principle from "@/components/molecules/Principle.astro"
 import { cn } from "@/libs/utils"
-import { useTranslations, type Locale } from "@/i18n"
+import { useTranslations, type Dictionary, type Locale } from "@/i18n"
 
 interface Props {
   /** Language of the current page. */
   locale: Locale
+  /** Replaces part of this component's default copy on one page. */
+  copy?: Partial<Dictionary["process"]>
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
   class?: string
 }
 
-const { locale, arrow, class: className } = Astro.props
-const process = useTranslations(locale, "process")
+const { locale, copy, arrow, class: className } = Astro.props
+const process = { ...useTranslations(locale, "process"), ...copy }
 ---
 
 <section

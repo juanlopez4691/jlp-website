@@ -6,18 +6,20 @@ import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import telephones from "@/assets/telephones.webp"
 import { cn } from "@/libs/utils"
-import { useTranslations, type Locale } from "@/i18n"
+import { useTranslations, type Dictionary, type Locale } from "@/i18n"
 
 interface Props {
   /** Language of the current page. */
   locale: Locale
+  /** Replaces part of this component's default copy on one page. */
+  copy?: Partial<Dictionary["contact"]>
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
   class?: string
 }
 
-const { locale, arrow, class: className } = Astro.props
-const contact = useTranslations(locale, "contact")
+const { locale, copy, arrow, class: className } = Astro.props
+const contact = { ...useTranslations(locale, "contact"), ...copy }
 const navigation = useTranslations(locale, "navigation")
 ---
 

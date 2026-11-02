@@ -3,18 +3,20 @@ import type { ComponentProps } from "astro/types"
 import QuoteMark from "@/assets/icons/quote-mark.svg"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import { cn } from "@/libs/utils"
-import { useTranslations, type Locale } from "@/i18n"
+import { useTranslations, type Dictionary, type Locale } from "@/i18n"
 
 interface Props {
   /** Language of the current page. */
   locale: Locale
+  /** Replaces part of this component's default copy on one page. */
+  copy?: Partial<Dictionary["quote"]>
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
   class?: string
 }
 
-const { locale, arrow, class: className } = Astro.props
-const quote = useTranslations(locale, "quote")
+const { locale, copy, arrow, class: className } = Astro.props
+const quote = { ...useTranslations(locale, "quote"), ...copy }
 ---
 
 <section

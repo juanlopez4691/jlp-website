@@ -16,10 +16,10 @@ const { locale, class: className } = Astro.props
 const t = useTranslations(locale)
 const home = getRelativeLocaleUrl(locale)
 
-/** The seven sections of the home page, in the order of the design. */
+/** Home and the page sections, in the order of the design. */
 const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
   label,
-  href: `${home}#${anchor}`,
+  href: anchor === "home" ? home : `${home}#${anchor}`,
 }))
 ---
 
@@ -30,7 +30,9 @@ const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
       class="hidden items-center gap-8 lg:flex"
     >
       {links.map((link) => (
-        <NavLink href={link.href}>{link.label}</NavLink>
+        <NavLink href={link.href} data-nav-link>
+          {link.label}
+        </NavLink>
       ))}
     </nav>
 
@@ -67,6 +69,7 @@ const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
       {links.map((link) => (
         <NavLink
           href={link.href}
+          data-nav-link
           class="font-display text-2xl font-bold leading-tight"
         >
           {link.label}
@@ -121,7 +124,7 @@ const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
 
     // Mark the section the URL points at, in the bar and in the panel.
     const sectionLinks =
-      header.querySelectorAll<HTMLAnchorElement>("a[href*='#']")
+      header.querySelectorAll<HTMLAnchorElement>("a[data-nav-link]")
 
     const markSection = () => {
       sectionLinks.forEach((link) => {

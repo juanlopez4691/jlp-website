@@ -71,7 +71,10 @@ const legalLinks: FooterLink[] = navigation.legal.map(({ label, slug }) => ({
         <ul class="grid w-max grid-flow-col grid-rows-4 gap-x-12 gap-y-2">
           {siteLinks.map((link) => (
             <li>
-              <NavLink href={link.href} class="text-mint outline-mint">
+              <NavLink
+                href={link.href}
+                class="text-mint font-normal outline-mint"
+              >
                 {link.label}
               </NavLink>
             </li>
@@ -88,7 +91,7 @@ const legalLinks: FooterLink[] = navigation.legal.map(({ label, slug }) => ({
               target={link.target}
               rel={link.rel}
               class={cn(
-                "text-mint outline-mint",
+                "text-mint font-normal outline-mint",
                 link.hint && "inline-flex items-baseline gap-2"
               )}
             >
@@ -110,7 +113,10 @@ const legalLinks: FooterLink[] = navigation.legal.map(({ label, slug }) => ({
                 •
               </span>
             )}
-            <NavLink href={link.href} class="text-mint outline-mint">
+            <NavLink
+              href={link.href}
+              class="text-mint font-normal outline-mint"
+            >
               {link.label}
             </NavLink>
           </li>

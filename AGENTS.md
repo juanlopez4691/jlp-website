@@ -18,7 +18,7 @@ The design is the source of truth. Do not invent layout, sizes or copy.
   `components/<Name>/README.md` before building a component.
 - Penpot file: pages `00 Foundations`, `01 Components` and `02 Home`.
 - If the Penpot MCP tools are not loaded in your session, use
-  `/Users/joanlopez/personal/scripts/penpot.sh` on the host (not in Docker).
+  `/Users/joanlopez/Projects/personal/scripts/penpot.sh` on the host (not in Docker).
   Run it without arguments for usage. Read `high_level_overview` first, then
   send Plugin API code with `penpot.sh code <file.js | ->`. Each call is a new
   session, so `storage` does not persist between calls.

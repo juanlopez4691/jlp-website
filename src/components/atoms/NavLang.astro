@@ -1,16 +1,18 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n"
 import { cn } from "@/libs/utils"
-import { locales, useTranslations, type Locale } from "@/i18n"
+import { locales, useTranslations, type Dictionary, type Locale } from "@/i18n"
 
 interface Props {
   /** Language of the current page. */
   locale: Locale
+  /** Replaces part of this component's default copy on one page. */
+  copy?: Partial<Dictionary["navLang"]>
   class?: string
 }
 
-const { locale, class: className } = Astro.props
-const navLang = useTranslations(locale, "navLang")
+const { locale, copy, class: className } = Astro.props
+const navLang = { ...useTranslations(locale, "navLang"), ...copy }
 ---
 
 <nav

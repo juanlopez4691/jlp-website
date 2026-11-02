@@ -128,7 +128,7 @@ const links = Object.entries(t.nav.links).map(([anchor, label]) => ({
 
     const markSection = () => {
       sectionLinks.forEach((link) => {
-        if (link.hash === location.hash)
+        if (link.pathname === location.pathname && link.hash === location.hash)
           link.setAttribute("aria-current", "location")
         else link.removeAttribute("aria-current")
       })

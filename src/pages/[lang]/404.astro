@@ -1,0 +1,31 @@
+---
+import Main from "@/layouts/Main.astro"
+import ContactBlock from "@/components/blocks/ContactBlock.astro"
+import { isLocale, locales, useTranslations } from "@/i18n"
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }))
+}
+
+const { lang } = Astro.params
+
+if (!isLocale(lang)) {
+  throw new Error(`Unsupported language: ${lang}`)
+}
+
+const notFoundPage = useTranslations(lang, "notFoundPage")
+---
+
+<Main title={notFoundPage.title} locale={lang}>
+  <main class="flex flex-1 flex-col justify-between">
+    <section class="mx-auto max-w-6xl px-8 py-16 text-center md:py-20 xl:px-0">
+      <h1 class="text-8xl leading-none font-bold tracking-tight md:text-9xl lg:text-[12.5rem]">
+        {notFoundPage.heading}
+      </h1>
+      <p class="mt-6 text-xl leading-normal md:text-2xl lg:text-3xl">
+        {notFoundPage.text}
+      </p>
+    </section>
+    <ContactBlock locale={lang} />
+  </main>
+</Main>

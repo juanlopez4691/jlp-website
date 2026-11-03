@@ -17,6 +17,8 @@ export default defineConfig({
     // Keep every stylesheet as a separate file so the CSP can use
     // style-src 'self'.
     inlineStylesheets: "never",
+    // Cloudflare's 404 handling needs a flat `404.html` in each language folder.
+    format: "preserve",
   },
   vite: {
     plugins: [tailwindcss()],

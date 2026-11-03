@@ -2,7 +2,11 @@
   "name": "lojopez",
   "main": "./src/worker.ts",
   "compatibility_date": "2026-10-25",
-  "assets": { "directory": "./dist", "run_worker_first": ["/"] },
+  "assets": {
+    "directory": "./dist",
+    "run_worker_first": ["/"],
+    "not_found_handling": "404-page",
+  },
   "routes": [{ "pattern": "lojopez.dev", "custom_domain": true }],
   "workers_dev": false,
   "preview_urls": false,

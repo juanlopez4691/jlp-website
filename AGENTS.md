@@ -64,8 +64,9 @@ reporting work as done.
 
 - **Tailwind-native.** Use default classes and values. Add a custom value only
   when the design needs one and Tailwind has none; it goes in `theme.css`.
-  The two radii with no class, 28px and 48px, are `rounded-[28px]` and
-  `rounded-[48px]`.
+  A value with a single use is an arbitrary value instead, with no token: the
+  two radii with no class, 28px and 48px, are `rounded-[28px]` and
+  `rounded-[48px]`, and the 404 title is `lg:text-[12.5rem]`.
 - **Breakpoints are the defaults, and four are used**: base, `md` (768), `lg`
   (1024) and `xl` (1280). Do not use `sm` or `2xl`. Between 768 and 1023px the
   tablet layout applies. The header links show from `lg`, not from the `xl` of
@@ -119,8 +120,13 @@ reporting work as done.
   Astro's i18n routing. `/` is the only path that runs the Worker
   (`src/worker.ts`): it redirects with a 302 to the first language in the
   browser's `Accept-Language` that the site has (Catalan reads Spanish),
-  otherwise to `/en/`, and returns 404 for any other path. In `bun run dev`
-  no Worker runs, and `/` goes to `/es/`. Pages live in
+  otherwise to `/en/`. Any other missing path never reaches the Worker:
+  `not_found_handling: "404-page"` in `wrangler.jsonc` serves the nearest
+  `404.html` with status 404, so `/es/<missing>` gets `src/pages/[lang]/404.astro`
+  in Spanish and `/en/<missing>` in English. Cloudflare only finds a flat
+  `<lang>/404.html`, which is why `astro.config.mjs` sets
+  `build.format: "preserve"`. In `bun run dev` no Worker runs, `/` goes to
+  `/es/`, and missing paths get Astro's default 404. Pages live in
   `src/pages/[lang]/`. All copy is in `src/i18n/es/` and `src/i18n/en/`, one
   file per section, and each `en/` file is typed against its `es/` counterpart,
   so keys cannot drift: the `es/` file exports its shape as `<Name>Copy`

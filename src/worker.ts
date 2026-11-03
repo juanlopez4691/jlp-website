@@ -36,16 +36,21 @@ function pickLocale(acceptLanguage: string | null): Locale {
 
 /**
  * Answers a request for the site root with a temporary redirect to the language
- * the browser asks for. Every other path is served as a static asset, so this
- * handler never sees it.
+ * the browser asks for. Only `/` runs the Worker first; a path with no matching
+ * asset also reaches this handler and gets a 404, as before. A dedicated 404
+ * page would use `not_found_handling` instead.
  *
  * @param request - The incoming request.
  *
  * @returns The redirect to the language, never cached without varying on the
- * header it was picked from.
+ * header it was picked from, or a bare 404 for every other path.
  */
 export default {
   fetch(request: Request): Response {
+    if (new URL(request.url).pathname !== "/") {
+      return new Response(null, { status: 404 })
+    }
+
     const locale = pickLocale(request.headers.get("Accept-Language"))
 
     return new Response(null, {

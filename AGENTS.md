@@ -156,7 +156,7 @@ reporting work as done.
   `ai` and `content` exist.
 - One topic per commit. Concise, human-readable message, no "and", no body.
 - The hooks (Husky) run inside the checkout's Docker container. If it is not
-  running, start it with `./scripts/up.sh`. Never use `--no-verify`; if a hook
+  running, start it with `rift up`. Never use `--no-verify`; if a hook
   fails, fix the cause or report it.
 - Do not touch `.env`, `bun.lock` or `dist/` by hand.
 
@@ -170,7 +170,7 @@ One feature or fix per worktree, one worktree per pull request.
    ```bash
    git worktree add ../jlp-website-<topic> -b <type>/<topic>
    cd ../jlp-website-<topic>
-   ./scripts/setup.sh
+   rift setup
    ```
 
    `<type>` is a commit type (`feat`, `fix`, `docs`, `ai`, ...) and `<topic>` is

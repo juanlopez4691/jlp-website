@@ -45,7 +45,7 @@ Follow these steps in order.
      `git commit --fixup=<sha>` with no trailers.
    - The pre-commit hook formats the staged files and the commit-msg hook runs
      commitlint, both inside the Docker container.
-   - If the hook says the container is not running, run `./scripts/up.sh` and
+   - If the hook says the container is not running, run `rift up` and
      commit again. Never run the checks on the host as a replacement.
    - If a hook fails, fix the cause and commit again. Never use `--no-verify`.
      If you cannot fix it, stop and report the error.

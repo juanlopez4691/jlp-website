@@ -31,7 +31,7 @@ src/
 ├── pages/        routes; [lang]/ holds the localized pages
 └── styles/       global.css and the Tailwind theme
 public/_headers   response headers, including the CSP
-scripts/          Docker dev environment scripts
+rift.yaml         dev environment config for rift
 ```
 
 ## Running this site locally
@@ -51,18 +51,22 @@ or directly with [Bun](https://bun.sh/docs) installed on your system.
 
 3. Make `.test` domains resolve to your machine, for example with
    [dnsmasq](https://formulae.brew.sh/formula/dnsmasq).
-4. Run the setup script:
+4. Install [rift](https://github.com/LucaPipolo/rift), which runs every
+   checkout behind one shared HTTPS router:
 
    ```bash
-   ./scripts/setup.sh
+   brew install lucapipolo/rift/rift
    ```
 
-5. Visit **<https://lojopez.test>**.
+5. Set up this checkout:
+
+   ```bash
+   rift setup
+   ```
+
+6. Visit **<https://lojopez.test>**.
 
 The dev server runs with hot reload, so changes show up straight away.
-
-> [!CAUTION]
-> The Docker scripts (`scripts/*.sh`) only support macOS for now.
 
 > [!NOTE]
 > On the first run, macOS asks for your password once, to trust the local SSL
@@ -70,14 +74,16 @@ The dev server runs with hot reload, so changes show up straight away.
 
 #### Commands
 
-| Command              | What it does                                     |
-| -------------------- | ------------------------------------------------ |
-| `./scripts/up.sh`    | Start this checkout                              |
-| `./scripts/down.sh`  | Stop it, and the router if nothing else uses it  |
-| `./scripts/setup.sh` | Rewrite `.env`, then start. Safe to run any time |
+| Command       | What it does                                      |
+| ------------- | ------------------------------------------------- |
+| `rift up`     | Start this checkout                               |
+| `rift down`   | Stop it, leaving other checkouts serving          |
+| `rift setup`  | Rewrite `.env`, then start. Safe to run any time  |
+| `rift status` | Everything the router serves, across all projects |
+| `rift doctor` | Check the machine, and offer to fix what it finds |
 
-All three accept `--verbose` (or `-v`) for full output instead of one line per
-step.
+`rift.yaml` holds the project settings: the name, the `lojopez.test` domain,
+the `app` service and its port 4321.
 
 #### Running project scripts
 
@@ -108,15 +114,17 @@ your machine (see Option B). Run `bun install` there first.
 
 #### How it works
 
-`./scripts/setup.sh` does the following, and `./scripts/up.sh` repeats the
-steps that are still missing:
+`rift setup` does the following, and `rift up` repeats the steps that are
+still missing:
 
-1. Writes `.env` from `.env.example`. The file is git-ignored and `setup.sh`
-   rewrites it, so don't edit it by hand.
+1. Writes `.env` from `.env.example` (a worktree copies the main checkout's).
+   The file is git-ignored and rift rewrites its keys, so don't edit them by
+   hand.
 2. Creates one Docker network and one shared [Caddy](https://caddyserver.com/)
-   container, the router. It listens on ports 80 and 443 and serves HTTPS for
-   `lojopez.test` and its subdomains with its own certificate. If something
-   else already uses those ports, `up.sh` says what and stops.
+   container, the router, shared by every rift project on the machine. It
+   listens on ports 80 and 443 and serves HTTPS for `lojopez.test` and its
+   subdomains with its own certificate. If something else already uses those
+   ports, rift says what and stops.
 3. Adds the router's certificate to the macOS keychain, once. That's the
    password prompt on the first run.
 4. Starts this checkout's `app` container. Every time it starts, it runs
@@ -134,19 +142,18 @@ Docker.
   dependencies again, and the dev server reads the config again. Astro reloads
   its config by itself, but the file change doesn't always reach the container.
 - **Commits:** the git hooks run inside the app container, so it has to be
-  running. If it isn't, the commit aborts and tells you to run
-  `./scripts/up.sh`.
+  running. If it isn't, the commit aborts and tells you to run `rift up`.
 
 #### Troubleshooting
 
-| Problem                                                             | What to do                                                       |
-| ------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `run ./scripts/setup.sh first` from Docker                          | `.env` is missing. Run `./scripts/setup.sh`                      |
-| `Commit aborted. The app container ... not running`                 | Run `./scripts/up.sh`, then commit again                         |
-| The page shows an error about a missing module or a disabled option | Restart the container, see above                                 |
-| `up.sh` stops and names what uses port 80 or 443                    | Stop that program, then run `up.sh` again                        |
-| Browser warns about the certificate                                 | Run `./scripts/up.sh`, it trusts the certificate again if needed |
-| `lojopez.test` doesn't resolve                                      | Check the `.test` DNS step in the setup above                    |
+| Problem                                                             | What to do                                               |
+| ------------------------------------------------------------------- | -------------------------------------------------------- |
+| `run rift setup first` from Docker                                  | `.env` is missing. Run `rift setup`                      |
+| `Commit aborted. The app container ... not running`                 | Run `rift up`, then commit again                         |
+| The page shows an error about a missing module or a disabled option | Restart the container, see above                         |
+| `rift up` stops and names what uses port 80 or 443                  | Stop that program, then run `rift up` again              |
+| Browser warns about the certificate                                 | Run `rift up`, it trusts the certificate again if needed |
+| `lojopez.test` doesn't resolve                                      | Check the `.test` DNS step, or run `rift doctor`         |
 
 #### Git worktrees
 
@@ -154,15 +161,15 @@ Each [git worktree](https://git-scm.com/docs/git-worktree) gets its own
 containers, port and domain, so several can run at the same time:
 
 ```bash
-git worktree add ../my-feature
-cd ../my-feature
-./scripts/setup.sh
+git worktree add ../jlp-website-my-feature
+cd ../jlp-website-my-feature
+rift setup
 ```
 
 That checkout is served at **<https://my-feature.lojopez.test>**, next to
-`lojopez.test`. A single shared [Caddy](https://caddyserver.com/) router
-handles HTTPS for all of them, and `down.sh` only stops it once no checkout is
-using it.
+`lojopez.test`: rift drops the `jlp-website-` prefix from the directory name.
+A single shared [Caddy](https://caddyserver.com/) router handles HTTPS for all
+of them, and `rift down` never stops it (`rift router stop` does).
 
 This lets several AI agents work side by side, each in its own worktree with
 its own running instance.
@@ -170,15 +177,15 @@ its own running instance.
 #### Orca
 
 I use [Orca](https://www.onorca.dev/) and create a worktree there for each
-feature. Pointing its setup and archive scripts at this repo's own gives every
-new worktree a running Docker environment, with no manual step:
+feature. Pointing its setup and archive scripts at rift gives every new
+worktree a running Docker environment, with no manual step:
 
-| Orca setting                                     | Value                                  |
-| ------------------------------------------------ | -------------------------------------- |
-| Setup script                                     | `$ORCA_WORKTREE_PATH/scripts/setup.sh` |
-| When to run                                      | Run by default                         |
-| Wait for setup to complete before starting agent | On                                     |
-| Archive script                                   | `$ORCA_WORKTREE_PATH/scripts/down.sh`  |
+| Orca setting                                     | Value                                    |
+| ------------------------------------------------ | ---------------------------------------- |
+| Setup script                                     | `cd "$ORCA_WORKTREE_PATH" && rift setup` |
+| When to run                                      | Run by default                           |
+| Wait for setup to complete before starting agent | On                                       |
+| Archive script                                   | `cd "$ORCA_WORKTREE_PATH" && rift down`  |
 
 Setup starts the worktree's containers before the agent gets to work; archive
 stops them once the worktree is gone.

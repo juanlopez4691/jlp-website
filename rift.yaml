@@ -1,0 +1,24 @@
+# How rift runs this project.
+#
+# The main checkout is served at lojopez.test; every git worktree beside
+# it gets <worktree>.lojopez.test and its own containers, so several
+# branches — or several agents — run at once without colliding.
+#
+# rift never edits compose files. It writes what it derives into .env,
+# which is where Compose already looks, so `docker compose` and `sail`
+# keep working by hand.
+
+name: jlp-website
+domain: lojopez.test
+
+preset: compose
+
+app:
+  service: app
+  port: 4321
+
+# Host ports this checkout publishes. rift keeps the port already in
+# .env when it still works, and otherwise scans upwards from the default
+# until it finds one no sibling worktree has taken.
+ports:
+  - { key: APP_PORT, default: 4321 }

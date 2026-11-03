@@ -35,6 +35,7 @@ const work = { ...useTranslations(locale, "work"), ...copy }
             title={item.title}
             result={item.result}
             chips={item.chips}
+            type="primary"
           >
             {item.body}
           </WorkCard>
@@ -49,7 +50,7 @@ const work = { ...useTranslations(locale, "work"), ...copy }
             client={item.client}
             title={item.title}
             chips={item.chips}
-            outline
+            type="secondary"
             heading="h4"
           >
             {item.body}

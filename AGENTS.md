@@ -77,7 +77,7 @@ reporting work as done.
   At 1280 the container is exactly 1152 wide, and the margin is the space
   around it.
 - **Cards.** In every card the last part is pinned to the bottom, whatever the
-  length of the content: the pills of a work card (also the outline ones) and
+  length of the content: the pills of a work card (also the secondary ones) and
   the author name and role of a recommendation. Cards in a row share the
   height of the tallest (`h-full`); the card is `flex flex-col` and the text
   above the pinned part is `flex-1` (or the pinned part has `mt-auto`).
@@ -87,12 +87,20 @@ reporting work as done.
   border, mint gap and ink ring on light blocks, ink gap and saffron ring on
   dark blocks. No `box-shadow` or `ring-*`, so the focus stays visible in
   forced-colors mode.
-- **Colors and fonts** come from `theme.css`: saffron, coral, teal, mint and
-  navy; Familjen Grotesk for display, Figtree for text. No gradients,
+- **Colors and fonts** come from `theme.css`: saffron, coral, teal, mint, navy
+  and ink; Familjen Grotesk for display, Figtree for text. Ink is the dark
+  text, outline and button color and the footer background; navy is only for
+  the facts and stack blocks and the featured quote card. No gradients,
   shadows or emoji.
+- **Text style.** Descriptions in cards and blocks (service card, work card,
+  step, principle, job row, regular quote, hero lead) are `text-lg` (18px),
+  `leading-normal`; the work card body keeps `leading-relaxed`. The company
+  line of a job row is `text-base leading-tight`. Paragraphs inside a quote
+  are 16px apart (`space-y-4`).
 - **Components.** One Astro file per component, named like the design. Variant
-  properties in Penpot become props (`Button` takes `type`, `Pill` takes `kind`
-  and `tone`). Merge classes with `cn()` so callers can override them. Text
+  properties in Penpot become props (`Button` and `WorkCard` take `type`, `Pill`
+  takes `kind` and `tone`). Merge classes with `cn()` so callers can override
+  them. Text
   comes in as props or slots; components hold no copy.
 - **Section arrow.** A block that has the arrow takes the color of the block
   above it as a prop (`arrow`: `saffron`, `coral`, `teal`, `mint` or `navy`; no

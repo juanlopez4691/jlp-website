@@ -259,6 +259,8 @@ not to `bun run dev`.
 
 The site is built into `dist/` and served as static assets by a Cloudflare
 Worker, configured in `wrangler.jsonc`. It uses the custom domain `lojopez.dev`.
+A small Worker in `src/worker.ts` answers `/` with a redirect to the language of
+the browser; every other path is served as a static asset, before the Worker.
 
 ```bash
 bun run deploy

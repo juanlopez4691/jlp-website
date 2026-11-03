@@ -37,7 +37,8 @@ src/
 ├── libs/         helpers, such as cn() in utils.ts
 ├── pages/        routes; [lang]/ holds the localized pages
 ├── styles/       global.css and theme.css (Tailwind theme)
-└── assets/       images processed by Astro
+├── assets/       images processed by Astro
+└── worker.ts     Cloudflare Worker: redirects `/` to the browser language
 public/_headers   response headers, including the CSP
 ```
 
@@ -115,7 +116,11 @@ reporting work as done.
   third-party scripts. `astro.config.mjs` keeps stylesheets as separate files
   for this reason.
 - **Languages.** Spanish (default) and English, at `/es/` and `/en/`, with
-  Astro's i18n routing; `/` redirects to `/es/`. Pages live in
+  Astro's i18n routing. `/` is the only path that runs the Worker
+  (`src/worker.ts`): it redirects with a 302 to the first language in the
+  browser's `Accept-Language` that the site has (Catalan reads Spanish),
+  otherwise to `/en/`, and returns 404 for any other path. In `bun run dev`
+  no Worker runs, and `/` goes to `/es/`. Pages live in
   `src/pages/[lang]/`. All copy is in `src/i18n/es/` and `src/i18n/en/`, one
   file per section, and each `en/` file is typed against its `es/` counterpart,
   so keys cannot drift: the `es/` file exports its shape as `<Name>Copy`
@@ -133,8 +138,8 @@ reporting work as done.
   with the same shape in every language. The merge is shallow, so an overridden
   list replaces the whole list, and `navigation` cannot be overridden. Build
   links with `getRelativeLocaleUrl` from `astro:i18n`. Adding a language means
-  updating `astro.config.mjs` and `src/i18n/index.ts`, and creating its folder
-  with the same files.
+  updating `astro.config.mjs`, `src/i18n/index.ts` and `pickLocale` in
+  `src/worker.ts`, and creating its folder with the same files.
 
 ## Git
 

@@ -36,9 +36,10 @@ function pickLocale(acceptLanguage: string | null): Locale {
 
 /**
  * Answers a request for the site root with a temporary redirect to the language
- * the browser asks for. Only `/` runs the Worker first; a path with no matching
- * asset also reaches this handler and gets a 404, as before. A dedicated 404
- * page would use `not_found_handling` instead.
+ * the browser asks for. Only `/` runs the Worker first: a path with no matching
+ * asset gets the `404.html` of its language from asset serving, through
+ * `not_found_handling`, and never reaches this handler. The non-root branch is
+ * only a guard.
  *
  * @param request - The incoming request.
  *

@@ -3,7 +3,8 @@ import * as es from "./es"
 
 /**
  * Supported languages. Keep in sync with `i18n.locales` in astro.config.mjs,
- * and with the folder names that hold the pages.
+ * with the folder names that hold the pages, and with `pickLocale` in
+ * `src/worker.ts`.
  */
 export const locales = ["es", "en"] as const
 

@@ -7,13 +7,13 @@ interface Props {
   client: string
   /** The project, one line or two. */
   title: string
-  /** The outcome. Outline cards do not show it. */
+  /** The outcome. Secondary cards do not show it. */
   result?: string
   /** Technologies, up to four. */
   chips: string[]
-  /** Transparent card with a mint border, for "More work". */
-  outline?: boolean
-  /** The title element. Outline cards sit under the "More work" `h3`. */
+  /** `primary` is a mint card; `secondary` is transparent with a mint border, for "More work". */
+  type?: "primary" | "secondary"
+  /** The title element. Secondary cards sit under the "More work" `h3`. */
   heading?: "h3" | "h4"
   class?: string
 }
@@ -23,7 +23,7 @@ const {
   title,
   result,
   chips,
-  outline = false,
+  type = "primary",
   heading = "h3",
   class: className,
 } = Astro.props
@@ -34,7 +34,9 @@ const Heading = heading
 <article
   class={cn(
     "flex h-full flex-col gap-4 rounded-lg p-6",
-    outline ? "border-[1.5px] border-mint text-mint" : "bg-mint text-ink",
+    type === "secondary"
+      ? "border-[1.5px] border-mint text-mint"
+      : "bg-mint text-ink",
     className
   )}
 >
@@ -54,7 +56,10 @@ const Heading = heading
     <ul class="flex flex-wrap gap-2">
       {chips.map((chip) => (
         <li>
-          <Pill kind="chip" tone={outline ? "on-dark" : "on-light"}>
+          <Pill
+            kind="chip"
+            tone={type === "secondary" ? "on-dark" : "on-light"}
+          >
             {chip}
           </Pill>
         </li>

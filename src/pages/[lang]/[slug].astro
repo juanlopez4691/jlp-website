@@ -1,0 +1,49 @@
+---
+import type { InferGetStaticPropsType } from "astro"
+import { getCollection, render } from "astro:content"
+import Main from "@/layouts/Main.astro"
+import Content from "@/components/blocks/Content.astro"
+import { isLocale, useTranslations } from "@/i18n"
+
+export async function getStaticPaths() {
+  const pages = await getCollection("pages")
+
+  return pages.map((page) => {
+    const [lang, slug] = page.id.split("/")
+
+    return { params: { lang, slug }, props: { page } }
+  })
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const { lang } = Astro.params
+
+if (!isLocale(lang)) {
+  throw new Error(`Unsupported language: ${lang}`)
+}
+
+const { title, updated, noindex } = Astro.props.page.data
+const { Content: Body } = await render(Astro.props.page)
+const contentPage = useTranslations(lang, "contentPage")
+const date = new Intl.DateTimeFormat(lang, {
+  dateStyle: "long",
+  timeZone: "UTC",
+}).format(updated)
+---
+
+<Main title={`${title} | ${contentPage.siteName}`} locale={lang}>
+  {noindex && <meta slot="head" name="robots" content="noindex, nofollow" />}
+  <main class="flex-1">
+    <Content>
+      <h1>{title}</h1>
+      <p>
+        <small>
+          {contentPage.updated}{" "}
+          <time datetime={updated.toISOString().slice(0, 10)}>{date}</time>
+        </small>
+      </p>
+      <Body />
+    </Content>
+  </main>
+</Main>

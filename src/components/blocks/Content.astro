@@ -1,0 +1,20 @@
+---
+// Long-form text as plain HTML in the slot (an h1 first, then the body), with
+// the rules in src/styles/article.css. Wrap each table in
+// `<div class="table-scroll" role="region" aria-label="..." tabindex="0">`, and
+// give each `pre` a `tabindex="0"`, so the keyboard can scroll them. It holds
+// no copy.
+import { cn } from "@/libs/utils"
+
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props
+---
+
+<div class={cn("mx-auto max-w-6xl px-8 py-20 xl:px-0 xl:py-24", className)}>
+  <div class="article">
+    <slot />
+  </div>
+</div>

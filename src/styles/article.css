@@ -4,8 +4,9 @@
  * (rendered Markdown fits), and styles the elements, so they need no classes.
  *
  * Tables need a `<div class="table-scroll">` around them: a table cannot scroll
- * sideways by itself without losing its column widths. Rendered Markdown will
- * need a plugin to add it; a bare table squeezes into the column instead.
+ * sideways by itself without losing its column widths. Markdown pages get
+ * it from src/libs/markdownScrollable.ts; a bare table squeezes into the column
+ * instead.
  */
 
 @keyframes article-fade {

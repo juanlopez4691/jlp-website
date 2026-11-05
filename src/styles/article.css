@@ -1,0 +1,241 @@
+/*
+ * Long-form text (legal pages, later the blog and case studies).
+ * Design: Penpot page "03 Content". `article` goes on the wrapper of plain HTML
+ * (rendered Markdown fits), and styles the elements, so they need no classes.
+ *
+ * Tables need a `<div class="table-scroll">` around them: a table cannot scroll
+ * sideways by itself without losing its column widths. Rendered Markdown will
+ * need a plugin to add it; a bare table squeezes into the column instead.
+ */
+
+@keyframes article-fade {
+  0%,
+  96% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@utility article {
+  @apply max-w-prose text-lg leading-normal wrap-break-word;
+
+  & > * + * {
+    @apply mt-6;
+  }
+  & > * + h2 {
+    @apply mt-10;
+  }
+  & > * + h3 {
+    @apply mt-8;
+  }
+  & > h2 + * {
+    @apply mt-4;
+  }
+  & > h3 + * {
+    @apply mt-3;
+  }
+  & > :is(h4, h5, h6) + * {
+    @apply mt-2;
+  }
+  & > hr,
+  & > hr + * {
+    @apply mt-8;
+  }
+  /* The "last updated" line sits close to the h1, apart from the body. */
+  & > h1 + :has(> small:only-child) {
+    @apply mt-2;
+  }
+  & > h1 + :has(> small:only-child) + * {
+    @apply mt-8;
+  }
+
+  & :is(h1, h2, h3, h4, h5, h6) {
+    @apply font-bold;
+  }
+  & :is(h1, h2, h3) {
+    @apply leading-tight;
+  }
+  & :is(h4, h5, h6) {
+    @apply leading-snug;
+  }
+  & h1 {
+    @apply text-4xl tracking-tight xl:text-5xl;
+  }
+  & h2 {
+    @apply text-3xl tracking-tight xl:text-4xl;
+  }
+  & h3 {
+    @apply text-2xl xl:text-3xl xl:tracking-tight;
+  }
+  & h4 {
+    @apply text-xl xl:text-2xl;
+  }
+  & h5 {
+    @apply text-xl;
+  }
+  & h6 {
+    @apply text-lg;
+  }
+
+  & small {
+    @apply text-sm;
+  }
+
+  & a {
+    @apply -mx-1 rounded box-decoration-clone px-1 py-0.5 underline underline-offset-4 visited:text-teal hover:bg-saffron focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-navy;
+  }
+
+  /* The icon of the IconExternalLink atom. Rendered Markdown cannot use the
+     component, so it is a mask, which follows the text color. */
+  & a[target="_blank"]::after {
+    @apply -my-px -mr-px ml-[7px] inline-block size-3.5 bg-current align-baseline forced-colors:bg-[CanvasText];
+    content: "";
+    mask: url("../assets/icons/link-external.svg") center / contain no-repeat;
+  }
+
+  /* An empty marker, not `none`: Safari drops the list semantics with `none`. */
+  & :is(ul, ol) {
+    list-style-type: "";
+  }
+  & li {
+    @apply relative pl-5;
+  }
+  & li::before {
+    @apply absolute left-0 w-4 whitespace-nowrap;
+  }
+  /* A drawn circle: "●" is not in Figtree, and a fallback font draws it larger. */
+  & ul > li::before {
+    @apply top-[calc(0.5lh-0.25rem)] left-0.5 size-2 rounded-full bg-current forced-colors:bg-[CanvasText];
+    content: "";
+  }
+  & ol > li::before {
+    content: counter(list-item, decimal) ".";
+  }
+  & ol ol > li::before {
+    content: counter(list-item, lower-alpha) ".";
+  }
+  /* Two-digit markers do not fit the 16px box. A list with `start` may have them. */
+  & :is(ol:has(> li:nth-child(10)), ol[start]) > li {
+    @apply pl-7;
+  }
+  & li + li {
+    @apply mt-2;
+  }
+  & li > * + *,
+  & li > :is(ul, ol) {
+    @apply mt-2;
+  }
+  & li li + li {
+    @apply mt-1;
+  }
+
+  & dt {
+    @apply font-semibold;
+  }
+  & dd {
+    @apply ml-5;
+  }
+  & dd + dt {
+    @apply mt-4;
+  }
+
+  & blockquote {
+    @apply border-l-4 border-saffron bg-white p-4 text-xl leading-snug font-light xl:text-2xl;
+  }
+  & blockquote > * + * {
+    @apply mt-3;
+  }
+  & blockquote :is(footer, cite) {
+    @apply text-sm leading-normal font-normal not-italic;
+  }
+
+  & pre {
+    @apply rounded-lg bg-navy text-sm leading-normal text-mint;
+  }
+  /* The padding is here so the fade sits on the edge of the `pre`: browsers differ on whether sticky counts the padding of the scroller. */
+  & pre code,
+  & pre:not(:has(code)) {
+    @apply p-6;
+  }
+
+  /*
+   * Both scroll inside their own box and fade at the right edge while there is
+   * more to scroll. Animation longhands: the minifier merges the shorthand and
+   * `animation-timeline` into a value browsers reject. With no overflow, or no
+   * support for scroll timelines, the fade stays at opacity 0.
+   */
+  & :is(pre, .table-scroll) {
+    @apply flex overflow-x-auto focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy;
+    scrollbar-width: thin;
+  }
+  & pre {
+    scrollbar-color: var(--color-mint) transparent;
+  }
+  & .table-scroll {
+    scrollbar-color: var(--color-teal) transparent;
+  }
+  & :is(pre, .table-scroll)::after {
+    @apply sticky right-0 shrink-0 bg-linear-to-r from-transparent opacity-0;
+    content: "";
+    animation-name: article-fade;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: scroll(inline);
+  }
+  & pre::after {
+    @apply -ml-10 w-10 to-navy;
+  }
+  & .table-scroll::after {
+    @apply -ml-8 w-8 to-mint;
+  }
+
+  & table {
+    @apply w-full table-fixed text-left;
+  }
+  & .table-scroll table {
+    @apply min-w-160;
+  }
+  /* 160px per column: `table-fixed` ignores `min-width` on cells. */
+  & .table-scroll table:has(th:nth-child(5)) {
+    @apply min-w-200;
+  }
+  & .table-scroll table:has(th:nth-child(6)) {
+    @apply min-w-240;
+  }
+  & .table-scroll table:has(th:nth-child(7)) {
+    @apply min-w-280;
+  }
+  & .table-scroll table:has(th:nth-child(8)) {
+    @apply min-w-320;
+  }
+  & th {
+    @apply font-semibold;
+  }
+  & :is(th, td) {
+    @apply px-4 py-3;
+  }
+  & tr {
+    @apply border-b border-ink;
+  }
+  & caption {
+    @apply pb-2 text-left text-sm font-semibold;
+  }
+
+  & hr {
+    @apply border-ink;
+  }
+
+  & img {
+    @apply w-full rounded-lg;
+  }
+  & figcaption {
+    @apply mt-2 text-sm leading-normal;
+  }
+
+  /* Astro's footnotes: a section with a visually hidden h2, then the list. */
+  & [data-footnotes] {
+    @apply mt-8 border-t border-ink pt-8 text-sm leading-normal;
+  }
+}

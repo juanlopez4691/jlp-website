@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config"
 import { satteri } from "@astrojs/markdown-satteri"
 import tailwindcss from "@tailwindcss/vite"
+import { markdownHeadingIds } from "./src/libs/markdownHeadingIds"
 import { markdownLanguage } from "./src/libs/markdownLanguage"
 import { markdownScrollable } from "./src/libs/markdownScrollable"
 
@@ -12,7 +13,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: false,
     processor: satteri({
-      hastPlugins: [markdownScrollable, markdownLanguage],
+      hastPlugins: [markdownScrollable, markdownLanguage, markdownHeadingIds],
     }),
   },
   // Keep in sync with src/i18n/index.ts.

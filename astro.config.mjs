@@ -4,6 +4,9 @@ import tailwindcss from "@tailwindcss/vite"
 
 // https://astro.build/config
 export default defineConfig({
+  // The default highlighter writes inline `style` attributes, which the CSP
+  // blocks and which override the code block colors.
+  markdown: { syntaxHighlight: false },
   // Keep in sync with src/i18n/index.ts.
   i18n: {
     locales: ["es", "en"],

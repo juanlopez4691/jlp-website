@@ -16,7 +16,8 @@ The design is the source of truth. Do not invent layout, sizes or copy.
   relative one, because worktrees can live elsewhere (Orca puts them in
   `~/orca/workspaces/`). Read `README.md`, `tokens.json` and
   `components/<Name>/README.md` before building a component.
-- Penpot file: pages `00 Foundations`, `01 Components` and `02 Home`.
+- Penpot file: pages `00 Foundations`, `01 Components`, `02 Home` and
+  `03 Content`.
 - If the Penpot MCP tools are not loaded in your session, use
   `/Users/joanlopez/Projects/personal/scripts/penpot.sh` on the host (not in Docker).
   Run it without arguments for usage. Read `high_level_overview` first, then
@@ -36,7 +37,7 @@ src/
 ├── i18n/         copy, one file per section in es/ and en/, and the helper
 ├── libs/         helpers, such as cn() in utils.ts
 ├── pages/        routes; [lang]/ holds the localized pages
-├── styles/       global.css and theme.css (Tailwind theme)
+├── styles/       global.css, theme.css (Tailwind theme) and article.css (long-form text)
 ├── assets/       images processed by Astro
 └── worker.ts     Cloudflare Worker: redirects `/` to the browser language
 public/_headers   response headers, including the CSP
@@ -92,8 +93,9 @@ reporting work as done.
 - **Colors and fonts** come from `theme.css`: saffron, coral, teal, mint, navy
   and ink; Familjen Grotesk for display, Figtree for text. Ink is the dark
   text, outline and button color and the footer background; navy is only for
-  the facts and stack blocks and the featured quote card. No gradients,
-  shadows or emoji.
+  the facts and stack blocks, the featured quote card, and code blocks and focus
+  in long-form text. No gradients, except the scroll fade of long-form
+  tables and code blocks, and no shadows or emoji.
 - **Text style.** Descriptions in cards and blocks (service card, work card,
   step, principle, job row, regular quote, hero lead) are `text-lg` (18px),
   `leading-normal`; the work card body keeps `leading-relaxed`. The company

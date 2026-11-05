@@ -1,7 +1,9 @@
 @import "tailwindcss";
 @import "@fontsource-variable/familjen-grotesk";
 @import "@fontsource-variable/figtree";
+@import "@fontsource-variable/figtree/wght-italic.css";
 @import "./theme.css";
+@import "./article.css";
 
 @layer base {
   body {

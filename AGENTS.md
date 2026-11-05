@@ -33,6 +33,7 @@ The design is the source of truth. Do not invent layout, sizes or copy.
 ```
 src/
 ├── components/   atoms/, molecules/, blocks/ (PascalCase, same name as the design)
+├── content/      long-form pages in Markdown, as pages/<lang>/<slug>.md
 ├── layouts/      Main.astro, the HTML shell
 ├── i18n/         copy, one file per section in es/ and en/, and the helper
 ├── libs/         helpers, such as cn() in utils.ts
@@ -118,6 +119,26 @@ reporting work as done.
   images and fonts. No inline `<style>` or `<script>`, no external hosts, no
   third-party scripts. `astro.config.mjs` keeps stylesheets as separate files
   for this reason.
+- **Long-form pages** (legal pages, later the blog) are the one exception to
+  copy living in `src/i18n/`: each is a Markdown file in
+  `src/content/pages/<lang>/<slug>.md`, with `title` and `updated` in the
+  frontmatter (and `noindex: true` to keep a page out of search engines after
+  launch, as the `content-test` reference pages do), and `src/pages/[lang]/[slug].astro` renders it inside `Content`.
+  The h1 and the "last updated" line come from the frontmatter, so the body
+  starts at the first h2. What Markdown cannot write (definition lists, table
+  and figure captions, a blockquote attribution) is raw HTML in the file.
+  Two plugins handle Markdown, and neither sees raw HTML.
+  `src/libs/markdownScrollable.ts` wraps tables in `.table-scroll`, adds
+  `tabindex` to tables and code blocks, and moves column alignment to classes,
+  so a raw table needs its own wrapper and a raw `pre` its own `tabindex`.
+  `src/libs/markdownLanguage.ts` gives external Markdown links a new tab and the
+  `navigation.newTab` hint, and translates the footnote labels, so a raw external
+  link needs its own `target`, `rel` and hint. `article.css` draws the icon of
+  the `IconExternalLink` atom on any link with `target="_blank"`. Syntax
+  highlighting stays off for the CSP. The page copy is `contentPage`, with no
+  `satisfies PageCopy`, because the title comes from the frontmatter. Astro
+  caches rendered content: after changing a plugin, delete
+  `.astro/data-store.json` and `node_modules/.astro/data-store.json`.
 - **Languages.** Spanish (default) and English, at `/es/` and `/en/`, with
   Astro's i18n routing. `/` is the only path that runs the Worker
   (`src/worker.ts`): it redirects with a 302 to the first language in the
@@ -147,7 +168,8 @@ reporting work as done.
   list replaces the whole list, and `navigation` cannot be overridden. Build
   links with `getRelativeLocaleUrl` from `astro:i18n`. Adding a language means
   updating `astro.config.mjs`, `src/i18n/index.ts` and `pickLocale` in
-  `src/worker.ts`, and creating its folder with the same files.
+  `src/worker.ts`, creating its folders with the same files, here and in
+  `src/content/pages/`, and adding it to `src/libs/markdownLanguage.ts`.
 
 ## Git
 

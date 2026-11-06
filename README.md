@@ -108,9 +108,11 @@ docker compose exec app bun run lint
 | `deploy`       | On your machine       | Build and deploy to Cloudflare                  |
 | `prepare`      | Runs on `bun install` | Sets up the git hooks. You never run it by hand |
 
-`preview` and `deploy` start Wrangler. `deploy` needs your Cloudflare login,
-and the container only publishes the dev server's port, so run both with Bun on
-your machine (see Option B). Run `bun install` there first.
+`preview` and `deploy` start Wrangler. `deploy` needs your Cloudflare login, and
+the container only publishes the dev server's port, so run both with Bun on your
+machine (see Option B). Run `bun install` there first. Wrangler does not work in
+the container either: `node` there is a symlink to Bun, and under Bun it answers
+503 to every request.
 
 #### How it works
 

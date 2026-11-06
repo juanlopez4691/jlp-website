@@ -1,6 +1,7 @@
 ---
 title: Privacy policy
 updated: 2026-11-06
+translationKey: privacy
 ---
 
 This site collects very little. It does not ask you for data, build a profile of you, show ads, sell anything to anyone or store anything about you on your device. It only measures, in aggregate, how many people visit and how fast it loads. As on any site, whoever serves it receives your IP address. Here is what is processed, on what legal basis, and what you can ask of me.

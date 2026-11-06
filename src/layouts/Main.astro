@@ -2,15 +2,22 @@
 import "@/styles/global.css"
 import Footer from "@/components/blocks/Footer.astro"
 import Header from "@/components/blocks/Header.astro"
-import type { Locale } from "@/i18n"
+import type { Locale, Translations } from "@/i18n"
 
 interface Props {
   title: string
   /** Language of the page, set on the `<html>` element. */
   locale: Locale
+  /** The URL of this page in each language that has it. */
+  translations?: Translations
 }
 
-const { title, locale } = Astro.props
+const { title, locale, translations } = Astro.props
+
+const alternates = Object.entries(translations ?? {}).map(([code, path]) => ({
+  code,
+  href: new URL(path, Astro.site).href,
+}))
 ---
 
 <!doctype html>
@@ -20,10 +27,14 @@ const { title, locale } = Astro.props
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title>{title}</title>
+    {alternates.length > 1 &&
+      alternates.map((alternate) => (
+        <link rel="alternate" hreflang={alternate.code} href={alternate.href} />
+      ))}
     <slot name="head" />
   </head>
   <body class="flex min-h-svh flex-col">
-    <Header locale={locale} />
+    <Header locale={locale} translations={translations} />
     <slot />
     <Footer locale={locale} />
   </body>

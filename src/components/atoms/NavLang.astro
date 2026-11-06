@@ -1,17 +1,25 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n"
 import { cn } from "@/libs/utils"
-import { locales, useTranslations, type Dictionary, type Locale } from "@/i18n"
+import { homeUrl } from "@/libs/translations"
+import {
+  locales,
+  useTranslations,
+  type Dictionary,
+  type Locale,
+  type Translations,
+} from "@/i18n"
 
 interface Props {
   /** Language of the current page. */
   locale: Locale
+  /** The URL of this page in each language that has it. */
+  translations?: Translations
   /** Replaces part of this component's default copy on one page. */
   copy?: Partial<Dictionary["navLang"]>
   class?: string
 }
 
-const { locale, copy, class: className } = Astro.props
+const { locale, copy, translations, class: className } = Astro.props
 const navLang = { ...useTranslations(locale, "navLang"), ...copy }
 ---
 
@@ -23,7 +31,7 @@ const navLang = { ...useTranslations(locale, "navLang"), ...copy }
     <>
       {index > 0 && <span aria-hidden="true">/</span>}
       <a
-        href={getRelativeLocaleUrl(code)}
+        href={translations?.[code] ?? homeUrl(code)}
         hreflang={code}
         lang={code}
         aria-current={code === locale ? "page" : undefined}

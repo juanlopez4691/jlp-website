@@ -1,6 +1,7 @@
 ---
 title: Política de cookies
 updated: 2026-11-06
+translationKey: cookies
 ---
 
 Este sitio no guarda nada sobre ti en tu navegador: ni cookies, ni almacenamiento local, ni identificadores. Su única medición en el navegador se acoge a la exención de consentimiento de la Agencia Española de Protección de Datos. Por eso no verás ningún aviso de cookies. Esta página explica qué hace el sitio, qué medición usa y por qué la ley no obliga a pedirte permiso.

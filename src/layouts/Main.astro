@@ -19,6 +19,10 @@ const alternates = Object.entries(translations ?? {}).map(([code, path]) => ({
   code,
   href: new URL(path, Astro.site).href,
 }))
+
+// `translations` holds the URL of this page as it is served. A page with none,
+// such as the 404, has no canonical.
+const canonical = alternates.find(({ code }) => code === locale)?.href
 ---
 
 <!doctype html>
@@ -28,6 +32,7 @@ const alternates = Object.entries(translations ?? {}).map(([code, path]) => ({
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title>{title}</title>
+    {canonical && <link rel="canonical" href={canonical} />}
     {alternates.length > 1 &&
       alternates.map((alternate) => (
         <link rel="alternate" hreflang={alternate.code} href={alternate.href} />

@@ -1,3 +1,4 @@
+import type { CollectionEntry } from "astro:content"
 import { getRelativeLocaleUrl } from "astro:i18n"
 import type { Locale, Translations } from "@/i18n"
 
@@ -13,34 +14,24 @@ export function homeUrl(locale: Locale) {
   return `${getRelativeLocaleUrl(locale)}/`
 }
 
-/** The smallest shape of a page that `getTranslations` needs. */
-interface Entry {
-  /** `<lang>/<slug>`, as the content loader builds it. */
-  id: string
-  data: {
-    /** Pages that share a key are translations of each other. */
-    translationKey?: string
-  }
-}
-
 /**
- * The URL of a page in each language that has it, itself included. A page with
- * no `translationKey` is alone: it does not match other keyless pages.
+ * The URL of a page in each language that has it, itself included, built as
+ * `/<lang>/<slug>`. A page with no `translationKey` is alone: it does not match
+ * other keyless pages.
  *
  * @param page - The page being rendered.
  * @param pages - Every page that could translate it.
  *
  * @returns A URL per language, with no trailing slash on pages.
  */
-export function getTranslations(page: Entry, pages: Entry[]): Translations {
+export function getTranslations(
+  page: CollectionEntry<"pages">,
+  pages: CollectionEntry<"pages">[]
+): Translations {
   const key = page.data.translationKey
-  const entries = [
-    page,
-    ...pages.filter(
-      (entry) =>
-        entry !== page && key !== undefined && entry.data.translationKey === key
-    ),
-  ]
+  const entries = key
+    ? pages.filter((entry) => entry.data.translationKey === key)
+    : [page]
 
   const translations: Translations = {}
 

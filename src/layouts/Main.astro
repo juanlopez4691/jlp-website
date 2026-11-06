@@ -14,6 +14,7 @@ interface Props {
 
 const { title, locale, translations } = Astro.props
 
+// `translations` includes the page itself, so a page with no translation has one entry.
 const alternates = Object.entries(translations ?? {}).map(([code, path]) => ({
   code,
   href: new URL(path, Astro.site).href,

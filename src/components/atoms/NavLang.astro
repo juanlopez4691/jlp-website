@@ -1,6 +1,6 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n"
 import { cn } from "@/libs/utils"
-import { homeUrl } from "@/libs/translations"
 import {
   locales,
   useTranslations,
@@ -31,7 +31,7 @@ const navLang = { ...useTranslations(locale, "navLang"), ...copy }
     <>
       {index > 0 && <span aria-hidden="true">/</span>}
       <a
-        href={translations?.[code] ?? homeUrl(code)}
+        href={translations?.[code] ?? getRelativeLocaleUrl(code)}
         hreflang={code}
         lang={code}
         aria-current={

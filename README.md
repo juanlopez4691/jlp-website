@@ -220,9 +220,10 @@ The site is served at `http://localhost:4321`, without HTTPS.
 
 ## Languages
 
-The site is in Spanish (`/es/`, the default) and English (`/en/`), using
+The site is in Spanish (`/es`, the default) and English (`/en`), using
 [Astro's i18n routing](https://docs.astro.build/en/guides/internationalization/).
-The root `/` redirects to `/es/`.
+The root `/` redirects to `/es` or `/en`, following the browser language
+(always `/es` in `bun run dev`).
 
 All copy lives in `src/i18n/es/` and `src/i18n/en/`, one file per section, such
 as `hero.ts` or `footer.ts`. Each `en/` file is typed against its `es/`

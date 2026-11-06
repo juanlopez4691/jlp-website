@@ -146,7 +146,7 @@ A sentence with a footnote.[^1] And a second one.[^2]
 
 ### A heading with [a link](https://example.com/h) inside
 
-Broken [bad](http://), upper [UP](HTTPS://EXAMPLE.COM), protocol [rel](//example.com/x), [mail](mailto:a@b.c), [own](https://lojopez.dev/x) and [relative](/es/).
+Broken [bad](http://), upper [UP](HTTPS://EXAMPLE.COM), protocol [rel](//example.com/x), [mail](mailto:a@b.c), [own](https://lojopez.dev/x) and [relative](/es).
 
 ## Many columns
 

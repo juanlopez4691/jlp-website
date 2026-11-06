@@ -57,7 +57,7 @@ export default {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: new URL(`/${locale}/`, request.url).href,
+        Location: new URL(`/${locale}`, request.url).href,
         Vary: "Accept-Language",
       },
     })

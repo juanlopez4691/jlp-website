@@ -1,6 +1,7 @@
 ---
 title: Política de privacidad
 updated: 2026-11-06
+translationKey: privacy
 ---
 
 Este sitio recoge muy poco. No te pide datos, no crea un perfil sobre ti, no muestra publicidad, no vende nada a nadie y no guarda nada sobre ti en tu dispositivo. Solo mide de forma agregada cuánta gente lo visita y cómo carga. Como en cualquier sitio, quien lo sirve recibe tu dirección IP. Aquí tienes qué se trata, con qué base jurídica y qué puedes pedirme.

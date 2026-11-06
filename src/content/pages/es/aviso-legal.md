@@ -1,6 +1,7 @@
 ---
 title: Aviso legal
 updated: 2026-11-03
+translationKey: legal-notice
 ---
 
 ## Titular del sitio web

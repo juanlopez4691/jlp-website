@@ -1,6 +1,7 @@
 ---
 title: Legal notice
 updated: 2026-11-03
+translationKey: legal-notice
 ---
 
 ## Website owner

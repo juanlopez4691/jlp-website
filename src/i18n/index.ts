@@ -10,6 +10,12 @@ export const locales = ["es", "en"] as const
 
 export type Locale = (typeof locales)[number]
 
+/**
+ * The URL of a page in each language that has it, keyed by language. A page
+ * with no translation in a language has no entry for it.
+ */
+export type Translations = Partial<Record<Locale, string>>
+
 export const defaultLocale: Locale = "es"
 
 /**

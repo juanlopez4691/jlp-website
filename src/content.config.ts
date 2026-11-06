@@ -7,6 +7,8 @@ const pages = defineCollection({
   loader: glob({ pattern: "*/*.md", base: "./src/content/pages" }),
   schema: z.object({
     title: z.string(),
+    // Pages that share a key are translations of each other.
+    translationKey: z.string().optional(),
     updated: z.coerce.date(),
     noindex: z.boolean().default(false),
   }),

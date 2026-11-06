@@ -4,17 +4,24 @@ import MenuButton from "@/components/atoms/MenuButton.astro"
 import NavLang from "@/components/atoms/NavLang.astro"
 import NavLink from "@/components/atoms/NavLink.astro"
 import { cn } from "@/libs/utils"
-import { useTranslations, type Dictionary, type Locale } from "@/i18n"
+import {
+  useTranslations,
+  type Dictionary,
+  type Locale,
+  type Translations,
+} from "@/i18n"
 
 interface Props {
   /** Language of the current page. */
   locale: Locale
+  /** The URL of this page in each language that has it. */
+  translations?: Translations
   /** Replaces part of this component's default copy on one page. */
   copy?: Partial<Dictionary["header"]>
   class?: string
 }
 
-const { locale, copy, class: className } = Astro.props
+const { locale, translations, copy, class: className } = Astro.props
 const header = { ...useTranslations(locale, "header"), ...copy }
 const navigation = useTranslations(locale, "navigation")
 const home = getRelativeLocaleUrl(locale)
@@ -39,7 +46,11 @@ const links = Object.entries(navigation.sections).map(([anchor, label]) => ({
       ))}
     </nav>
 
-    <NavLang locale={locale} class="font-semibold" />
+    <NavLang
+      locale={locale}
+      translations={translations}
+      class="font-semibold"
+    />
 
     <MenuButton
       data-menu-toggle
@@ -55,7 +66,11 @@ const links = Object.entries(navigation.sections).map(([anchor, label]) => ({
     class="fixed inset-0 size-full max-h-none max-w-none flex-col overflow-y-auto bg-saffron open:flex lg:hidden"
   >
     <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-8 py-8">
-      <NavLang locale={locale} class="font-semibold" />
+      <NavLang
+        locale={locale}
+        translations={translations}
+        class="font-semibold"
+      />
       <MenuButton
         data-menu-toggle
         label={header.closeMenu}

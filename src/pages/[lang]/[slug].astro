@@ -3,6 +3,7 @@ import type { InferGetStaticPropsType } from "astro"
 import { getCollection, render } from "astro:content"
 import Main from "@/layouts/Main.astro"
 import Content from "@/components/blocks/Content.astro"
+import { getTranslations } from "@/libs/translations"
 import { isLocale, useTranslations } from "@/i18n"
 
 export async function getStaticPaths() {
@@ -11,7 +12,10 @@ export async function getStaticPaths() {
   return pages.map((page) => {
     const [lang, slug] = page.id.split("/")
 
-    return { params: { lang, slug }, props: { page } }
+    return {
+      params: { lang, slug },
+      props: { page, translations: getTranslations(page, pages) },
+    }
   })
 }
 
@@ -32,7 +36,11 @@ const date = new Intl.DateTimeFormat(lang, {
 }).format(updated)
 ---
 
-<Main title={`${title} | ${contentPage.siteName}`} locale={lang}>
+<Main
+  title={`${title} | ${contentPage.siteName}`}
+  locale={lang}
+  translations={Astro.props.translations}
+>
   {noindex && <meta slot="head" name="robots" content="noindex, nofollow" />}
   <main class="flex-1">
     <Content>

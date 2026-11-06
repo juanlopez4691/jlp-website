@@ -21,7 +21,7 @@ Este sitio recoge muy poco. No te pide datos, no crea un perfil sobre ti, no mue
 
 ## Recomendaciones de terceros
 
-La sección de recomendaciones muestra el nombre, el cargo, la foto y el texto que cada persona publicó en su perfil público de LinkedIn, o una traducción, con un enlace a ese perfil. Los publico para que quien visite el sitio pueda ver qué dicen de mi trabajo las personas con las que he colaborado. Si eres una de ellas y quieres que cambie o retire algo, escríbeme.
+La sección de recomendaciones muestra el nombre, el cargo, la foto y el texto que cada persona publicó en su perfil público de LinkedIn (o una traducción) con un enlace a ese perfil. Los publico para que quien visite el sitio pueda ver qué dicen de mi trabajo las personas con las que he colaborado. Si eres una de ellas y quieres que cambie o retire algo, escríbeme.
 
 ## Decisiones automatizadas
 

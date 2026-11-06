@@ -125,6 +125,9 @@ reporting work as done.
   frontmatter (and `noindex: true` to keep a page out of search engines after
   launch, as the `content-test` reference pages do), and `src/pages/[lang]/[slug].astro`
   renders it inside `Content`.
+  Pages that translate each other share a `translationKey` in the frontmatter,
+  which gives them their `alternate` links and the target of the language
+  switcher.
   The h1 and the "last updated" line come from the frontmatter, so the body
   has no h1. It starts at the first h2, or at an intro paragraph above it.
   What Markdown cannot write (definition lists, table and figure captions, a

@@ -1,6 +1,7 @@
 ---
 title: Test page
 updated: 2026-11-04
+translationKey: content-test
 noindex: true
 ---
 

@@ -3,18 +3,6 @@ import { getRelativeLocaleUrl } from "astro:i18n"
 import type { Locale, Translations } from "@/i18n"
 
 /**
- * The home of a language. `getRelativeLocaleUrl` drops the final slash, and
- * without it Cloudflare answers with a redirect.
- *
- * @param locale - The language whose home to link.
- *
- * @returns The root-relative URL of that home, with its final slash.
- */
-export function homeUrl(locale: Locale) {
-  return `${getRelativeLocaleUrl(locale)}/`
-}
-
-/**
  * The URL of a page in each language that has it, itself included, built as
  * `/<lang>/<slug>`. A page with no `translationKey` is alone: it does not match
  * other keyless pages.
@@ -22,7 +10,7 @@ export function homeUrl(locale: Locale) {
  * @param page - The page being rendered.
  * @param pages - Every page that could translate it.
  *
- * @returns A URL per language, with no trailing slash on pages.
+ * @returns A URL per language, with no trailing slash.
  */
 export function getTranslations(
   page: CollectionEntry<"pages">,

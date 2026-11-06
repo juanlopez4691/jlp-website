@@ -10,8 +10,8 @@ import ContactBlock from "@/components/blocks/ContactBlock.astro"
 import QuoteBlock from "@/components/blocks/QuoteBlock.astro"
 import WorkBlock from "@/components/blocks/WorkBlock.astro"
 import RecommendationsBlock from "@/components/blocks/RecommendationsBlock.astro"
+import { getRelativeLocaleUrl } from "astro:i18n"
 import { isLocale, locales, useTranslations, type Translations } from "@/i18n"
-import { homeUrl } from "@/libs/translations"
 
 export function getStaticPaths() {
   return locales.map((lang) => ({ params: { lang } }))
@@ -26,7 +26,7 @@ if (!isLocale(lang)) {
 const homePage = useTranslations(lang, "homePage")
 
 const translations: Translations = Object.fromEntries(
-  locales.map((code) => [code, homeUrl(code)])
+  locales.map((code) => [code, getRelativeLocaleUrl(code)])
 )
 ---
 

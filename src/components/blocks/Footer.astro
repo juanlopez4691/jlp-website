@@ -60,7 +60,7 @@ const externalLinks: FooterLink[] = [
 
 const legalLinks: FooterLink[] = navigation.legal.map(({ label, slug }) => ({
   label,
-  href: getRelativeLocaleUrl(locale, `${slug}/`),
+  href: getRelativeLocaleUrl(locale, slug),
 }))
 ---
 

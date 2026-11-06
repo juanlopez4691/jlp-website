@@ -149,17 +149,17 @@ reporting work as done.
   `satisfies PageCopy`, because the title comes from the frontmatter. Astro
   caches rendered content: after changing a plugin, delete
   `.astro/data-store.json` and `node_modules/.astro/data-store.json`.
-- **Languages.** Spanish (default) and English, at `/es/` and `/en/`, with
+- **Languages.** Spanish (default) and English, at `/es` and `/en`, with
   Astro's i18n routing. `/` is the only path that runs the Worker
   (`src/worker.ts`): it redirects with a 302 to the first language in the
   browser's `Accept-Language` that the site has (Catalan reads Spanish),
-  otherwise to `/en/`. Any other missing path never reaches the Worker:
+  otherwise to `/en`. Any other missing path never reaches the Worker:
   `not_found_handling: "404-page"` in `wrangler.jsonc` serves the nearest
   `404.html` with status 404, so `/es/<missing>` gets `src/pages/[lang]/404.astro`
   in Spanish and `/en/<missing>` in English. Cloudflare only finds a flat
   `<lang>/404.html`, which is why `astro.config.mjs` sets
   `build.format: "preserve"`. In `bun run dev` no Worker runs, `/` goes to
-  `/es/`, and missing paths get Astro's default 404. Pages live in
+  `/es`, and missing paths get Astro's default 404. Pages live in
   `src/pages/[lang]/`. All copy is in `src/i18n/es/` and `src/i18n/en/`, one
   file per section, and each `en/` file is typed against its `es/` counterpart,
   so keys cannot drift: the `es/` file exports its shape as `<Name>Copy`

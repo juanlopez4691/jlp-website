@@ -3,7 +3,7 @@ title: Privacy policy
 updated: 2026-11-06
 ---
 
-This site collects very little. It does not ask you for data, build a profile of you, show ads, sell anything to anyone or store anything on your device. It only measures, in aggregate, how many people visit and how fast it loads. As on any site, whoever serves it receives your IP address. Here is what is processed, on what legal basis, and what you can ask of me.
+This site collects very little. It does not ask you for data, build a profile of you, show ads, sell anything to anyone or store anything about you on your device. It only measures, in aggregate, how many people visit and how fast it loads. As on any site, whoever serves it receives your IP address. Here is what is processed, on what legal basis, and what you can ask of me.
 
 ## Data controller
 
@@ -17,7 +17,7 @@ This site collects very little. It does not ask you for data, build a profile of
 - **If you email me.** The site has no forms. The only way to send me data is to write to [hello@lojopez.dev](mailto:hello@lojopez.dev) directly. In that case I process your email address, your name if you include it, and the content of the message, only to read it and reply. Writing to me is optional: if you do not, the site works the same.
 - **Technical data of your visit.** Every website receives the data your browser sends to request a page: your IP address, the address of the page, the browser type and the time. On this site Cloudflare receives it, because it serves the site, and uses it to deliver the page and protect the service from attacks. Cloudflare's dashboard shows me some of it, such as the IP addresses with the most requests.
 - **Aggregate statistics.** I use two Cloudflare tools. Domain Analytics shows traffic figures, such as requests, page views, visitors by country, errors, the most requested pages and the IP addresses with the most requests. Web Analytics measures how the site is used and how it performs, such as page views, visits, country, browser type and load times. According to Cloudflare, Web Analytics uses no cookies or local storage and does not identify individuals. Apart from the list of IP addresses with the most requests (see "[IP addresses](#ip-addresses)" below), I see aggregate figures in the dashboards.
-- **Language.** The language is decided by the address of the page (`/es/` or `/en/`). If you arrive at the root of the site, the server reads the language your browser sends (the `Accept-Language` header) only to redirect you to `/es/` or `/en/`. I do not store it anywhere. For the technical detail, see the [cookie policy](/en/cookies).
+- **Language.** The language is decided by the address of the page (`/es` or `/en`). If you arrive at the root of the site, the server reads the language your browser sends (the `Accept-Language` header) only to redirect you to `/es` or `/en`. I do not store it anywhere. For what the site stores in your browser, see the [cookie policy](/en/cookies).
 
 ## Third-party recommendations
 

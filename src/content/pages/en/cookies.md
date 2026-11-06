@@ -1,6 +1,7 @@
 ---
 title: Cookie policy
 updated: 2026-11-06
+translationKey: cookies
 ---
 
 This site stores nothing about you in your browser: no cookies, no local storage, no identifiers. Its only in-browser measurement relies on the consent exemption from the Spanish Data Protection Agency. That is why you will not see a cookie banner. This page explains what the site does, what measurement it uses and why the law does not require me to ask for your permission.

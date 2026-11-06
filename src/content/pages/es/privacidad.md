@@ -3,7 +3,7 @@ title: Política de privacidad
 updated: 2026-11-06
 ---
 
-Este sitio recoge muy poco. No te pide datos, no crea un perfil sobre ti, no muestra publicidad, no vende nada a nadie y no guarda nada en tu dispositivo. Solo mide de forma agregada cuánta gente lo visita y cómo carga. Como en cualquier sitio, quien lo sirve recibe tu dirección IP. Aquí tienes qué se trata, con qué base jurídica y qué puedes pedirme.
+Este sitio recoge muy poco. No te pide datos, no crea un perfil sobre ti, no muestra publicidad, no vende nada a nadie y no guarda nada sobre ti en tu dispositivo. Solo mide de forma agregada cuánta gente lo visita y cómo carga. Como en cualquier sitio, quien lo sirve recibe tu dirección IP. Aquí tienes qué se trata, con qué base jurídica y qué puedes pedirme.
 
 ## Responsable del tratamiento
 
@@ -17,7 +17,7 @@ Este sitio recoge muy poco. No te pide datos, no crea un perfil sobre ti, no mue
 - **Si me escribes un correo.** El sitio no tiene formularios. La única forma de enviarme datos es escribirme directamente a [hello@lojopez.dev](mailto:hello@lojopez.dev). En ese caso trato tu dirección de correo, tu nombre si lo incluyes y el contenido del mensaje, solo para leerlo y responderte. Escribirme es opcional: si no lo haces, el sitio funciona igual.
 - **Datos técnicos de la visita.** Cualquier sitio web recibe los datos que tu navegador envía para pedir una página: tu dirección IP, la dirección de la página, el tipo de navegador y la hora. En este sitio los recibe Cloudflare, que lo sirve, y los usa para entregarte la página y proteger el servicio de ataques. El panel de Cloudflare me muestra algunos de ellos, como las direcciones IP con más peticiones.
 - **Estadísticas agregadas.** Uso dos herramientas de Cloudflare. Analytics del dominio muestra cifras de tráfico, como peticiones, páginas vistas, visitantes por país, errores, las páginas más pedidas y las direcciones IP con más peticiones. Web Analytics mide el uso del sitio y su rendimiento, como las páginas vistas, las visitas, el país, el tipo de navegador y los tiempos de carga. Según Cloudflare, Web Analytics no usa cookies ni almacenamiento local y no identifica a personas concretas. Salvo la lista de direcciones IP con más peticiones (mira "[Direcciones IP](#direcciones-ip)" más abajo), en los paneles veo cifras agregadas.
-- **Idioma.** El idioma se decide por la dirección de la página (`/es/` o `/en/`). Si entras por la raíz del sitio, el servidor lee el idioma que envía tu navegador (la cabecera `Accept-Language`) solo para redirigirte a `/es/` o `/en/`. No lo guardo en ningún sitio. Para el detalle técnico, mira la [política de cookies](/es/cookies).
+- **Idioma.** El idioma se decide por la dirección de la página (`/es` o `/en`). Si entras por la raíz del sitio, el servidor lee el idioma que envía tu navegador (la cabecera `Accept-Language`) solo para redirigirte a `/es` o `/en`. No lo guardo en ningún sitio. Para saber qué guarda el sitio en tu navegador, mira la [política de cookies](/es/cookies).
 
 ## Recomendaciones de terceros
 

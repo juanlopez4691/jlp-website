@@ -34,7 +34,9 @@ const navLang = { ...useTranslations(locale, "navLang"), ...copy }
         href={translations?.[code] ?? homeUrl(code)}
         hreflang={code}
         lang={code}
-        aria-current={code === locale ? "page" : undefined}
+        aria-current={
+          code === locale && translations?.[code] ? "page" : undefined
+        }
         class={cn(
           "uppercase underline-offset-4 outline-ink focus-visible:outline-2 focus-visible:outline-offset-4",
           code === locale && "underline"

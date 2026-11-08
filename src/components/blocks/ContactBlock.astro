@@ -30,7 +30,7 @@ const navigation = useTranslations(locale, "navigation")
     className
   )}
 >
-  <div class="relative isolate mx-auto max-w-6xl px-8 xl:px-0">
+  <div class="group relative isolate mx-auto max-w-6xl px-8 xl:px-0">
     <Image
       src={telephones}
       alt=""
@@ -38,7 +38,7 @@ const navigation = useTranslations(locale, "navigation")
       densities={[1, 2]}
       format="avif"
       quality={35}
-      class="pointer-events-none absolute -top-18.5 right-0 -z-10 hidden h-auto w-157 md:block"
+      class="absolute -top-18.5 right-0 -z-10 hidden h-auto w-157 motion-safe:hover:animate-shake motion-safe:group-has-[[data-shake]:hover]:animate-shake md:block"
     />
     <SectionHeader
       tone="on-dark"
@@ -48,11 +48,12 @@ const navigation = useTranslations(locale, "navigation")
     />
     <a
       href={`mailto:${contact.address}`}
+      data-shake
       class="mt-4 inline-block text-3xl leading-none font-normal tracking-tight wrap-break-word text-saffron focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-saffron md:text-5xl xl:text-7xl"
     >
       {contact.address}
     </a>
-    <div class="mt-10 flex flex-col gap-4 md:flex-row">
+    <div class="mt-10 flex flex-col gap-4 md:w-fit md:flex-row">
       <Button type="primary-on-dark" href={`mailto:${contact.address}`}>
         {contact.email}
       </Button>
@@ -66,7 +67,7 @@ const navigation = useTranslations(locale, "navigation")
         <span class="sr-only">{navigation.newTab}</span>
       </Button>
     </div>
-    <p class="mt-4 text-base leading-relaxed">{contact.note}</p>
+    <p class="mt-4 text-base leading-relaxed md:w-fit">{contact.note}</p>
   </div>
   {arrow && <SectionArrow color={arrow} />}
 </section>

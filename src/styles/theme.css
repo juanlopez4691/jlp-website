@@ -26,6 +26,21 @@
   --tracking-eyebrow: 1.84px;
   --tracking-tag: 1px;
   --tracking-fact: 0.75px;
+
+  --animate-shake: shake 400ms linear;
+  @keyframes shake {
+    10%,
+    50%,
+    90% {
+      translate: -3px 1px;
+      rotate: -1deg;
+    }
+    30%,
+    70% {
+      translate: 3px -1px;
+      rotate: 1deg;
+    }
+  }
 }
 
 /* Scroll animations. Outside @theme, which drops keyframes no --animate-* uses. */

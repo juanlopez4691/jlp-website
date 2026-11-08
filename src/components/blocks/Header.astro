@@ -152,18 +152,17 @@ const links = Object.entries(navigation.sections).map(([anchor, label]) => ({
       panel.addEventListener("close", syncExpanded)
     }
 
-    // Mark the section in view, in the bar and in the panel. Links to another
-    // page, such as Home from a legal page, are never marked.
+    // Mark the section in view. Links to another page are never marked.
     const sectionLinks = [
       ...header.querySelectorAll<HTMLAnchorElement>("a[data-nav-link]"),
     ].filter((link) => link.pathname === location.pathname)
-    const sections = sectionLinks
-      .map((link) => document.getElementById(link.hash.slice(1)))
+    const sections = [
+      ...new Set(sectionLinks.map((link) => link.hash.slice(1))),
+    ]
+      .map((id) => document.getElementById(id))
       .filter((section) => section !== null)
 
-    // The current section is the last one whose top has passed a third of the
-    // viewport; above them all is the top of the page (#home, no element).
-    // At the very bottom the last section wins, however short it is.
+    // Last section past a third of the viewport, or the last one at the bottom.
     const markSection = () => {
       const line = window.innerHeight / 3
       const atBottom =

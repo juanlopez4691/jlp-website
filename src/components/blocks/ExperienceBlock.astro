@@ -41,6 +41,7 @@ const position = (index: number): "first" | "middle" | "last" => {
           title={job.title}
           company={job.company}
           position={position(index)}
+          class="motion-safe:scroll-triggered:reveal"
         >
           {job.body}
         </JobRow>

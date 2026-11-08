@@ -20,7 +20,7 @@ const tones = {
 }
 ---
 
-<div class={cn(tones[tone], className)}>
+<div class={cn("motion-safe:scroll-triggered:reveal", tones[tone], className)}>
   <p class="text-sm leading-normal font-semibold tracking-eyebrow uppercase">
     {eyebrow}
   </p>

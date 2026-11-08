@@ -37,7 +37,7 @@ const quote = { ...useTranslations(locale, "quote"), ...copy }
   </div>
   {arrow && <SectionArrow color={arrow} />}
   <div class="relative mx-auto max-w-6xl px-8 xl:px-0">
-    <figure class="mx-auto md:max-w-160 lg:max-w-3xl xl:max-w-4xl">
+    <figure class="motion-safe:scroll-triggered:reveal mx-auto md:max-w-160 lg:max-w-3xl xl:max-w-4xl">
       <blockquote>
         <p class="text-2xl leading-tight tracking-tight md:text-3xl xl:text-4xl">
           {quote.text}

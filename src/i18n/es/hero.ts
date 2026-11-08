@@ -4,7 +4,8 @@ export const hero = {
   greeting: "Hola, soy",
   name: "Joan López",
   role: "Desarrollador web senior.",
-  tagline: "Forjo webs fiables con WordPress, WooCommerce, Laravel y Statamic.",
+  tagline:
+    "Forjo sitios web fiables con WordPress, WooCommerce, Laravel y Statamic.",
   lead: "Me encargo de la parte técnica, desde la arquitectura al lanzamiento, para que tu proyecto funcione desde el primer día y siga siendo rápido, seguro y fácil de mantener.",
   contact: "Cuéntame tu proyecto",
   imageAlt: "Grabado de un herrero en el yunque",

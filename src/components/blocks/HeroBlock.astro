@@ -1,6 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n"
-import { Image } from "astro:assets"
+import { getImage } from "astro:assets"
 import Button from "@/components/atoms/Button.astro"
 import Pill from "@/components/atoms/Pill.astro"
 import blacksmith from "@/assets/blacksmith.webp"
@@ -19,6 +19,18 @@ const { locale, copy, class: className } = Astro.props
 const hero = { ...useTranslations(locale, "hero"), ...copy }
 const navigation = useTranslations(locale, "navigation")
 const home = getRelativeLocaleUrl(locale)
+
+// Hidden below `lg`, where a blank GIF keeps it from downloading. `<Image>`
+// can only skip it with `loading="lazy"`, which delays the LCP.
+const image = await getImage({
+  src: blacksmith,
+  width: 656,
+  densities: [1, 2],
+  format: "avif",
+  quality: 35,
+})
+const blank =
+  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
 ---
 
 <section class={cn("bg-saffron pt-6 pb-16 md:pb-20", className)}>
@@ -48,15 +60,21 @@ const home = getRelativeLocaleUrl(locale)
         </Button>
       </div>
     </div>
-    <Image
-      src={blacksmith}
-      alt={hero.imageAlt}
-      width={656}
-      densities={[1, 2]}
-      format="avif"
-      quality={35}
-      fetchpriority="high"
-      class="hidden h-auto min-w-0 flex-1 lg:block"
-    />
+    <picture class="contents">
+      <source
+        media="(min-width: 1024px)"
+        srcset={image.srcSet.attribute}
+        type="image/avif"
+      />
+      <source srcset={blank} />
+      <img
+        src={image.src}
+        alt={hero.imageAlt}
+        width={image.attributes.width}
+        height={image.attributes.height}
+        fetchpriority="high"
+        class="hidden h-auto min-w-0 flex-1 lg:block"
+      />
+    </picture>
   </div>
 </section>

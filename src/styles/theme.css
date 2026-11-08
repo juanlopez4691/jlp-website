@@ -28,7 +28,7 @@
   --tracking-fact: 0.75px;
 }
 
-/* Header scroll animations. Outside @theme, which drops keyframes no --animate-* uses. */
+/* Scroll animations. Outside @theme, which drops keyframes no --animate-* uses. */
 @custom-variant scroll-driven (@supports (animation-timeline: scroll()));
 @utility scroll-linked {
   animation-timing-function: linear;
@@ -56,5 +56,76 @@
 @keyframes header-progress {
   to {
     scale: 1 1;
+  }
+}
+
+/* Reveal: fades and lifts an element once, when it scrolls into view. */
+@custom-variant scroll-triggered {
+  @media screen {
+    @supports (timeline-trigger: --reveal view()) {
+      @slot;
+    }
+  }
+}
+@utility reveal {
+  timeline-trigger: --reveal view(block auto 10%) entry 0% exit 100%;
+  animation-name: reveal;
+  animation-duration: 600ms;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+  animation-delay: var(--reveal-delay, 0ms);
+  animation-trigger: --reveal play-once;
+}
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 2rem;
+  }
+}
+/* Reveal stagger: on a grid list, delays each item by its column. */
+@utility reveal-stagger-2 {
+  @variant md {
+    & > :nth-child(even) {
+      --reveal-delay: 80ms;
+    }
+  }
+}
+@utility reveal-stagger-3 {
+  @variant md {
+    & > :nth-child(even) {
+      --reveal-delay: 80ms;
+    }
+  }
+  @variant lg {
+    & > :nth-child(3n + 1) {
+      --reveal-delay: 0ms;
+    }
+    & > :nth-child(3n + 2) {
+      --reveal-delay: 80ms;
+    }
+    & > :nth-child(3n) {
+      --reveal-delay: 160ms;
+    }
+  }
+}
+@utility reveal-stagger-4 {
+  @variant md {
+    & > :nth-child(even) {
+      --reveal-delay: 80ms;
+    }
+  }
+  @variant lg {
+    & > :nth-child(4n + 1) {
+      --reveal-delay: 0ms;
+    }
+    & > :nth-child(4n + 2) {
+      --reveal-delay: 80ms;
+    }
+    & > :nth-child(4n + 3) {
+      --reveal-delay: 160ms;
+    }
+    & > :nth-child(4n) {
+      --reveal-delay: 240ms;
+    }
   }
 }

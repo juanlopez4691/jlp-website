@@ -28,16 +28,16 @@ const process = { ...useTranslations(locale, "process"), ...copy }
   {arrow && <SectionArrow color={arrow} />}
   <div class="mx-auto max-w-6xl px-8 xl:px-0">
     <SectionHeader eyebrow={process.eyebrow} title={process.title} />
-    <ol class="mt-12 grid gap-8 md:grid-cols-2 md:gap-y-10 lg:grid-cols-4 lg:gap-x-10">
+    <ol class="reveal-stagger-4 mt-12 grid gap-8 md:grid-cols-2 md:gap-y-10 lg:grid-cols-4 lg:gap-x-10">
       {process.steps.map((step) => (
-        <li>
+        <li class="motion-safe:scroll-triggered:reveal">
           <Step title={step.title}>{step.body}</Step>
         </li>
       ))}
     </ol>
-    <ul class="mt-20 grid gap-6 md:grid-cols-2 md:gap-x-8 md:gap-y-10 lg:gap-x-10">
+    <ul class="reveal-stagger-2 mt-20 grid gap-6 md:grid-cols-2 md:gap-x-8 md:gap-y-10 lg:gap-x-10">
       {process.principles.map((principle) => (
-        <li>
+        <li class="motion-safe:scroll-triggered:reveal">
           <Principle title={principle.title}>{principle.body}</Principle>
         </li>
       ))}

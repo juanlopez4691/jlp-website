@@ -27,9 +27,9 @@ const tones = ["saffron", "coral", "teal", "teal", "saffron", "coral"] as const
   {arrow && <SectionArrow color={arrow} />}
   <div class="mx-auto max-w-6xl px-8 xl:px-0">
     <SectionHeader eyebrow={services.eyebrow} title={services.title} />
-    <ul class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <ul class="reveal-stagger-3 mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {services.items.map((item, index) => (
-        <li>
+        <li class="motion-safe:scroll-triggered:reveal">
           <ServiceCard tone={tones[index]} title={item.title}>
             {item.body}
           </ServiceCard>

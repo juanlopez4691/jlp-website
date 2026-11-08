@@ -55,7 +55,7 @@ const [featured, ...rest] = recommendations.items
       title={recommendations.title}
     />
     <div class="mt-12 flex flex-col gap-6">
-      <div class="rounded-[28px] bg-navy p-6 text-mint md:p-8 lg:p-12">
+      <div class="motion-safe:scroll-triggered:reveal rounded-[28px] bg-navy p-6 text-mint md:p-8 lg:p-12">
         <Quote
           featured
           name={featured.name}
@@ -69,9 +69,9 @@ const [featured, ...rest] = recommendations.items
           ))}
         </Quote>
       </div>
-      <ul class="grid gap-6 md:grid-cols-2">
+      <ul class="reveal-stagger-2 grid gap-6 md:grid-cols-2">
         {rest.map((item) => (
-          <li>
+          <li class="motion-safe:scroll-triggered:reveal">
             <div class="h-full rounded-[28px] bg-white p-6 md:p-8">
               <Quote
                 name={item.name}

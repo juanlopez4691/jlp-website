@@ -27,9 +27,9 @@ const work = { ...useTranslations(locale, "work"), ...copy }
   {arrow && <SectionArrow color={arrow} />}
   <div class="mx-auto max-w-6xl px-8 xl:px-0">
     <SectionHeader tone="on-dark" eyebrow={work.eyebrow} title={work.title} />
-    <ul class="mt-12 grid gap-6 md:grid-cols-2">
+    <ul class="reveal-stagger-2 mt-12 grid gap-6 md:grid-cols-2">
       {work.items.map((item) => (
-        <li>
+        <li class="motion-safe:scroll-triggered:reveal">
           <WorkCard
             client={item.client}
             title={item.title}
@@ -43,9 +43,9 @@ const work = { ...useTranslations(locale, "work"), ...copy }
       ))}
     </ul>
     <h3 class="mt-12 text-3xl leading-tight font-bold">{work.moreTitle}</h3>
-    <ul class="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <ul class="reveal-stagger-3 mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {work.more.map((item) => (
-        <li>
+        <li class="motion-safe:scroll-triggered:reveal">
           <WorkCard
             client={item.client}
             title={item.title}

@@ -32,3 +32,10 @@
     @apply -scroll-mt-11;
   }
 }
+
+/* Pages cross-fade into each other, unless the user prefers reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}

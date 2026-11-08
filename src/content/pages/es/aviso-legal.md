@@ -1,5 +1,6 @@
 ---
 title: Aviso legal
+description: Quién publica lojopez.dev, para qué sirve el sitio, la propiedad intelectual, los créditos de las imágenes y cómo uso la inteligencia artificial.
 updated: 2026-11-03
 translationKey: legal-notice
 ---

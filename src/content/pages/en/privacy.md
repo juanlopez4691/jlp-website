@@ -1,5 +1,6 @@
 ---
 title: Privacy policy
+description: What data is processed when you visit lojopez.dev or write to me, who else processes it, how long it is kept and what your rights are.
 updated: 2026-11-06
 translationKey: privacy
 ---

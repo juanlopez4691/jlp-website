@@ -1,5 +1,6 @@
 ---
 title: Legal notice
+description: Who publishes lojopez.dev, what the site is for, intellectual property, image credits and how I use AI.
 updated: 2026-11-03
 translationKey: legal-notice
 ---

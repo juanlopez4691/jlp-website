@@ -20,3 +20,13 @@
     @apply font-display;
   }
 }
+
+/*
+ * A block with a section arrow lands with the arrow (h-10) just above the
+ * viewport. Its top padding keeps the heading in view.
+ */
+@layer base {
+  [id]:has(> [data-section-arrow]) {
+    @apply -scroll-mt-10;
+  }
+}

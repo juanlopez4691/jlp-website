@@ -26,7 +26,10 @@ const canonical = alternates.find(({ code }) => code === locale)?.href
 ---
 
 <!doctype html>
-<html lang={locale} class="has-[dialog[open]]:overflow-hidden">
+<html
+  lang={locale}
+  class="has-[dialog[open]]:overflow-hidden scroll-driven:scroll-pt-15"
+>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

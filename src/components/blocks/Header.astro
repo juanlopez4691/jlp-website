@@ -31,6 +31,13 @@ const links = Object.entries(navigation.sections).map(([anchor, label]) => ({
   label,
   href: `${home}#${anchor}`,
 }))
+
+/**
+ * The underline grows from the left on hover and on the current link. It is a
+ * border, so it stays in forced-colors mode.
+ */
+const underline =
+  "relative after:absolute after:inset-x-0 after:-bottom-0.5 after:origin-left after:scale-x-0 after:border-b-2 after:transition-transform after:duration-300 hover:after:scale-x-100 aria-[current]:after:scale-x-100 motion-reduce:after:transition-none"
 ---
 
 {/* The negative top equals the 32px animation range; each row moves half of it. */}
@@ -47,7 +54,11 @@ const links = Object.entries(navigation.sections).map(([anchor, label]) => ({
       class="hidden items-center gap-8 lg:flex"
     >
       {links.map((link) => (
-        <NavLink href={link.href} data-nav-link class="font-semibold">
+        <NavLink
+          href={link.href}
+          data-nav-link
+          class={cn("font-semibold", underline)}
+        >
           {link.label}
         </NavLink>
       ))}
@@ -89,13 +100,13 @@ const links = Object.entries(navigation.sections).map(([anchor, label]) => ({
     <nav
       aria-label={header.sectionsLabel}
       data-menu-links
-      class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-8 py-8"
+      class="mx-auto flex w-full max-w-6xl flex-col items-start gap-6 px-8 py-8"
     >
       {links.map((link) => (
         <NavLink
           href={link.href}
           data-nav-link
-          class="font-display text-2xl font-bold leading-tight"
+          class={cn("font-display text-2xl font-bold leading-tight", underline)}
         >
           {link.label}
         </NavLink>

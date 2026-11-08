@@ -33,8 +33,15 @@ const links = Object.entries(navigation.sections).map(([anchor, label]) => ({
 }))
 ---
 
-<header data-site-header class={cn("bg-saffron", className)}>
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-8 py-8 xl:px-0">
+{/* The negative top equals the 32px animation range; each row moves half of it. */}
+<header
+  data-site-header
+  class={cn(
+    "z-50 bg-saffron py-8 scroll-driven:sticky scroll-driven:-top-8 scroll-driven:border-b scroll-driven:border-transparent scroll-driven:[animation-name:header-border] scroll-driven:scroll-linked scroll-driven:[animation-range:0_1px]",
+    className
+  )}
+>
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-8 xl:px-0 scroll-driven:[animation-name:header-shrink] scroll-driven:scroll-linked scroll-driven:[animation-range:0_32px]">
     <nav
       aria-label={header.sectionsLabel}
       class="hidden items-center gap-8 lg:flex"
@@ -65,7 +72,7 @@ const links = Object.entries(navigation.sections).map(([anchor, label]) => ({
     data-menu-panel
     class="fixed inset-0 size-full max-h-none max-w-none flex-col overflow-y-auto bg-saffron open:flex lg:hidden"
   >
-    <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-8 py-8">
+    <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-8 py-8 scroll-driven:[animation-name:header-menu-shrink] scroll-driven:scroll-linked scroll-driven:[animation-range:0_32px]">
       <NavLang
         locale={locale}
         translations={translations}
@@ -95,6 +102,11 @@ const links = Object.entries(navigation.sections).map(([anchor, label]) => ({
       ))}
     </nav>
   </dialog>
+
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-x-0 -bottom-px hidden h-1 origin-left scale-x-0 bg-ink scroll-driven:block scroll-driven:[animation-name:header-progress] scroll-driven:scroll-linked"
+  ></div>
 </header>
 
 <script>

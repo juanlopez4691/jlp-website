@@ -27,3 +27,34 @@
   --tracking-tag: 1px;
   --tracking-fact: 0.75px;
 }
+
+/* Header scroll animations. Outside @theme, which drops keyframes no --animate-* uses. */
+@custom-variant scroll-driven (@supports (animation-timeline: scroll()));
+@utility scroll-linked {
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-timeline: scroll(root);
+}
+@keyframes header-shrink {
+  to {
+    translate: 0 1rem;
+  }
+}
+@keyframes header-menu-shrink {
+  to {
+    translate: 0 -1rem;
+  }
+}
+@keyframes header-border {
+  to {
+    border-color: var(--color-ink);
+    box-shadow:
+      0 4px 6px -1px color-mix(in srgb, var(--color-ink) 15%, transparent),
+      0 2px 4px -2px color-mix(in srgb, var(--color-ink) 15%, transparent);
+  }
+}
+@keyframes header-progress {
+  to {
+    scale: 1 1;
+  }
+}

@@ -152,21 +152,36 @@ const links = Object.entries(navigation.sections).map(([anchor, label]) => ({
       panel.addEventListener("close", syncExpanded)
     }
 
-    // Mark the section the URL points at, in the bar and in the panel.
-    const sectionLinks =
-      header.querySelectorAll<HTMLAnchorElement>("a[data-nav-link]")
+    // Mark the section in view, in the bar and in the panel. Links to another
+    // page, such as Home from a legal page, are never marked.
+    const sectionLinks = [
+      ...header.querySelectorAll<HTMLAnchorElement>("a[data-nav-link]"),
+    ].filter((link) => link.pathname === location.pathname)
+    const sections = sectionLinks
+      .map((link) => document.getElementById(link.hash.slice(1)))
+      .filter((section) => section !== null)
 
-    // No hash means the top of the page, which the home link points to.
+    // The current section is the last one whose top has passed a third of the
+    // viewport; above them all is the top of the page (#home, no element).
+    // At the very bottom the last section wins, however short it is.
     const markSection = () => {
-      const hash = location.hash || "#home"
+      const line = window.innerHeight / 3
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 1
+      let current = "#home"
+      sections.forEach((section) => {
+        if (atBottom || section.getBoundingClientRect().top <= line)
+          current = `#${section.id}`
+      })
       sectionLinks.forEach((link) => {
-        if (link.pathname === location.pathname && link.hash === hash)
-          link.setAttribute("aria-current", "location")
+        if (link.hash === current) link.setAttribute("aria-current", "location")
         else link.removeAttribute("aria-current")
       })
     }
 
     markSection()
-    window.addEventListener("hashchange", markSection)
+    window.addEventListener("scroll", markSection, { passive: true })
+    window.addEventListener("resize", markSection)
   }
 </script>

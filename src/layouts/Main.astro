@@ -42,7 +42,7 @@ const canonical = alternates.find(({ code }) => code === locale)?.href
       ))}
     <slot name="head" />
   </head>
-  <body class="flex min-h-svh flex-col">
+  <body id="home" class="flex min-h-svh flex-col">
     <Header locale={locale} translations={translations} />
     <slot />
     <Footer locale={locale} />

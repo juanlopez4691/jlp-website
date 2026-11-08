@@ -69,6 +69,13 @@ reporting work as done.
   A value with a single use is an arbitrary value instead, with no token: the
   two radii with no class, 28px and 48px, are `rounded-[28px]` and
   `rounded-[48px]`, and the 404 title is `lg:text-[12.5rem]`.
+- **Scroll-driven animations.** Their `@keyframes` go in `theme.css`, outside
+  `@theme`, because Tailwind drops theme keyframes that no `--animate-*` uses.
+  Gate them with the `scroll-driven:` variant and use the `scroll-linked`
+  utility for the shared longhands. Never use an `animate-*` utility or the
+  `animation` shorthand with them.
+- **Smooth scrolling.** `<html>` has `motion-safe:scroll-smooth`, so in-page
+  links glide only for users who allow motion. Keep it there, not on blocks.
 - **Breakpoints are the defaults, and four are used**: base, `md` (768), `lg`
   (1024) and `xl` (1280). Do not use `sm` or `2xl`. Between 768 and 1023px the
   tablet layout applies. The header links show from `lg`, not from the `xl` of
@@ -79,7 +86,7 @@ reporting work as done.
 - **Layout.** Blocks are full width. The inner container is
   `max-w-6xl mx-auto` (1152px), with `px-8` below `xl` and `xl:px-0` from `xl`.
   At 1280 the container is exactly 1152 wide, and the margin is the space
-  around it.
+  around it. Each block sets its own top padding; the hero's is `pt-6`.
 - **Cards.** In every card the last part is pinned to the bottom, whatever the
   length of the content: the pills of a work card (also the secondary ones) and
   the author name and role of a recommendation. Cards in a row share the
@@ -96,7 +103,8 @@ reporting work as done.
   text, outline and button color and the footer background; navy is only for
   the facts and stack blocks, the featured quote card, and code blocks and focus
   in long-form text. No gradients, except the scroll fade of long-form
-  tables and code blocks, and no shadows or emoji.
+  tables and code blocks, and no emoji. The only shadow is the pinned
+  header's, which shows only once the page has scrolled.
 - **Text style.** Descriptions in cards and blocks (service card, work card,
   step, principle, job row, regular quote, hero lead) are `text-lg` (18px),
   `leading-normal`; the work card body keeps `leading-relaxed`. The company

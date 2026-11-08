@@ -25,12 +25,16 @@ is the visual reference. Components here keep the names used in the design.
 src/
 ├── assets/       images processed by Astro
 ├── components/   atoms/, molecules/ and blocks/, named like the design
+├── content/      long-form pages in Markdown, as pages/<lang>/<slug>.md
 ├── i18n/         copy, one file per section in es/ and en/, and the helper
 ├── layouts/      the HTML shell
 ├── libs/         helpers, such as the class merge utility
 ├── pages/        routes; [lang]/ holds the localized pages
-└── styles/       global.css and the Tailwind theme
-public/_headers   response headers, including the CSP
+├── styles/       global.css, theme.css (Tailwind theme) and article.css
+└── worker.ts     Cloudflare Worker: redirects `/` to the browser language
+public/
+├── _headers      response headers, including the CSP
+└── robots.txt    crawler rules and the sitemap URL
 rift.yaml         dev environment config for rift
 ```
 
@@ -219,6 +223,7 @@ The site is served at `http://localhost:4321`, without HTTPS.
 | `bun run deploy`  | Build and deploy to Cloudflare          |
 | `bun run lint`    | Run ESLint                              |
 | `bun run format`  | Format the code with Prettier           |
+| `bun run check`   | Type-check the `.astro` and TS files    |
 
 ## Languages
 
@@ -244,23 +249,32 @@ is a block's default copy. A page can replace part of it with the block's
 own file, so each language has it too. The merge is shallow, so an overridden
 list replaces the whole list, and `navigation` cannot be overridden.
 
-To add a language, add its code to `i18n.locales` in `astro.config.mjs` and to
-`locales` in `src/i18n/index.ts`, then create its folder with the same files as
-`src/i18n/es/`.
+To add a language, add its code to `i18n.locales` in `astro.config.mjs`, to
+`locales` in `src/i18n/index.ts` and to `pickLocale` in `src/worker.ts`, create
+its folders with the same files as `src/i18n/es/` and `src/content/pages/es/`,
+and add it to `src/libs/markdownLanguage.ts`.
 
-## Work in progress
+## Content pages
 
-The site is hidden from search engines in two places. Remove both at launch:
+Long-form pages, such as the legal pages, are Markdown files in
+`src/content/pages/<lang>/<slug>.md`, rendered by
+`src/pages/[lang]/[slug].astro`. The frontmatter holds the `title` and the
+`updated` date. Pages that translate each other share a `translationKey`, which
+links them for the language switcher and the `hreflang` alternates.
 
-- the `robots` meta tag in `src/layouts/Main.astro`
-- the `X-Robots-Tag` rule in `public/_headers`
+## Search engines
+
+`/sitemap.xml` lists every page in both languages, with their translations.
+`public/robots.txt` lets search engines crawl everything and blocks AI training
+crawlers. To keep a content page out of search results, add `noindex: true` to
+its frontmatter: it gets a `noindex` meta tag and leaves the sitemap.
 
 ## Security headers
 
-`public/_headers` sets basic security headers and a Content-Security-Policy in
-report-only mode. Browsers only log violations in the console, nothing is
-blocked. Once the design is settled and the console is clean, rename
-`Content-Security-Policy-Report-Only` to `Content-Security-Policy`.
+`public/_headers` sets the security headers: a Content-Security-Policy, HSTS
+(one year, subdomains included), a Permissions-Policy that turns off the
+browser features the site does not use, and the usual `nosniff`, referrer and
+frame rules. Check them at <https://securityheaders.com>.
 
 Headers from `_headers` apply to the deployed site and to `bun run preview`,
 not to `bun run dev`.
@@ -270,7 +284,8 @@ not to `bun run dev`.
 The site is built into `dist/` and served as static assets by a Cloudflare
 Worker, configured in `wrangler.jsonc`. It uses the custom domain `lojopez.dev`.
 Only `/` runs the Worker (`run_worker_first`), which redirects to the browser
-language; everything else is served from `dist/`, and a missing path gets a 404.
+language; everything else is served from `dist/`. A missing path gets the 404
+page of its language, `/es/…` in Spanish and `/en/…` in English.
 
 ```bash
 bun run deploy

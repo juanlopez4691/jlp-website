@@ -1,5 +1,7 @@
 ---
 import "@/styles/global.css"
+import familjenGrotesk from "@fontsource-variable/familjen-grotesk/files/familjen-grotesk-latin-wght-normal.woff2?url"
+import figtree from "@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2?url"
 import Footer from "@/components/blocks/Footer.astro"
 import Header from "@/components/blocks/Header.astro"
 import { useTranslations, type Locale, type Translations } from "@/i18n"
@@ -43,6 +45,20 @@ const ogAlternateLocales = alternates
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <link
+      rel="preload"
+      href={familjenGrotesk}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href={figtree}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     {description && <meta name="description" content={description} />}
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

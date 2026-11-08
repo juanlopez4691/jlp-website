@@ -16,19 +16,20 @@ const { type, class: className, ...rest } = Astro.props
  * in a lookup object instead of one built from pieces.
  */
 const types = {
-  primary: "bg-ink text-mint after:border-mint hover:bg-saffron hover:text-ink",
-  secondary: "text-ink after:border-mint hover:bg-ink hover:text-mint",
+  primary:
+    "bg-ink text-mint after:border-mint before:bg-saffron hover:text-ink",
+  secondary: "text-ink after:border-mint before:bg-ink hover:text-mint",
   "primary-on-dark":
-    "border-saffron bg-saffron text-ink outline-saffron after:border-ink hover:border-ink hover:bg-ink hover:text-mint",
+    "border-saffron bg-saffron text-ink outline-saffron after:border-ink before:-inset-0.5 before:bg-ink hover:text-mint",
   "secondary-on-dark":
-    "border-mint text-mint outline-saffron after:border-ink hover:bg-mint hover:text-ink",
+    "border-mint text-mint outline-saffron after:border-ink before:bg-mint hover:text-ink",
 }
 ---
 
 <a
   {...rest}
   class={cn(
-    "relative inline-flex items-center justify-center border-2 border-ink px-5.5 py-2.5 text-base font-semibold transition-colors outline-ink after:pointer-events-none after:absolute after:-inset-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:after:border-2",
+    "relative isolate inline-flex items-center justify-center border-2 border-ink px-5.5 py-2.5 text-base font-semibold transition-colors duration-200 outline-ink before:absolute before:inset-0 before:-z-10 before:transition-[clip-path] before:duration-200 before:[clip-path:polygon(-1px_-1px,-1px_-1px,calc(-1rem_-_1px)_calc(100%_+_1px),-1px_calc(100%_+_1px))] hover:before:[clip-path:polygon(-1px_-1px,calc(100%_+_1rem_+_1px)_-1px,calc(100%_+_1px)_calc(100%_+_1px),-1px_calc(100%_+_1px))] motion-reduce:before:transition-none after:pointer-events-none after:absolute after:-inset-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:after:border-2",
     types[type],
     className
   )}

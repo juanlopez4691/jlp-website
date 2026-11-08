@@ -5,6 +5,51 @@
 @import "./theme.css";
 @import "./article.css";
 
+/*
+ * Arial sized to each font's metrics (from @capsizecss/unpack), so text keeps
+ * its line breaks when the font loads. Astro's Fonts API does the same, but
+ * with an inline <style> that the CSP blocks.
+ */
+@font-face {
+  font-family: "Familjen Grotesk Fallback";
+  font-weight: 100 549;
+  src: local("Arial"), local("ArialMT");
+  size-adjust: 94.5863%;
+  ascent-override: 108.3666%;
+  descent-override: 23.7878%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Familjen Grotesk Fallback";
+  font-weight: 550 900;
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  size-adjust: 94.5863%;
+  ascent-override: 108.3666%;
+  descent-override: 23.7878%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Figtree Fallback";
+  font-weight: 100 549;
+  src: local("Arial"), local("ArialMT");
+  size-adjust: 99.5961%;
+  ascent-override: 95.3853%;
+  descent-override: 25.1014%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Figtree Fallback";
+  font-weight: 550 900;
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  size-adjust: 99.5961%;
+  ascent-override: 95.3853%;
+  descent-override: 25.1014%;
+  line-gap-override: 0%;
+}
+
 @layer base {
   body {
     @apply bg-mint font-sans text-ink;

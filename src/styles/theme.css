@@ -13,8 +13,8 @@
   --color-ink: #020d22;
 
   --font-display:
-    "Familjen Grotesk Variable", "Figtree Variable", system-ui, sans-serif;
-  --font-sans: "Figtree Variable", system-ui, sans-serif;
+    "Familjen Grotesk Variable", "Familjen Grotesk Fallback", sans-serif;
+  --font-sans: "Figtree Variable", "Figtree Fallback", sans-serif;
 
   /* h1 line height at xl (96px type, 86.4px leading). */
   --leading-h1: 0.9;

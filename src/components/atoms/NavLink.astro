@@ -2,6 +2,7 @@
 import type { HTMLAttributes } from "astro/types"
 import { cn } from "@/libs/utils"
 
+/** A navigation link. The caller styles hover and the current link (`aria-current`). */
 interface Props extends HTMLAttributes<"a"> {
   /** Where the link points, already localized. */
   href: string
@@ -14,7 +15,7 @@ const { href, class: className, ...rest } = Astro.props
   {...rest}
   href={href}
   class={cn(
-    "text-base text-ink underline-offset-4 outline-ink focus-visible:outline-2 focus-visible:outline-offset-4 aria-[current]:underline",
+    "text-base text-ink outline-ink focus-visible:outline-2 focus-visible:outline-offset-4",
     className
   )}
 >

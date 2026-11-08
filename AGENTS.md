@@ -74,6 +74,13 @@ reporting work as done.
   Gate them with the `scroll-driven:` variant and use the `scroll-linked`
   utility for the shared longhands. Never use an `animate-*` utility or the
   `animation` shorthand with them.
+- **Scroll-triggered animations.** A time-based animation that plays once
+  when an element scrolls into view uses the `reveal` utility (a
+  `timeline-trigger` on `view()`, not `scroll-linked`). Gate it with
+  `motion-safe:scroll-triggered:`, never `scroll-driven:`: Chrome 115–144 has
+  scroll-driven animations but no triggers, and the variant also skips print.
+  On a grid list, stagger the items with `reveal-stagger-2`, `-3` or `-4` (the
+  column count at `lg`) on the list. Its `@keyframes` follow the rule above.
 - **Smooth scrolling.** `<html>` has `motion-safe:scroll-smooth`, so in-page
   links glide only for users who allow motion. Keep it there, not on blocks.
 - **Breakpoints are the defaults, and four are used**: base, `md` (768), `lg`

@@ -2,17 +2,20 @@
 import "@/styles/global.css"
 import Footer from "@/components/blocks/Footer.astro"
 import Header from "@/components/blocks/Header.astro"
-import type { Locale, Translations } from "@/i18n"
+import { useTranslations, type Locale, type Translations } from "@/i18n"
 
 interface Props {
   title: string
+  /** The meta description, also used by link previews. */
+  description?: string
   /** Language of the page, set on the `<html>` element. */
   locale: Locale
   /** The URL of this page in each language that has it. */
   translations?: Translations
 }
 
-const { title, locale, translations } = Astro.props
+const { title, description, locale, translations } = Astro.props
+const meta = useTranslations(locale, "meta")
 
 // `translations` includes the page itself, so a page with no translation has one entry.
 const alternates = Object.entries(translations ?? {}).map(([code, path]) => ({
@@ -23,6 +26,12 @@ const alternates = Object.entries(translations ?? {}).map(([code, path]) => ({
 // `translations` holds the URL of this page as it is served. A page with none,
 // such as the 404, has no canonical.
 const canonical = alternates.find(({ code }) => code === locale)?.href
+
+// Link previews (Open Graph, also read by X and LinkedIn).
+const ogImage = new URL(meta.ogImage, Astro.site).href
+const ogAlternateLocales = alternates
+  .filter(({ code }) => code !== locale)
+  .map(({ code }) => useTranslations(code as Locale, "meta").ogLocale)
 ---
 
 <!doctype html>
@@ -33,13 +42,30 @@ const canonical = alternates.find(({ code }) => code === locale)?.href
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
     <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {canonical && <link rel="canonical" href={canonical} />}
     {alternates.length > 1 &&
       alternates.map((alternate) => (
         <link rel="alternate" hreflang={alternate.code} href={alternate.href} />
       ))}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={meta.siteName} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={meta.ogImageAlt} />
+    <meta property="og:locale" content={meta.ogLocale} />
+    {ogAlternateLocales.map((ogLocale) => (
+      <meta property="og:locale:alternate" content={ogLocale} />
+    ))}
+    <meta name="twitter:card" content="summary_large_image" />
     <slot name="head" />
   </head>
   <body id="home" class="flex min-h-svh flex-col">

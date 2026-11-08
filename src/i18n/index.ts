@@ -25,13 +25,13 @@ export const defaultLocale: Locale = "es"
 export type Dictionary = typeof es
 export type Section = keyof Dictionary
 
-type BlockSection = Exclude<Section, "navigation" | `${string}Page`>
+type BlockSection = Exclude<Section, "navigation" | "meta" | `${string}Page`>
 
 /**
  * The shape of a page file: its `title`, plus optional overrides keyed by block
  * section. `navigation` and other pages are not overridable.
  */
-export type PageCopy = { title: string } & {
+export type PageCopy = { title: string; description?: string } & {
   [S in BlockSection]?: Partial<Dictionary[S]>
 }
 

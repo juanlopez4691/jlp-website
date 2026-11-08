@@ -6,6 +6,7 @@ import { defineConfig, globalIgnores } from "eslint/config"
 
 /** The one copy section each component may read, besides `navigation`. */
 const copySections = {
+  "src/layouts/Main.astro": "meta",
   "src/pages/[lang]/index.astro": "homePage",
   "src/pages/[lang]/404.astro": "notFoundPage",
   "src/pages/[lang]/[slug].astro": "contentPage",

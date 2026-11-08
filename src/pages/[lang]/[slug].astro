@@ -27,7 +27,7 @@ if (!isLocale(lang)) {
   throw new Error(`Unsupported language: ${lang}`)
 }
 
-const { title, updated, noindex } = Astro.props.page.data
+const { title, description, updated, noindex } = Astro.props.page.data
 const { Content: Body } = await render(Astro.props.page)
 const contentPage = useTranslations(lang, "contentPage")
 const date = new Intl.DateTimeFormat(lang, {
@@ -38,6 +38,7 @@ const date = new Intl.DateTimeFormat(lang, {
 
 <Main
   title={`${title} | ${contentPage.siteName}`}
+  description={description}
   locale={lang}
   translations={Astro.props.translations}
 >

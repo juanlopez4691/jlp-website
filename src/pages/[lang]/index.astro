@@ -30,7 +30,12 @@ const translations: Translations = Object.fromEntries(
 )
 ---
 
-<Main title={homePage.title} locale={lang} translations={translations}>
+<Main
+  title={homePage.title}
+  description={homePage.description}
+  locale={lang}
+  translations={translations}
+>
   <link
     slot="head"
     rel="alternate"

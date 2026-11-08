@@ -26,6 +26,7 @@ const canonical = alternates.find(({ code }) => code === locale)?.href
 ---
 
 <!doctype html>
+{/* 61px: the stuck header (57px) plus the 4px focus ring, so a focused control never hides its ring behind it. */}
 <html
   lang={locale}
   class="motion-safe:scroll-smooth has-[dialog[open]]:overflow-hidden scroll-driven:scroll-pt-15"

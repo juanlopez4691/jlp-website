@@ -126,7 +126,10 @@ reporting work as done.
 - **CSP.** The policy in `public/_headers` allows only same-origin styles,
   images and fonts. No inline `<style>` or `<script>`, no external hosts, no
   third-party scripts. `astro.config.mjs` keeps stylesheets as separate files
-  for this reason.
+  for this reason. The one exception is the Cloudflare Web Analytics beacon,
+  which Cloudflare injects: `script-src` allows
+  `https://static.cloudflareinsights.com`, and `connect-src 'self'` lets it
+  report to `/cdn-cgi/rum`.
 - **Long-form pages** (legal pages, later the blog) are the one exception to
   copy living in `src/i18n/`: each is a Markdown file in
   `src/content/pages/<lang>/<slug>.md`, with `title` and `updated` in the

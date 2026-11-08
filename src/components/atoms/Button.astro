@@ -24,6 +24,14 @@ const types = {
   "secondary-on-dark":
     "border-mint text-mint outline-saffron after:border-ink before:bg-mint hover:text-ink",
 }
+
+/**
+ * The hover fill is a `::before` clipped by a four-point polygon: at rest it is
+ * a zero-width sliver left of the box (its first point is doubled, so both
+ * states have four points and interpolate), its leading edge leans 1rem, and
+ * every point sits 1px outside the box so no anti-aliased seam shows at the
+ * border.
+ */
 ---
 
 <a

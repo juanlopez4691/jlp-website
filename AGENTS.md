@@ -83,6 +83,10 @@ reporting work as done.
   column count at `lg`) on the list. Its `@keyframes` follow the rule above.
 - **Smooth scrolling.** `<html>` has `motion-safe:scroll-smooth`, so in-page
   links glide only for users who allow motion. Keep it there, not on blocks.
+- **Page transitions.** Pages cross-fade with native cross-document view
+  transitions: `@view-transition { navigation: auto; }` once in `global.css`,
+  inside `@media (prefers-reduced-motion: no-preference)`, so users who prefer
+  reduced motion get none. No client router (`ClientRouter` is JavaScript).
 - **Breakpoints are the defaults, and four are used**: base, `md` (768), `lg`
   (1024) and `xl` (1280). Do not use `sm` or `2xl`. Between 768 and 1023px the
   tablet layout applies. The header links show from `lg`, not from the `xl` of

@@ -22,11 +22,13 @@
 }
 
 /*
- * A block with a section arrow lands with the arrow (h-10) just above the
- * viewport. Its top padding keeps the heading in view.
+ * A block with a section arrow lands with the arrow (h-10) hidden: behind the
+ * sticky header, which ends 3px above the scroll padding of 60px, or above the
+ * viewport where there is no sticky header. Its top padding keeps the heading
+ * in view.
  */
 @layer base {
   [id]:has(> [data-section-arrow]) {
-    @apply -scroll-mt-10;
+    @apply -scroll-mt-11;
   }
 }

@@ -276,6 +276,11 @@ its frontmatter: it gets a `noindex` meta tag and leaves the sitemap.
 browser features the site does not use, and the usual `nosniff`, referrer and
 frame rules. Check them at <https://securityheaders.com>.
 
+It also caches `/_astro/*` for a year as `immutable`: Astro puts a content hash
+in those file names, so a change gets a new URL. Everything else, HTML
+included, keeps Cloudflare's default (`max-age=0, must-revalidate`) and is
+revalidated on each visit.
+
 Headers from `_headers` apply to the deployed site and to `bun run preview`,
 not to `bun run dev`.
 

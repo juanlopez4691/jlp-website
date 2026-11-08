@@ -1,7 +1,7 @@
 ---
 title: Cookie policy
 description: Why lojopez.dev stores no cookies or anything about you in your browser, how traffic is measured and how to limit that measurement.
-updated: 2026-11-06
+updated: 2026-11-08
 translationKey: cookies
 ---
 

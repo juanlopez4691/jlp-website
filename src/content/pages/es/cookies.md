@@ -1,7 +1,7 @@
 ---
 title: Política de cookies
 description: Por qué lojopez.dev no guarda cookies ni nada sobre ti en tu navegador, cómo se mide el tráfico y cómo limitar esa medición.
-updated: 2026-11-06
+updated: 2026-11-08
 translationKey: cookies
 ---
 

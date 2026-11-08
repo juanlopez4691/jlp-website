@@ -1,7 +1,7 @@
 ---
 title: Política de privacidad
 description: Qué datos se tratan cuando visitas lojopez.dev o me escribes, quién más los trata, cuánto tiempo se conservan y cuáles son tus derechos.
-updated: 2026-11-06
+updated: 2026-11-08
 translationKey: privacy
 ---
 

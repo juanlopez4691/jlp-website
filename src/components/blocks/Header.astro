@@ -4,25 +4,18 @@ import MenuButton from "@/components/atoms/MenuButton.astro"
 import NavLang from "@/components/atoms/NavLang.astro"
 import NavLink from "@/components/atoms/NavLink.astro"
 import { cn } from "@/libs/utils"
-import {
-  useTranslations,
-  type Dictionary,
-  type Locale,
-  type Translations,
-} from "@/i18n"
+import { useTranslations, type Locale, type Translations } from "@/i18n"
 
 interface Props {
   /** Language of the current page. */
   locale: Locale
   /** The URL of this page in each language that has it. */
   translations?: Translations
-  /** Replaces part of this component's default copy on one page. */
-  copy?: Partial<Dictionary["header"]>
   class?: string
 }
 
-const { locale, translations, copy, class: className } = Astro.props
-const header = { ...useTranslations(locale, "header"), ...copy }
+const { locale, translations, class: className } = Astro.props
+const header = useTranslations(locale, "header")
 const navigation = useTranslations(locale, "navigation")
 const home = getRelativeLocaleUrl(locale)
 

@@ -4,7 +4,6 @@ import { cn } from "@/libs/utils"
 import {
   locales,
   useTranslations,
-  type Dictionary,
   type Locale,
   type Translations,
 } from "@/i18n"
@@ -14,13 +13,11 @@ interface Props {
   locale: Locale
   /** The URL of this page in each language that has it. */
   translations?: Translations
-  /** Replaces part of this component's default copy on one page. */
-  copy?: Partial<Dictionary["navLang"]>
   class?: string
 }
 
-const { locale, copy, translations, class: className } = Astro.props
-const navLang = { ...useTranslations(locale, "navLang"), ...copy }
+const { locale, translations, class: className } = Astro.props
+const navLang = useTranslations(locale, "navLang")
 ---
 
 <nav

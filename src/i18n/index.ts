@@ -19,21 +19,11 @@ export type Translations = Partial<Record<Locale, string>>
 export const defaultLocale: Locale = "es"
 
 /**
- * The copy of every section, one file per section in `./es` and `./en`, so a
- * component reads only what it needs. The Spanish files define the shape.
+ * The site-wide copy, one file per section in `./es` and `./en`, so a component
+ * reads only what it needs. The Spanish files define the shape.
  */
 export type Dictionary = typeof es
 export type Section = keyof Dictionary
-
-type BlockSection = Exclude<Section, "navigation" | "meta" | `${string}Page`>
-
-/**
- * The shape of a page file: its `title`, plus optional overrides keyed by block
- * section. `navigation` and other pages are not overridable.
- */
-export type PageCopy = { title: string; description?: string } & {
-  [S in BlockSection]?: Partial<Dictionary[S]>
-}
 
 const dictionaries: Record<Locale, Dictionary> = { es, en }
 

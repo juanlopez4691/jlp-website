@@ -8,17 +8,14 @@ import { cn } from "@/libs/utils"
 import { useTranslations, type Locale } from "@/i18n"
 import type { HeroBlockCopy } from "@/libs/blocks"
 
-interface Props {
+type Props = HeroBlockCopy & {
   /** Language of the current page. */
   locale: Locale
   id?: string
-  /** Replaces part of this component's default copy on one page. */
-  copy?: HeroBlockCopy
   class?: string
 }
 
-const { locale, id, copy, class: className } = Astro.props
-const hero = { ...useTranslations(locale, "hero"), ...copy }
+const { locale, id, class: className, ...hero } = Astro.props
 const navigation = useTranslations(locale, "navigation")
 const home = getRelativeLocaleUrl(locale)
 

@@ -12,7 +12,7 @@ type PageBlockOf<T extends Block> = {
   type: T["type"]
   id?: string
   arrow?: ArrowColor
-  copy: BlockCopy<T>
+  props: BlockCopy<T>
 }
 
 export type PageBlock = {
@@ -47,15 +47,15 @@ export function resolveBlocks(blocks: Block[], file: string): PageBlock[] {
   }
 
   return blocks.map((block, index) => {
-    const { type, id, arrow, ...copy } = block
+    const { type, id, arrow, ...props } = block
 
     // The compiler cannot link `type` to the rest of the block; it holds
-    // because `copy` is the block minus its metadata.
+    // because `props` is the block minus its metadata.
     return {
       type,
       id,
       arrow: arrowOf(block, blocks[index - 1], arrow),
-      copy,
+      props,
     } as PageBlock
   })
 }

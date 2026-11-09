@@ -4,22 +4,16 @@ import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import JobRow from "@/components/molecules/JobRow.astro"
 import { cn } from "@/libs/utils"
-import { useTranslations, type Locale } from "@/i18n"
 import type { ExperienceBlockCopy } from "@/libs/blocks"
 
-interface Props {
-  /** Language of the current page. */
-  locale: Locale
+type Props = ExperienceBlockCopy & {
   id?: string
-  /** Replaces part of this component's default copy on one page. */
-  copy?: ExperienceBlockCopy
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
   class?: string
 }
 
-const { locale, id, copy, arrow, class: className } = Astro.props
-const experience = { ...useTranslations(locale, "experience"), ...copy }
+const { id, arrow, class: className, ...experience } = Astro.props
 
 /** The first job opens the log and the last one closes it. */
 const position = (index: number): "first" | "middle" | "last" => {

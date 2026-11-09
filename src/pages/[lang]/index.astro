@@ -11,7 +11,8 @@ import QuoteBlock from "@/components/blocks/QuoteBlock.astro"
 import WorkBlock from "@/components/blocks/WorkBlock.astro"
 import RecommendationsBlock from "@/components/blocks/RecommendationsBlock.astro"
 import { getRelativeLocaleUrl } from "astro:i18n"
-import { isLocale, locales, useTranslations, type Translations } from "@/i18n"
+import { isLocale, locales, type Translations } from "@/i18n"
+import { getHomePage } from "@/libs/home"
 
 export function getStaticPaths() {
   return locales.map((lang) => ({ params: { lang } }))
@@ -23,7 +24,9 @@ if (!isLocale(lang)) {
   throw new Error(`Unsupported language: ${lang}`)
 }
 
-const homePage = useTranslations(lang, "homePage")
+// The entry holds every block's whole copy; the i18n default it overrides is
+// dead until #114.
+const { title, description, blocks } = await getHomePage(lang)
 
 const translations: Translations = Object.fromEntries(
   locales.map((code) => [code, getRelativeLocaleUrl(code)])
@@ -31,8 +34,8 @@ const translations: Translations = Object.fromEntries(
 ---
 
 <Main
-  title={homePage.title}
-  description={homePage.description}
+  title={title}
+  description={description}
   locale={lang}
   translations={translations}
 >
@@ -43,15 +46,33 @@ const translations: Translations = Object.fromEntries(
     href={new URL("/", Astro.site).href}
   />
   <main class="flex-1">
-    <HeroBlock locale={lang} />
-    <FactsBlock locale={lang} />
-    <ServicesBlock locale={lang} arrow="navy" />
-    <QuoteBlock locale={lang} arrow="mint" />
-    <WorkBlock locale={lang} arrow="coral" />
-    <RecommendationsBlock locale={lang} arrow="teal" />
-    <HowBlock locale={lang} arrow="saffron" />
-    <ExperienceBlock locale={lang} arrow="coral" />
-    <StackBlock locale={lang} arrow="mint" />
-    <ContactBlock locale={lang} arrow="navy" />
+    {blocks.map((block) => {
+      switch (block.type) {
+        case "hero":
+          return <HeroBlock locale={lang} />
+        case "facts":
+          return <FactsBlock locale={lang} />
+        case "services":
+          return <ServicesBlock locale={lang} arrow={block.arrow} />
+        case "quote":
+          return <QuoteBlock locale={lang} arrow={block.arrow} />
+        case "work":
+          return <WorkBlock locale={lang} arrow={block.arrow} />
+        case "recommendations":
+          return <RecommendationsBlock locale={lang} arrow={block.arrow} />
+        case "how":
+          return <HowBlock locale={lang} arrow={block.arrow} />
+        case "experience":
+          return <ExperienceBlock locale={lang} arrow={block.arrow} />
+        case "stack":
+          return <StackBlock locale={lang} arrow={block.arrow} />
+        case "contact":
+          return <ContactBlock locale={lang} arrow={block.arrow} />
+        default: {
+          const _exhaustive: never = block
+          return _exhaustive
+        }
+      }
+    })}
   </main>
 </Main>

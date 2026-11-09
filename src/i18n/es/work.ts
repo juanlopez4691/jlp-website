@@ -21,7 +21,7 @@ export const work = {
     {
       client: "Efiori",
       title: "Automatización de un marketplace",
-      body: "Validación automática de la lógica de negocio de un marketplace de flores, y un motor de fechas de entrega a medida según la ubicación del cliente, la fecha del pedido, el stock y la disponibilidad del servicio de reparto.",
+      body: "Validación automática de la lógica de negocio de un marketplace de floristería, y un motor de fechas de entrega a medida según la ubicación del cliente, la fecha del pedido, el stock y la disponibilidad del servicio de reparto.",
       result:
         "Asignación de proveedores y cálculo de márgenes más precisos, y menos tiempo por pedido.",
       chips: ["WooCommerce"],

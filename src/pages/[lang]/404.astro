@@ -1,6 +1,9 @@
 ---
 import Main from "@/layouts/Main.astro"
 import ContactBlock from "@/components/blocks/ContactBlock.astro"
+import { Image } from "astro:assets"
+import { getRelativeLocaleUrl } from "astro:i18n"
+import icarus from "@/assets/icarus-falling.webp"
 import { isLocale, locales, useTranslations } from "@/i18n"
 
 export function getStaticPaths() {
@@ -14,16 +17,32 @@ if (!isLocale(lang)) {
 }
 
 const notFoundPage = useTranslations(lang, "notFoundPage")
+const home = getRelativeLocaleUrl(lang)
 ---
 
 <Main title={notFoundPage.title} locale={lang}>
   <main class="flex flex-1 flex-col justify-between">
-    <section class="mx-auto max-w-6xl px-8 py-16 text-center md:py-20 xl:px-0">
-      <h1 class="text-8xl leading-none font-bold tracking-tight md:text-9xl lg:text-[12.5rem]">
+    <section class="mx-auto max-w-6xl px-8 py-16 text-center md:py-30 xl:px-0">
+      <Image
+        src={icarus}
+        alt=""
+        width={520}
+        densities={[1, 2]}
+        format="avif"
+        quality={35}
+        class="mx-auto hidden h-auto w-130 md:block"
+      />
+      <h1 class="text-8xl leading-none font-bold tracking-tight md:text-[10rem]">
         {notFoundPage.heading}
       </h1>
-      <p class="mt-6 text-xl leading-normal md:text-2xl lg:text-3xl">
-        {notFoundPage.text}
+      <p class="mt-2 text-xl leading-normal md:text-2xl">{notFoundPage.text}</p>
+      <p class="mt-2 text-xl leading-normal md:text-2xl">
+        <a
+          href={home}
+          class="-mx-1 rounded box-decoration-clone px-1 py-0.5 underline underline-offset-4 visited:text-teal hover:bg-saffron focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink"
+        >
+          {notFoundPage.link}
+        </a>
       </p>
     </section>
     <ContactBlock locale={lang} />

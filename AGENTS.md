@@ -33,9 +33,11 @@ The design is the source of truth. Do not invent layout, sizes or copy.
 ```
 src/
 ├── components/   atoms/, molecules/, blocks/ (PascalCase, same name as the design)
-├── content/      long-form pages in Markdown, as pages/<lang>/<slug>.md
+├── content/      page entries in home/ and not-found/ (YAML, one per
+│                 language), and long-form pages in pages/<lang>/<slug>.md
 ├── layouts/      Main.astro, the HTML shell
-├── i18n/         copy, one file per section in es/ and en/, and the helper
+├── i18n/         site-wide copy (header, footer, navigation, language
+│                 switcher, meta) and the labels of long-form pages
 ├── libs/         helpers, such as cn() in utils.ts
 ├── pages/        routes; [lang]/ holds the localized pages
 ├── styles/       global.css, theme.css (Tailwind theme) and article.css (long-form text)
@@ -167,8 +169,8 @@ reporting work as done.
   `bun src/libs/markdownHeadingIds.test.ts`.
   `article.css` draws the icon of the `IconExternalLink` atom on any link with
   `target="_blank"`. Syntax
-  highlighting stays off for the CSP. The page copy is `contentPage`, with no
-  `satisfies PageCopy`, because the title comes from the frontmatter. Astro
+  highlighting stays off for the CSP. The page copy is `contentPage`, because
+  the title comes from the frontmatter. Astro
   caches rendered content: after changing a plugin, delete
   `.astro/data-store.json` and `node_modules/.astro/data-store.json`.
 - **Languages.** Spanish (default) and English, at `/es` and `/en`, with
@@ -182,26 +184,31 @@ reporting work as done.
   `<lang>/404.html`, which is why `astro.config.mjs` sets
   `build.format: "preserve"`. In `bun run dev` no Worker runs, `/` goes to
   `/es`, and missing paths get Astro's default 404. Pages live in
-  `src/pages/[lang]/`. All copy is in `src/i18n/es/` and `src/i18n/en/`, one
-  file per section, and each `en/` file is typed against its `es/` counterpart,
+  `src/pages/[lang]/`.
+  Only site-wide copy lives in `src/i18n/es/` and `src/i18n/en/`, one file per
+  section (header, footer, navigation, language switcher, meta and
+  `contentPage`), and each `en/` file is typed against its `es/` counterpart,
   so keys cannot drift: the `es/` file exports its shape as `<Name>Copy`
-  (`HeroCopy`) and the `en/` file uses it. Components receive `locale` and read
-  only their own section, plus `navigation` for the shared links:
-  `const hero = useTranslations(locale, "hero")`. They hold no copy. The
-  `copySections` map in `eslint.config.js` enforces it, and a new component must
-  be added to that map before it reads its own section. Page copy lives in
-  `src/i18n/{es,en}/pages/<page>.ts`, one file per page, exported as
-  `<name>Page` (`homePage`, later `legalNoticePage`), so it never collides with
-  a block section such as `contact`. The `es/` file ends with
-  `satisfies PageCopy`, which checks its overrides. A section file is its
-  block's default copy, and a page replaces part of it with the `copy` prop,
-  keeping the override under the block's section name in that page's own file,
-  with the same shape in every language. The merge is shallow, so an overridden
-  list replaces the whole list, and `navigation` cannot be overridden. Build
-  links with `getRelativeLocaleUrl` from `astro:i18n`. Adding a language means
-  updating `astro.config.mjs`, `src/i18n/index.ts` and `pickLocale` in
+  (`HeaderCopy`) and the `en/` file uses it. `useTranslations(locale, section)`
+  returns one section. The `copySections` map in `eslint.config.js` keeps it to
+  the section each file may read, plus `navigation` for the shared links.
+  Blocks hold no copy: each takes its content as props.
+  Block copy and page copy live in the page entries,
+  `src/content/home/<lang>.yaml` and `src/content/not-found/<lang>.yaml`, with
+  the title, the description and the ordered blocks with their full copy. Each
+  block type has a Zod schema in `src/libs/blocks/`, one file per block, and
+  they are strict, so a missing, misspelled or unknown field fails the build.
+  `getHomePage(lang)` in `src/libs/home.ts` reads the entry, computes the arrow
+  of each block from the block order, and checks that each
+  `navigation.sections` key matches a block id on Home. An entry sets a block's
+  `id` for its anchor, and `arrow: false` to turn its arrow off.
+  `getNotFoundPage(lang)` reads the 404 entry.
+  Build links with `getRelativeLocaleUrl` from `astro:i18n`. Adding a language
+  means updating `astro.config.mjs`, `src/i18n/index.ts` and `pickLocale` in
   `src/worker.ts`, creating its folders with the same files, here and in
-  `src/content/pages/`, and adding it to `src/libs/markdownLanguage.ts`.
+  `src/content/pages/`, adding `src/content/home/<lang>.yaml` and
+  `src/content/not-found/<lang>.yaml`, and adding it to
+  `src/libs/markdownLanguage.ts`.
 
 ## Git
 

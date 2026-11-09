@@ -15,7 +15,7 @@ export const work: WorkCopy = {
     {
       client: "8Belts",
       title: "Ecommerce checkout and integrations",
-      body: "A WooCommerce site with a fully custom checkout flow and integrations with Holded, HubSpot and the 8Belts platform API.",
+      body: "A WooCommerce site with a fully custom sales and checkout flow and integrations with Holded, HubSpot and the 8Belts platform API.",
       result: "Better operational efficiency and load times under 1.5 s.",
       chips: ["WooCommerce", "Holded", "HubSpot"],
     },
@@ -44,7 +44,7 @@ export const work: WorkCopy = {
     {
       client: "Abacum",
       title: "Website migration",
-      body: "Migrated the SaaS product website from Webflow to WordPress.",
+      body: "Migrated the SaaS product website from Webflow to WordPress with a new design, integrations with Brevo, HubSpot and other external services.",
       result:
         "Improved editorial experience, content design flexibility and faster loading times.",
       chips: ["Webflow", "WordPress"],

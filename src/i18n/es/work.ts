@@ -13,7 +13,7 @@ export const work = {
     {
       client: "8Belts",
       title: "Proceso de compra e integraciones de ecommerce",
-      body: "Una web WooCommerce con un proceso de compra totalmente a medida e integraciones con Holded, HubSpot y la API de la plataforma de 8Belts.",
+      body: "Una web WooCommerce con un flujo de venta y checkout totalmente a medida e integraciones con Holded, HubSpot y la API de la plataforma de 8Belts.",
       result:
         "Más eficiencia operativa y tiempos de carga por debajo de 1,5 s.",
       chips: ["WooCommerce", "Holded", "HubSpot"],
@@ -44,7 +44,7 @@ export const work = {
     {
       client: "Abacum",
       title: "Migración de la web",
-      body: "Migré la web SaaS de producto desde Webflow a WordPress.",
+      body: "Migré la web SaaS de producto desde Webflow a WordPress, con un nuevo diseño e integraciones con Brevo, HubSpot y otros servicios externos.",
       result:
         "Mejor experiencia editorial, flexibilidad en el diseño de contenidos y tiempos de carga optimizados.",
       chips: ["Webflow", "WordPress"],

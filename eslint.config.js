@@ -4,24 +4,13 @@ import globals from "globals"
 import tseslint from "typescript-eslint"
 import { defineConfig, globalIgnores } from "eslint/config"
 
-/** The one copy section each component may read, besides `navigation`. */
+/** The one site-wide copy section each file may read, besides `navigation`. */
 const copySections = {
   "src/layouts/Main.astro": "meta",
-  "src/pages/[lang]/index.astro": "homePage",
   "src/pages/[lang]/[slug].astro": "contentPage",
   "src/components/atoms/NavLang.astro": "navLang",
   "src/components/blocks/Header.astro": "header",
   "src/components/blocks/Footer.astro": "footer",
-  "src/components/blocks/HeroBlock.astro": "hero",
-  "src/components/blocks/FactsBlock.astro": "facts",
-  "src/components/blocks/ServicesBlock.astro": "services",
-  "src/components/blocks/HowBlock.astro": "process",
-  "src/components/blocks/ExperienceBlock.astro": "experience",
-  "src/components/blocks/StackBlock.astro": "stack",
-  "src/components/blocks/QuoteBlock.astro": "quote",
-  "src/components/blocks/WorkBlock.astro": "work",
-  "src/components/blocks/RecommendationsBlock.astro": "recommendations",
-  "src/components/blocks/ContactBlock.astro": "contact",
 }
 
 /**

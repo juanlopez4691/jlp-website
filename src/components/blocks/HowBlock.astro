@@ -5,22 +5,16 @@ import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import Step from "@/components/molecules/Step.astro"
 import Principle from "@/components/molecules/Principle.astro"
 import { cn } from "@/libs/utils"
-import { useTranslations, type Locale } from "@/i18n"
 import type { HowBlockCopy } from "@/libs/blocks"
 
-interface Props {
-  /** Language of the current page. */
-  locale: Locale
+type Props = HowBlockCopy & {
   id?: string
-  /** Replaces part of this component's default copy on one page. */
-  copy?: HowBlockCopy
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
   class?: string
 }
 
-const { locale, id, copy, arrow, class: className } = Astro.props
-const process = { ...useTranslations(locale, "process"), ...copy }
+const { id, arrow, class: className, ...process } = Astro.props
 ---
 
 <section

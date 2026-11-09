@@ -9,19 +9,16 @@ import { cn } from "@/libs/utils"
 import { useTranslations, type Locale } from "@/i18n"
 import type { ContactBlockCopy } from "@/libs/blocks"
 
-interface Props {
+type Props = ContactBlockCopy & {
   /** Language of the current page. */
   locale: Locale
   id?: string
-  /** Replaces part of this component's default copy on one page. */
-  copy?: ContactBlockCopy
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
   class?: string
 }
 
-const { locale, id, copy, arrow, class: className } = Astro.props
-const contact = { ...useTranslations(locale, "contact"), ...copy }
+const { locale, id, arrow, class: className, ...contact } = Astro.props
 const navigation = useTranslations(locale, "navigation")
 ---
 

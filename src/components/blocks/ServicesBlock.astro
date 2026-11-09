@@ -4,22 +4,16 @@ import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import ServiceCard from "@/components/molecules/ServiceCard.astro"
 import { cn } from "@/libs/utils"
-import { useTranslations, type Locale } from "@/i18n"
 import type { ServicesBlockCopy } from "@/libs/blocks"
 
-interface Props {
-  /** Language of the current page. */
-  locale: Locale
+type Props = ServicesBlockCopy & {
   id?: string
-  /** Replaces part of this component's default copy on one page. */
-  copy?: ServicesBlockCopy
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
   class?: string
 }
 
-const { locale, id, copy, arrow, class: className } = Astro.props
-const services = { ...useTranslations(locale, "services"), ...copy }
+const { id, arrow, class: className, ...services } = Astro.props
 
 /** The fill rotates per card, as the design has it. */
 const tones = ["saffron", "coral", "teal", "teal", "saffron", "coral"] as const

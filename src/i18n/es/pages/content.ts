@@ -5,4 +5,4 @@ export const contentPage = {
   backToReference: "Volver a la referencia",
 }
 
-export type ContentPageCopy = typeof contentPage
+export type ContentCopy = typeof contentPage

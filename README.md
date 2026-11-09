@@ -25,8 +25,9 @@ is the visual reference. Components here keep the names used in the design.
 src/
 ├── assets/       images processed by Astro
 ├── components/   atoms/, molecules/ and blocks/, named like the design
-├── content/      long-form pages in Markdown, as pages/<lang>/<slug>.md
-├── i18n/         copy, one file per section in es/ and en/, and the helper
+├── content/      page entries in home/ and not-found/ (YAML, one per
+│                 language), and long-form pages in pages/<lang>/<slug>.md
+├── i18n/         site-wide copy, one file per section in es/ and en/
 ├── layouts/      the HTML shell
 ├── libs/         helpers, such as the class merge utility
 ├── pages/        routes; [lang]/ holds the localized pages
@@ -232,38 +233,24 @@ The site is in Spanish (`/es`, the default) and English (`/en`), using
 The root `/` redirects to `/es` or `/en`, following the browser language
 (always `/es` in `bun run dev`).
 
-All copy lives in `src/i18n/es/` and `src/i18n/en/`, one file per section, such
-as `hero.ts` or `footer.ts`. Each `en/` file is typed against its `es/`
-counterpart, so a missing or extra key fails the type check: the `es/` file
-exports its shape as `<Name>Copy` (`HeroCopy`) and the `en/` file uses it.
-Components get the language as a `locale` prop and read only their own section,
-plus `navigation` for the shared links: `const hero = useTranslations(locale,
-"hero")`. The `copySections` map in `eslint.config.js` enforces that, and a new
-component must be added to it before it reads its own section.
+Only site-wide copy lives in `src/i18n/es/` and `src/i18n/en/`, one file per
+section: the header, the footer, the navigation, the language switcher, the meta
+tags and the labels of long-form pages. Each `en/` file is typed against its
+`es/` counterpart, so a missing or extra key fails the type check.
 
-Page copy lives in `src/i18n/{es,en}/pages/<page>.ts`, one file per page,
-exported as `<name>Page` (`notFoundPage`, later `legalNoticePage`); the `es/`
-file ends with `satisfies PageCopy`, which checks its overrides. A section file
-is a block's default copy. A page can replace part of it with the block's
-`copy` prop, keeping the override under the block's section name in that page's
-own file, so each language has it too. The merge is shallow, so an overridden
-list replaces the whole list, and `navigation` cannot be overridden.
-
-The home page is the exception: each language defines it in one content entry,
-`src/content/home/<lang>.yaml`, with the page title, its description and the
-ordered blocks with their full copy. The block schemas live in
+Block copy and page copy live in the page entries: each language defines Home
+in `src/content/home/<lang>.yaml` and the 404 in
+`src/content/not-found/<lang>.yaml`, with the page title, its description and
+the ordered blocks with their full copy. The block schemas live in
 `src/libs/blocks/`, one file per block, and are strict, so a missing,
-misspelled or unknown field fails the build. `getHomePage(lang)` in
-`src/libs/home.ts` reads the entry, computes the arrow of each block from the
-block order, and checks that every `navigation.sections` link has a block with
-that id. Blocks still keep their i18n copy as a fallback, except the
-recommendations block, which takes its copy from the entry.
+misspelled or unknown field fails the build. Blocks take their content as props
+and hold no copy.
 
 To add a language, add its code to `i18n.locales` in `astro.config.mjs`, to
 `locales` in `src/i18n/index.ts` and to `pickLocale` in `src/worker.ts`, create
 its folders with the same files as `src/i18n/es/` and `src/content/pages/es/`,
-add `src/content/home/<lang>.yaml`, and add it to
-`src/libs/markdownLanguage.ts`.
+add `src/content/home/<lang>.yaml` and `src/content/not-found/<lang>.yaml`, and
+add it to `src/libs/markdownLanguage.ts`.
 
 ## Content pages
 

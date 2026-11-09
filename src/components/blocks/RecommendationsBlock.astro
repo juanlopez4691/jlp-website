@@ -8,19 +8,16 @@ import { cn } from "@/libs/utils"
 import type { RecommendationsBlockCopy } from "@/libs/blocks"
 import { useTranslations, type Locale } from "@/i18n"
 
-interface Props {
+type Props = RecommendationsBlockCopy & {
   /** Language of the current page. */
   locale: Locale
   id?: string
-  /** Replaces part of this component's default copy on one page. */
-  copy: RecommendationsBlockCopy
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
   class?: string
 }
 
-const { locale, id, copy, arrow, class: className } = Astro.props
-const recommendations = copy
+const { locale, id, arrow, class: className, ...recommendations } = Astro.props
 const navigation = useTranslations(locale, "navigation")
 
 /** The first item is the featured one, in the navy card. */

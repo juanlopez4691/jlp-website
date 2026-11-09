@@ -24,8 +24,6 @@ if (!isLocale(lang)) {
   throw new Error(`Unsupported language: ${lang}`)
 }
 
-// The entry holds every block's whole copy; the i18n default it overrides is
-// dead until #114.
 const { title, description, blocks } = await getHomePage(lang)
 
 const translations: Translations = Object.fromEntries(
@@ -49,35 +47,20 @@ const translations: Translations = Object.fromEntries(
     {blocks.map((block) => {
       switch (block.type) {
         case "hero":
-          return <HeroBlock locale={lang} id={block.id} copy={block.copy} />
+          return <HeroBlock locale={lang} id={block.id} {...block.props} />
         case "facts":
-          return <FactsBlock locale={lang} id={block.id} copy={block.copy} />
+          return <FactsBlock id={block.id} {...block.props} />
         case "services":
           return (
-            <ServicesBlock
-              locale={lang}
-              id={block.id}
-              arrow={block.arrow}
-              copy={block.copy}
-            />
+            <ServicesBlock id={block.id} arrow={block.arrow} {...block.props} />
           )
         case "quote":
           return (
-            <QuoteBlock
-              locale={lang}
-              id={block.id}
-              arrow={block.arrow}
-              copy={block.copy}
-            />
+            <QuoteBlock id={block.id} arrow={block.arrow} {...block.props} />
           )
         case "work":
           return (
-            <WorkBlock
-              locale={lang}
-              id={block.id}
-              arrow={block.arrow}
-              copy={block.copy}
-            />
+            <WorkBlock id={block.id} arrow={block.arrow} {...block.props} />
           )
         case "recommendations":
           return (
@@ -85,35 +68,22 @@ const translations: Translations = Object.fromEntries(
               locale={lang}
               id={block.id}
               arrow={block.arrow}
-              copy={block.copy}
+              {...block.props}
             />
           )
         case "how":
-          return (
-            <HowBlock
-              locale={lang}
-              id={block.id}
-              arrow={block.arrow}
-              copy={block.copy}
-            />
-          )
+          return <HowBlock id={block.id} arrow={block.arrow} {...block.props} />
         case "experience":
           return (
             <ExperienceBlock
-              locale={lang}
               id={block.id}
               arrow={block.arrow}
-              copy={block.copy}
+              {...block.props}
             />
           )
         case "stack":
           return (
-            <StackBlock
-              locale={lang}
-              id={block.id}
-              arrow={block.arrow}
-              copy={block.copy}
-            />
+            <StackBlock id={block.id} arrow={block.arrow} {...block.props} />
           )
         case "contact":
           return (
@@ -121,7 +91,7 @@ const translations: Translations = Object.fromEntries(
               locale={lang}
               id={block.id}
               arrow={block.arrow}
-              copy={block.copy}
+              {...block.props}
             />
           )
         default: {

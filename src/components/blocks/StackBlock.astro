@@ -4,22 +4,16 @@ import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import StackGroup from "@/components/molecules/StackGroup.astro"
 import { cn } from "@/libs/utils"
-import { useTranslations, type Locale } from "@/i18n"
 import type { StackBlockCopy } from "@/libs/blocks"
 
-interface Props {
-  /** Language of the current page. */
-  locale: Locale
+type Props = StackBlockCopy & {
   id?: string
-  /** Replaces part of this component's default copy on one page. */
-  copy?: StackBlockCopy
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
   class?: string
 }
 
-const { locale, id, copy, arrow, class: className } = Astro.props
-const stack = { ...useTranslations(locale, "stack"), ...copy }
+const { id, arrow, class: className, ...stack } = Astro.props
 ---
 
 <section

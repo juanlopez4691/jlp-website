@@ -3,13 +3,11 @@ import { getRelativeLocaleUrl } from "astro:i18n"
 import IconExternalLink from "@/components/atoms/IconExternalLink.astro"
 import NavLink from "@/components/atoms/NavLink.astro"
 import { cn } from "@/libs/utils"
-import { useTranslations, type Dictionary, type Locale } from "@/i18n"
+import { useTranslations, type Locale } from "@/i18n"
 
 interface Props {
   /** Language of the current page. */
   locale: Locale
-  /** Replaces part of this component's default copy on one page. */
-  copy?: Partial<Dictionary["footer"]>
   class?: string
 }
 
@@ -22,8 +20,8 @@ interface FooterLink {
   hint?: string
 }
 
-const { locale, copy, class: className } = Astro.props
-const footer = { ...useTranslations(locale, "footer"), ...copy }
+const { locale, class: className } = Astro.props
+const footer = useTranslations(locale, "footer")
 const navigation = useTranslations(locale, "navigation")
 const home = getRelativeLocaleUrl(locale)
 const year = new Date().getFullYear()

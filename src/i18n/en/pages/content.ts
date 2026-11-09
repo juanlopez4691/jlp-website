@@ -1,6 +1,6 @@
-import type { ContentPageCopy } from "../../es/pages/content"
+import type { ContentCopy } from "../../es/pages/content"
 
-export const contentPage: ContentPageCopy = {
+export const contentPage: ContentCopy = {
   siteName: "Joan López",
   updated: "Last updated:",
   footnotes: "Footnotes",

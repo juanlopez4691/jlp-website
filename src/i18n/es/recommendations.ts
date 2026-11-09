@@ -28,7 +28,7 @@ export const recommendations = {
       role: "Compañero desarrollador web en netzstrategen · Traducido del inglés",
       href: "https://www.linkedin.com/in/julia-mestieri-ferrer/",
       quote: [
-        "Tuve la oportunidad de trabajar con Joan cerca de un año en netzstrategen. Los dos éramos desarrolladores web en el mismo equipo y trabajamos juntos en muchos proyectos grandes y pequeños: webs corporativas, comercio electrónico, medios de comunicación...",
+        "Tuve la ocasión de trabajar con Joan cerca de un año en netzstrategen. Los dos éramos desarrolladores web en el mismo equipo y trabajamos juntos en muchos proyectos grandes y pequeños: webs corporativas, comercio electrónico, medios de comunicación...",
         "Aprendí mucho de Joan. Su enorme experiencia respalda todas sus decisiones. Sabe gestionar clientes y proyectos con seguridad y cumplir las mejores expectativas.",
       ],
     },

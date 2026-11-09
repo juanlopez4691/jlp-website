@@ -31,6 +31,7 @@ The names and trademarks of companies and technologies I mention belong to their
 
 - "Blacksmith at the anvil", from <i lang="la">De Magnete</i> by William Gilbert (1600). Image: [Wellcome Library, London](https://wellcomecollection.org/works/wrmgs36a) (Wellcome Collection), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Blacksmith_at_the_anvil._Wellcome_L0005875.jpg). Changes: trimmed to the figure, background removed and recolored.
 - "Gentleman with two telephones", illustration by B. Bonnafoux, from <i lang="fr">Le téléphone, le microphone et le phonographe</i> by Théodose du Moncel (1880). Public domain. Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Fig_25_Gentleman_with_two_telephones_1880.jpg). Change: background removed.
+- "Icarus", engraving by Hendrik Goltzius (1588), after Cornelis van Haarlem, from the series <i lang="en">The Four Disgracers</i>. Los Angeles County Museum of Art, Mary Stansbury Ruiz Bequest (M.88.91.104). Public domain. Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Icarus_LACMA_M.88.91.104.jpg). Change: background removed.
 
 ## Use of artificial intelligence
 

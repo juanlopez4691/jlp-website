@@ -1,6 +1,13 @@
 import { defineCollection } from "astro:content"
 import { glob } from "astro/loaders"
 import { z } from "astro/zod"
+import { homeEntry } from "@/libs/home"
+
+/** The home page of each language: `src/content/home/<lang>.yaml`. */
+const home = defineCollection({
+  loader: glob({ pattern: "*.yaml", base: "./src/content/home" }),
+  schema: ({ image }) => homeEntry(image),
+})
 
 /** Long-form pages: `src/content/pages/<lang>/<slug>.md`, one file per language. */
 const pages = defineCollection({
@@ -16,4 +23,4 @@ const pages = defineCollection({
   }),
 })
 
-export const collections = { pages }
+export const collections = { home, pages }

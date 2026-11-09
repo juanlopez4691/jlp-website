@@ -8,6 +8,7 @@ import { useTranslations, type Dictionary, type Locale } from "@/i18n"
 interface Props {
   /** Language of the current page. */
   locale: Locale
+  id?: string
   /** Replaces part of this component's default copy on one page. */
   copy?: Partial<Dictionary["quote"]>
   /** Color of the block above. Without it, the block has no arrow. */
@@ -15,11 +16,12 @@ interface Props {
   class?: string
 }
 
-const { locale, copy, arrow, class: className } = Astro.props
+const { locale, id, copy, arrow, class: className } = Astro.props
 const quote = { ...useTranslations(locale, "quote"), ...copy }
 ---
 
 <section
+  id={id}
   class={cn(
     "relative overflow-hidden bg-coral py-16 text-ink md:py-20",
     className

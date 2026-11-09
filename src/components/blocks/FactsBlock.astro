@@ -6,12 +6,13 @@ import { useTranslations, type Dictionary, type Locale } from "@/i18n"
 interface Props {
   /** Language of the current page. */
   locale: Locale
+  id?: string
   /** Replaces part of this component's default copy on one page. */
   copy?: Partial<Dictionary["facts"]>
   class?: string
 }
 
-const { locale, copy, class: className } = Astro.props
+const { locale, id, copy, class: className } = Astro.props
 const facts = { ...useTranslations(locale, "facts"), ...copy }
 
 // The column wrappers only exist as boxes on tablet (md), where each column
@@ -19,7 +20,7 @@ const facts = { ...useTranslations(locale, "facts"), ...copy }
 const column = "contents md:flex md:flex-col md:gap-6 lg:contents"
 ---
 
-<section class={cn("bg-navy py-8", className)}>
+<section id={id} class={cn("bg-navy py-8", className)}>
   <div class="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-8 lg:grid-cols-3 xl:grid-cols-12 xl:gap-x-8 xl:px-0">
     <dl class={column}>
       <Fact

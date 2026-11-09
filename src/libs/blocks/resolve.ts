@@ -28,7 +28,18 @@ function arrowOf(
   return color === blockColors[block.type] ? undefined : color
 }
 
-export function resolveBlocks(blocks: Block[]): PageBlock[] {
+export function resolveBlocks(blocks: Block[], file: string): PageBlock[] {
+  const ids = blocks.flatMap((block) => (block.id ? [block.id] : []))
+
+  // Two blocks with one id give the page two anchors to the same place.
+  const duplicate = ids.find((id, index) => ids.indexOf(id) !== index)
+
+  if (duplicate) {
+    throw new Error(
+      `${file}: the id "${duplicate}" is used by more than one block`
+    )
+  }
+
   return blocks.map((block, index) => {
     const { arrow, ...fields } = block
 

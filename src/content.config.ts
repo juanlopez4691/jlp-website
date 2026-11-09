@@ -2,11 +2,18 @@ import { defineCollection } from "astro:content"
 import { glob } from "astro/loaders"
 import { z } from "astro/zod"
 import { homeEntry } from "@/libs/home"
+import { notFoundEntry } from "@/libs/notFound"
 
 /** The home page of each language: `src/content/home/<lang>.yaml`. */
 const home = defineCollection({
   loader: glob({ pattern: "*.yaml", base: "./src/content/home" }),
   schema: ({ image }) => homeEntry(image),
+})
+
+/** The 404 page of each language: `src/content/not-found/<lang>.yaml`. */
+const notFound = defineCollection({
+  loader: glob({ pattern: "*.yaml", base: "./src/content/not-found" }),
+  schema: notFoundEntry(),
 })
 
 /** Long-form pages: `src/content/pages/<lang>/<slug>.md`, one file per language. */
@@ -23,4 +30,4 @@ const pages = defineCollection({
   }),
 })
 
-export const collections = { home, pages }
+export const collections = { home, notFound, pages }

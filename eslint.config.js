@@ -8,7 +8,6 @@ import { defineConfig, globalIgnores } from "eslint/config"
 const copySections = {
   "src/layouts/Main.astro": "meta",
   "src/pages/[lang]/index.astro": "homePage",
-  "src/pages/[lang]/404.astro": "notFoundPage",
   "src/pages/[lang]/[slug].astro": "contentPage",
   "src/components/atoms/NavLang.astro": "navLang",
   "src/components/blocks/Header.astro": "header",

@@ -1,0 +1,45 @@
+import { getEntry } from "astro:content"
+import { z } from "astro/zod"
+import type { Locale } from "@/i18n"
+import { contactBlock, type ContactBlockCopy } from "@/libs/blocks/contact"
+
+export function notFoundEntry() {
+  return z
+    .object({
+      title: z.string(),
+      heading: z.string(),
+      text: z.string(),
+      link: z.string(),
+      contact: contactBlock.omit({ type: true, id: true, arrow: true }),
+    })
+    .strict()
+}
+
+export type NotFoundEntry = z.infer<ReturnType<typeof notFoundEntry>>
+
+export interface NotFoundPageContent {
+  title: string
+  heading: string
+  text: string
+  link: string
+  contact: ContactBlockCopy
+}
+
+export async function getNotFoundPage(
+  lang: Locale
+): Promise<NotFoundPageContent> {
+  const file = `not-found/${lang}.yaml`
+  const entry = await getEntry("notFound", lang)
+
+  if (!entry) {
+    throw new Error(`${file}: no entry for the language "${lang}"`)
+  }
+
+  return {
+    title: entry.data.title,
+    heading: entry.data.heading,
+    text: entry.data.text,
+    link: entry.data.link,
+    contact: entry.data.contact,
+  }
+}

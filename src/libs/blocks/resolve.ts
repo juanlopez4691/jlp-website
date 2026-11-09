@@ -2,16 +2,22 @@ import {
   blockColors,
   type ArrowColor,
   type Block,
+  type BlockCopy,
   type BlockType,
 } from "./index"
 
 const noArrow: BlockType[] = ["hero", "facts"]
 
-type WithArrow<T> = T extends unknown
-  ? Omit<T, "arrow"> & { arrow?: ArrowColor }
-  : never
+type PageBlockOf<T extends Block> = {
+  type: T["type"]
+  id?: string
+  arrow?: ArrowColor
+  copy: BlockCopy<T>
+}
 
-export type PageBlock = WithArrow<Block>
+export type PageBlock = {
+  [K in BlockType]: PageBlockOf<Extract<Block, { type: K }>>
+}[BlockType]
 
 /** Nothing when the arrow would vanish into the block, or the block never takes one. */
 function arrowOf(
@@ -41,8 +47,15 @@ export function resolveBlocks(blocks: Block[], file: string): PageBlock[] {
   }
 
   return blocks.map((block, index) => {
-    const { arrow, ...fields } = block
+    const { type, id, arrow, ...copy } = block
 
-    return { ...fields, arrow: arrowOf(block, blocks[index - 1], arrow) }
+    // The compiler cannot link `type` to the rest of the block; it holds
+    // because `copy` is the block minus its metadata.
+    return {
+      type,
+      id,
+      arrow: arrowOf(block, blocks[index - 1], arrow),
+      copy,
+    } as PageBlock
   })
 }

@@ -1,14 +1,15 @@
 ---
 import Fact from "@/components/molecules/Fact.astro"
 import { cn } from "@/libs/utils"
-import { useTranslations, type Dictionary, type Locale } from "@/i18n"
+import { useTranslations, type Locale } from "@/i18n"
+import type { FactsBlockCopy } from "@/libs/blocks"
 
 interface Props {
   /** Language of the current page. */
   locale: Locale
   id?: string
   /** Replaces part of this component's default copy on one page. */
-  copy?: Partial<Dictionary["facts"]>
+  copy?: FactsBlockCopy
   class?: string
 }
 

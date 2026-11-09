@@ -1,45 +1,27 @@
 ---
 import type { ComponentProps } from "astro/types"
-import type { ImageMetadata } from "astro"
 import IconExternalLink from "@/components/atoms/IconExternalLink.astro"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import Quote from "@/components/molecules/Quote.astro"
-import carlosAlbertoGarciaDeLaCaleraDassi from "@/assets/recommendations/carlos-alberto-garcia-de-la-calera-dassi.jpeg"
-import manuelBruschi from "@/assets/recommendations/manuel-bruschi.jpeg"
-import juliaMestieri from "@/assets/recommendations/julia-mestieri.jpeg"
-import jordiPallares from "@/assets/recommendations/jordi-pallares.jpeg"
-import tomMursell from "@/assets/recommendations/tom-mursell.jpeg"
 import { cn } from "@/libs/utils"
-import { useTranslations, type Dictionary, type Locale } from "@/i18n"
+import type { RecommendationsBlockCopy } from "@/libs/blocks"
+import { useTranslations, type Locale } from "@/i18n"
 
 interface Props {
   /** Language of the current page. */
   locale: Locale
   id?: string
   /** Replaces part of this component's default copy on one page. */
-  copy?: Partial<Dictionary["recommendations"]>
+  copy: RecommendationsBlockCopy
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
   class?: string
 }
 
 const { locale, id, copy, arrow, class: className } = Astro.props
-const recommendations = {
-  ...useTranslations(locale, "recommendations"),
-  ...copy,
-}
+const recommendations = copy
 const navigation = useTranslations(locale, "navigation")
-
-/** The photos, keyed by the item id the dictionary uses. */
-const photos: Record<string, ImageMetadata> = {
-  "carlos-alberto-garcia-de-la-calera-dassi":
-    carlosAlbertoGarciaDeLaCaleraDassi,
-  "manuel-bruschi": manuelBruschi,
-  "julia-mestieri": juliaMestieri,
-  "jordi-pallares": jordiPallares,
-  "tom-mursell": tomMursell,
-}
 
 /** The first item is the featured one, in the navy card. */
 const [featured, ...rest] = recommendations.items
@@ -62,7 +44,7 @@ const [featured, ...rest] = recommendations.items
           name={featured.name}
           role={featured.role}
           href={featured.href}
-          photo={photos[featured.id]}
+          photo={featured.photo}
           newTab={navigation.newTab}
         >
           {featured.quote.map((paragraph) => (
@@ -78,7 +60,7 @@ const [featured, ...rest] = recommendations.items
                 name={item.name}
                 role={item.role}
                 href={item.href}
-                photo={photos[item.id]}
+                photo={item.photo}
                 newTab={navigation.newTab}
               >
                 {item.quote.map((paragraph) => (

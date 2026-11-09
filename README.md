@@ -242,17 +242,28 @@ plus `navigation` for the shared links: `const hero = useTranslations(locale,
 component must be added to it before it reads its own section.
 
 Page copy lives in `src/i18n/{es,en}/pages/<page>.ts`, one file per page,
-exported as `<name>Page` (`homePage`, later `legalNoticePage`); the `es/` file
-ends with `satisfies PageCopy`, which checks its overrides. A section file
+exported as `<name>Page` (`notFoundPage`, later `legalNoticePage`); the `es/`
+file ends with `satisfies PageCopy`, which checks its overrides. A section file
 is a block's default copy. A page can replace part of it with the block's
 `copy` prop, keeping the override under the block's section name in that page's
 own file, so each language has it too. The merge is shallow, so an overridden
 list replaces the whole list, and `navigation` cannot be overridden.
 
+The home page is the exception: each language defines it in one content entry,
+`src/content/home/<lang>.yaml`, with the page title, its description and the
+ordered blocks with their full copy. The block schemas live in
+`src/libs/blocks/`, one file per block, and are strict, so a missing,
+misspelled or unknown field fails the build. `getHomePage(lang)` in
+`src/libs/home.ts` reads the entry, computes the arrow of each block from the
+block order, and checks that every `navigation.sections` link has a block with
+that id. Blocks still keep their i18n copy as a fallback, except the
+recommendations block, which takes its copy from the entry.
+
 To add a language, add its code to `i18n.locales` in `astro.config.mjs`, to
 `locales` in `src/i18n/index.ts` and to `pickLocale` in `src/worker.ts`, create
 its folders with the same files as `src/i18n/es/` and `src/content/pages/es/`,
-and add it to `src/libs/markdownLanguage.ts`.
+add `src/content/home/<lang>.yaml`, and add it to
+`src/libs/markdownLanguage.ts`.
 
 ## Content pages
 

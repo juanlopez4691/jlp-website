@@ -49,36 +49,80 @@ const translations: Translations = Object.fromEntries(
     {blocks.map((block) => {
       switch (block.type) {
         case "hero":
-          return <HeroBlock locale={lang} id={block.id} />
+          return <HeroBlock locale={lang} id={block.id} copy={block.copy} />
         case "facts":
-          return <FactsBlock locale={lang} id={block.id} />
+          return <FactsBlock locale={lang} id={block.id} copy={block.copy} />
         case "services":
           return (
-            <ServicesBlock locale={lang} id={block.id} arrow={block.arrow} />
+            <ServicesBlock
+              locale={lang}
+              id={block.id}
+              arrow={block.arrow}
+              copy={block.copy}
+            />
           )
         case "quote":
-          return <QuoteBlock locale={lang} id={block.id} arrow={block.arrow} />
+          return (
+            <QuoteBlock
+              locale={lang}
+              id={block.id}
+              arrow={block.arrow}
+              copy={block.copy}
+            />
+          )
         case "work":
-          return <WorkBlock locale={lang} id={block.id} arrow={block.arrow} />
+          return (
+            <WorkBlock
+              locale={lang}
+              id={block.id}
+              arrow={block.arrow}
+              copy={block.copy}
+            />
+          )
         case "recommendations":
           return (
             <RecommendationsBlock
               locale={lang}
               id={block.id}
               arrow={block.arrow}
+              copy={block.copy}
             />
           )
         case "how":
-          return <HowBlock locale={lang} id={block.id} arrow={block.arrow} />
+          return (
+            <HowBlock
+              locale={lang}
+              id={block.id}
+              arrow={block.arrow}
+              copy={block.copy}
+            />
+          )
         case "experience":
           return (
-            <ExperienceBlock locale={lang} id={block.id} arrow={block.arrow} />
+            <ExperienceBlock
+              locale={lang}
+              id={block.id}
+              arrow={block.arrow}
+              copy={block.copy}
+            />
           )
         case "stack":
-          return <StackBlock locale={lang} id={block.id} arrow={block.arrow} />
+          return (
+            <StackBlock
+              locale={lang}
+              id={block.id}
+              arrow={block.arrow}
+              copy={block.copy}
+            />
+          )
         case "contact":
           return (
-            <ContactBlock locale={lang} id={block.id} arrow={block.arrow} />
+            <ContactBlock
+              locale={lang}
+              id={block.id}
+              arrow={block.arrow}
+              copy={block.copy}
+            />
           )
         default: {
           const _exhaustive: never = block

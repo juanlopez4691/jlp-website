@@ -10,12 +10,13 @@ import { useTranslations, type Dictionary, type Locale } from "@/i18n"
 interface Props {
   /** Language of the current page. */
   locale: Locale
+  id?: string
   /** Replaces part of this component's default copy on one page. */
   copy?: Partial<Dictionary["hero"]>
   class?: string
 }
 
-const { locale, copy, class: className } = Astro.props
+const { locale, id, copy, class: className } = Astro.props
 const hero = { ...useTranslations(locale, "hero"), ...copy }
 const navigation = useTranslations(locale, "navigation")
 const home = getRelativeLocaleUrl(locale)
@@ -33,7 +34,7 @@ const blank =
   "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
 ---
 
-<section class={cn("bg-saffron pt-6 pb-16 md:pb-20", className)}>
+<section id={id} class={cn("bg-saffron pt-6 pb-16 md:pb-20", className)}>
   <div class="mx-auto flex max-w-6xl items-start gap-0 md:gap-2 xl:gap-8 px-8 xl:px-0">
     <div class="flex-1 md:mx-auto md:max-w-140 lg:mx-0 lg:w-116 lg:max-w-none lg:flex-none">
       <Pill kind="availability" class="w-full md:w-auto">

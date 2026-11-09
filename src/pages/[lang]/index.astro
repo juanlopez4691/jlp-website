@@ -49,25 +49,37 @@ const translations: Translations = Object.fromEntries(
     {blocks.map((block) => {
       switch (block.type) {
         case "hero":
-          return <HeroBlock locale={lang} />
+          return <HeroBlock locale={lang} id={block.id} />
         case "facts":
-          return <FactsBlock locale={lang} />
+          return <FactsBlock locale={lang} id={block.id} />
         case "services":
-          return <ServicesBlock locale={lang} arrow={block.arrow} />
+          return (
+            <ServicesBlock locale={lang} id={block.id} arrow={block.arrow} />
+          )
         case "quote":
-          return <QuoteBlock locale={lang} arrow={block.arrow} />
+          return <QuoteBlock locale={lang} id={block.id} arrow={block.arrow} />
         case "work":
-          return <WorkBlock locale={lang} arrow={block.arrow} />
+          return <WorkBlock locale={lang} id={block.id} arrow={block.arrow} />
         case "recommendations":
-          return <RecommendationsBlock locale={lang} arrow={block.arrow} />
+          return (
+            <RecommendationsBlock
+              locale={lang}
+              id={block.id}
+              arrow={block.arrow}
+            />
+          )
         case "how":
-          return <HowBlock locale={lang} arrow={block.arrow} />
+          return <HowBlock locale={lang} id={block.id} arrow={block.arrow} />
         case "experience":
-          return <ExperienceBlock locale={lang} arrow={block.arrow} />
+          return (
+            <ExperienceBlock locale={lang} id={block.id} arrow={block.arrow} />
+          )
         case "stack":
-          return <StackBlock locale={lang} arrow={block.arrow} />
+          return <StackBlock locale={lang} id={block.id} arrow={block.arrow} />
         case "contact":
-          return <ContactBlock locale={lang} arrow={block.arrow} />
+          return (
+            <ContactBlock locale={lang} id={block.id} arrow={block.arrow} />
+          )
         default: {
           const _exhaustive: never = block
           return _exhaustive

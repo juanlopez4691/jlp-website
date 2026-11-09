@@ -9,6 +9,7 @@ import { useTranslations, type Dictionary, type Locale } from "@/i18n"
 interface Props {
   /** Language of the current page. */
   locale: Locale
+  id?: string
   /** Replaces part of this component's default copy on one page. */
   copy?: Partial<Dictionary["experience"]>
   /** Color of the block above. Without it, the block has no arrow. */
@@ -16,7 +17,7 @@ interface Props {
   class?: string
 }
 
-const { locale, copy, arrow, class: className } = Astro.props
+const { locale, id, copy, arrow, class: className } = Astro.props
 const experience = { ...useTranslations(locale, "experience"), ...copy }
 
 /** The first job opens the log and the last one closes it. */
@@ -28,7 +29,7 @@ const position = (index: number): "first" | "middle" | "last" => {
 ---
 
 <section
-  id="experience"
+  id={id}
   class={cn("relative bg-mint py-16 text-ink md:py-20", className)}
 >
   {arrow && <SectionArrow color={arrow} />}

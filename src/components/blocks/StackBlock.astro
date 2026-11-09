@@ -9,6 +9,7 @@ import { useTranslations, type Dictionary, type Locale } from "@/i18n"
 interface Props {
   /** Language of the current page. */
   locale: Locale
+  id?: string
   /** Replaces part of this component's default copy on one page. */
   copy?: Partial<Dictionary["stack"]>
   /** Color of the block above. Without it, the block has no arrow. */
@@ -16,12 +17,12 @@ interface Props {
   class?: string
 }
 
-const { locale, copy, arrow, class: className } = Astro.props
+const { locale, id, copy, arrow, class: className } = Astro.props
 const stack = { ...useTranslations(locale, "stack"), ...copy }
 ---
 
 <section
-  id="stack"
+  id={id}
   class={cn("relative bg-navy py-16 text-mint md:py-20", className)}
 >
   {arrow && <SectionArrow color={arrow} />}

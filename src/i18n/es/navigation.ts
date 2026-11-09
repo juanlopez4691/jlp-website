@@ -2,7 +2,7 @@ export const navigation = {
   sections: {
     home: "Inicio",
     services: "Servicios",
-    work: "Trabajo",
+    work: "Trabajos",
     recommendations: "Recomendaciones",
     process: "Proceso",
     experience: "Experiencia",

@@ -83,10 +83,11 @@ reporting work as done.
   scroll-driven animations but no triggers, and the variant also skips print.
   On a grid list, stagger the items with `reveal-stagger-2`, `-3` or `-4` (the
   column count at `lg`) on the list. Its `@keyframes` follow the rule above.
-  The process steps of the How block add `relay` (same gate) on the `Step`
-  inside each revealed item: after the reveal, the top rule of each step fills
-  into a thicker bar while the step lifts, one column after the other. It
-  reuses the item's `--reveal` trigger and the stagger's `--reveal-column`.
+  The bar and the lift of the process steps are played by a `<script>` in
+  `HowBlock.astro` (Web Animations API), not by CSS: in order, each step once
+  its card has appeared and it is in view, and a step scrolled past is shown at
+  once. `relay` on each `<li>` only draws the resting bar. Once a step has
+  played, hovering it replays it and leaving eases it back.
   Chrome triggers only the first of an element's animations, so give each
   triggered animation its own element or pseudo-element.
 - **Smooth scrolling.** `<html>` has `motion-safe:scroll-smooth`, so in-page

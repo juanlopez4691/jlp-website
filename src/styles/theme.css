@@ -98,23 +98,15 @@
   }
 }
 /*
- * Relay: on the steps of a process, inside a `reveal` with a stagger. After
- * the reveal, the top rule of each step fills into a thicker bar while the
- * step lifts, one column after the other. It uses the trigger of the reveal.
+ * Relay: the resting bar over the top rule of a process step. The script in
+ * HowBlock.astro fills it and lifts the step. Without scripts only the 2px
+ * border shows.
  */
 @utility relay {
-  /* The reveal (600ms) and stagger of the 4th column (3 × 80ms), a 500ms pause, then 700ms per column. */
-  --relay-delay: calc(
-    600ms + 3 * 80ms + 500ms + var(--reveal-column, 0) * 700ms
-  );
-  position: relative;
-  /* Longhands, as in `reveal`: the shorthand would reset animation-trigger. */
-  animation-name: relay-lift;
-  animation-duration: 700ms;
-  animation-timing-function: ease-in-out;
-  animation-delay: var(--relay-delay);
-  animation-trigger: --reveal play-once;
-  &::before {
+  & > * {
+    position: relative;
+  }
+  & > *::before {
     content: "";
     position: absolute;
     inset-inline: 0;
@@ -124,23 +116,6 @@
     background-color: var(--color-ink);
     scale: 0 1;
     transform-origin: left;
-    animation-name: relay-bar;
-    animation-duration: 700ms;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: both;
-    animation-delay: var(--relay-delay);
-    animation-trigger: --reveal play-once;
-  }
-}
-@keyframes relay-lift {
-  35%,
-  65% {
-    translate: 0 -1rem;
-  }
-}
-@keyframes relay-bar {
-  to {
-    scale: 1 1;
   }
 }
 /* Reveal stagger: on a grid list, delays each item by its column (0 to 3). */

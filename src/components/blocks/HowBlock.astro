@@ -27,7 +27,9 @@ const { id, arrow, class: className, ...process } = Astro.props
     <ol class="reveal-stagger-4 mt-12 grid gap-8 md:grid-cols-2 md:gap-y-10 lg:grid-cols-4 lg:gap-x-10">
       {process.steps.map((step) => (
         <li class="motion-safe:scroll-triggered:reveal">
-          <Step title={step.title}>{step.body}</Step>
+          <Step title={step.title} class="motion-safe:scroll-triggered:relay">
+            {step.body}
+          </Step>
         </li>
       ))}
     </ol>

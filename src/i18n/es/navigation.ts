@@ -1,6 +1,6 @@
 export const navigation = {
   sections: {
-    home: "Inicio",
+    top: "Inicio",
     services: "Servicios",
     work: "Trabajos",
     recommendations: "Recomendaciones",

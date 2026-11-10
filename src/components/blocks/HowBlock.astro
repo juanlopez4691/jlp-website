@@ -24,12 +24,13 @@ const { id, arrow, class: className, ...process } = Astro.props
   {arrow && <SectionArrow color={arrow} />}
   <div class="mx-auto max-w-6xl px-8 xl:px-0">
     <SectionHeader eyebrow={process.eyebrow} title={process.title} />
-    <ol class="reveal-stagger-4 mt-12 grid gap-8 md:grid-cols-2 md:gap-y-10 lg:grid-cols-4 lg:gap-x-10">
+    <ol
+      data-process-steps
+      class="reveal-stagger-4 mt-12 grid gap-8 md:grid-cols-2 md:gap-y-10 lg:grid-cols-4 lg:gap-x-10"
+    >
       {process.steps.map((step) => (
-        <li class="motion-safe:scroll-triggered:reveal">
-          <Step title={step.title} class="motion-safe:scroll-triggered:relay">
-            {step.body}
-          </Step>
+        <li class="motion-safe:scroll-triggered:reveal motion-safe:relay pb-4 -mb-4">
+          <Step title={step.title}>{step.body}</Step>
         </li>
       ))}
     </ol>
@@ -42,3 +43,203 @@ const { id, arrow, class: className, ...process } = Astro.props
     </ul>
   </div>
 </section>
+
+<script>
+  /*
+   * Plays the steps one after the other as they come into view, and replays a
+   * step when the mouse enters it. The timings and the lift live here, not in
+   * CSS.
+   */
+  const STEP_MS = 700
+  // The lift moves the <li>, which is also the hover area. Its pb-4 keeps the
+  // pointer inside while it rises, so keep the two in step.
+  const LIFT = "-1rem"
+  const BACK_MS = 300
+  const PAUSE_MS = 500
+
+  const list = document.querySelector<HTMLElement>("[data-process-steps]")
+
+  if (list) {
+    type StepEntry = {
+      item: HTMLElement
+      step: HTMLElement
+      /** The animations of this step's replay, for cancelling before the next. */
+      replayed: Animation[]
+      /** The intro of this step has played to its end. */
+      played: boolean
+    }
+
+    // The bar animates the step's ::before, the lift its <li>.
+    const steps = [...list.children].flatMap<StepEntry>((item) => {
+      const step = item.firstElementChild
+      return item instanceof HTMLElement && step instanceof HTMLElement
+        ? [{ item, step, replayed: [], played: false }]
+        : []
+    })
+
+    const cancelReplay = (processStep: StepEntry) => {
+      processStep.replayed.forEach((animation) => animation.cancel())
+      processStep.replayed = []
+    }
+
+    // The card's own reveal, a CSS animation. Without one (no triggers, no
+    // motion) the card is ready.
+    const ready = async (item: HTMLElement) => {
+      const reveal = item
+        .getAnimations()
+        .find(
+          (animation): animation is CSSAnimation =>
+            animation instanceof CSSAnimation &&
+            animation.animationName === "reveal"
+        )
+      // A cancelled reveal rejects: treat it as done.
+      await reveal?.finished.catch(() => undefined)
+    }
+
+    // One observer for all the steps, so one scrolled past cannot hold up the
+    // next.
+    const ratios = steps.map(() => 0)
+    let wake: (() => void) | null = null
+    const changed = () =>
+      new Promise<void>((resolve) => {
+        wake = resolve
+      })
+    const visibility = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = steps.findIndex(({ step }) => step === entry.target)
+          if (index !== -1) ratios[index] = entry.intersectionRatio
+        })
+        wake?.()
+        wake = null
+      },
+      { threshold: [0, 0.9] }
+    )
+    steps.forEach(({ step }) => visibility.observe(step))
+
+    // The reported ratio can land just under the 0.9 threshold.
+    const inView = (index: number) => (ratios[index] ?? 0) >= 0.89
+
+    // A step's turn comes when it or a later step is in view.
+    const whenTurn = async (index: number) => {
+      while (
+        !inView(index) &&
+        !ratios.slice(index + 1).some((ratio) => ratio >= 0.89)
+      )
+        await changed()
+    }
+
+    const pause = (ms: number) =>
+      new Promise<void>((resolve) => {
+        setTimeout(resolve, ms)
+      })
+
+    const animateStep = (processStep: StepEntry, fill: FillMode) => {
+      const { item, step } = processStep
+      const bar = step.animate([{ scale: "0 1" }, { scale: "1 1" }], {
+        duration: STEP_MS,
+        delay: 0,
+        easing: "ease-in-out",
+        fill,
+        pseudoElement: "::before",
+      })
+      const lift = item.animate(
+        [
+          { translate: "0 0", easing: "ease-in-out" },
+          { translate: `0 ${LIFT}`, offset: 0.35 },
+          { translate: `0 ${LIFT}`, offset: 0.65, easing: "ease-in-out" },
+          { translate: "0 0" },
+        ],
+        { duration: STEP_MS, delay: 0, fill }
+      )
+      return { bar, lift }
+    }
+
+    const playStep = (processStep: StepEntry) => {
+      const { bar } = animateStep(processStep, "forwards")
+      // The browser drops a finished animation that a later one overrides; this
+      // one holds the resting bar.
+      bar.persist()
+      return bar
+    }
+
+    // Filled with no animation, for a step scrolled past.
+    const restStep = (processStep: StepEntry) => {
+      processStep.step
+        .animate([{ scale: "1 1" }], {
+          duration: 0,
+          fill: "forwards",
+          pseudoElement: "::before",
+        })
+        .persist()
+      processStep.played = true
+    }
+
+    const playIntro = async () => {
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return
+      // Only the first step that plays waits PAUSE_MS.
+      let paused = false
+      for (const [index, processStep] of steps.entries()) {
+        await whenTurn(index)
+        // Scrolled past: its reveal may never run, so do not wait for it.
+        if (!inView(index)) {
+          restStep(processStep)
+          continue
+        }
+        await ready(processStep.item)
+        if (!paused) {
+          paused = true
+          await pause(PAUSE_MS)
+        }
+        // A cancelled animation rejects: carry on.
+        await playStep(processStep).finished.catch(() => undefined)
+        processStep.played = true
+      }
+    }
+
+    const replay = (processStep: StepEntry) => {
+      cancelReplay(processStep)
+      const { bar, lift } = animateStep(processStep, "both")
+      processStep.replayed.push(bar, lift)
+    }
+
+    const easeBack = (processStep: StepEntry) => {
+      // Nothing to ease back if this step never replayed (the intro may still
+      // hold its bar at 0).
+      if (processStep.replayed.length === 0) return
+      // Read before cancelling: a cancel drops the step to rest.
+      const { item, step } = processStep
+      const bar = parseFloat(getComputedStyle(step, "::before").scale) || 0
+      const lift =
+        parseFloat(getComputedStyle(item).translate.split(" ")[1]) || 0
+      // Not the intro: its bar holds the resting state.
+      cancelReplay(processStep)
+      if (bar < 1)
+        step.animate([{ scale: `${bar} 1` }, { scale: "1 1" }], {
+          duration: BACK_MS,
+          easing: "ease-out",
+          pseudoElement: "::before",
+        })
+      if (lift !== 0)
+        item.animate([{ translate: `0 ${lift}px` }, { translate: "0 0" }], {
+          duration: BACK_MS,
+          easing: "ease-out",
+        })
+    }
+
+    steps.forEach((processStep) => {
+      processStep.item.addEventListener("pointerenter", (event) => {
+        if (event.pointerType === "touch") return
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) return
+        if (!processStep.played) return
+        replay(processStep)
+      })
+      processStep.item.addEventListener("pointerleave", (event) => {
+        if (event.pointerType === "touch") return
+        easeBack(processStep)
+      })
+    })
+
+    void playIntro()
+  }
+</script>

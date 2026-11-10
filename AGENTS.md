@@ -35,7 +35,7 @@ src/
 ├── components/   atoms/, molecules/, blocks/ (PascalCase, same name as the design)
 ├── content/      page entries in home/ and not-found/ (YAML, one per
 │                 language), and long-form pages in pages/<lang>/<slug>.md
-├── layouts/      Main.astro, the HTML shell
+├── layouts/      Main.astro, the HTML shell, and NotFound.astro, the 404 page
 ├── i18n/         site-wide copy (header, footer, navigation, language
 │                 switcher, meta) and the labels of long-form pages
 ├── libs/         helpers, such as cn() in utils.ts
@@ -180,10 +180,13 @@ reporting work as done.
   otherwise to `/en`. Any other missing path never reaches the Worker:
   `not_found_handling: "404-page"` in `wrangler.jsonc` serves the nearest
   `404.html` with status 404, so `/es/<missing>` gets `src/pages/[lang]/404.astro`
-  in Spanish and `/en/<missing>` in English. Cloudflare only finds a flat
+  in Spanish and `/en/<missing>` in English. A path with no language prefix gets
+  the root `404.html`, built from `src/pages/404.astro` in English. Both pages
+  render the `src/layouts/NotFound.astro` template. Cloudflare only finds a flat
   `<lang>/404.html`, which is why `astro.config.mjs` sets
   `build.format: "preserve"`. In `bun run dev` no Worker runs, `/` goes to
-  `/es`, and missing paths get Astro's default 404. Pages live in
+  `/es`, and `src/pages/404.astro` answers every missing path, so
+  `/es/<missing>` shows the English 404 there too. Pages live in
   `src/pages/[lang]/`.
   Only site-wide copy lives in `src/i18n/es/` and `src/i18n/en/`, one file per
   section (header, footer, navigation, language switcher, meta and

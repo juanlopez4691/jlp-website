@@ -2,12 +2,8 @@ import type { Locale } from "@/i18n"
 
 /**
  * Picks the language of the site from the `Accept-Language` header: the first
- * language the visitor can read, in the order of their preferences. Catalan
- * reads Spanish, and a header with no match falls back to English.
- *
- * @param acceptLanguage - The raw header, or `null` when it is missing.
- *
- * @returns The language to send the visitor to.
+ * one the visitor can read, in their order of preference. Catalan reads
+ * Spanish, and a header with no match falls back to English.
  */
 function pickLocale(acceptLanguage: string | null): Locale {
   const entries = (acceptLanguage ?? "")
@@ -36,16 +32,11 @@ function pickLocale(acceptLanguage: string | null): Locale {
 
 /**
  * Answers a request for the site root with a temporary redirect to the language
- * the browser asks for. Only `/` runs the Worker first: a path with no matching
- * asset gets the nearest `404.html` from asset serving, through
- * `not_found_handling`, and never reaches this handler: the one of its language
- * under `/es/` or `/en/`, and the English root `404.html` for any other path.
- * The non-root branch is only a guard.
+ * the browser asks for. Only `/` runs the Worker. Other missing paths get the
+ * nearest `404.html` from `not_found_handling`, so the non-root branch is only
+ * a guard.
  *
- * @param request - The incoming request.
- *
- * @returns The redirect to the language, never cached without varying on the
- * header it was picked from, or a bare 404 for every other path.
+ * @returns The redirect to the language, or a 404 for any other path.
  */
 export default {
   fetch(request: Request): Response {

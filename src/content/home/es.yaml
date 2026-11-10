@@ -10,6 +10,7 @@ blocks:
     tagline: Forjo sitios web fiables con WordPress, WooCommerce, Laravel y Statamic.
     lead: Me encargo de la parte técnica, desde la arquitectura al lanzamiento, para que tu proyecto funcione desde el primer día y siga siendo rápido, seguro y fácil de mantener.
     contact: Cuéntame tu proyecto
+    email: hello@lojopez.dev
     imageAlt: Grabado de un herrero en el yunque
   - type: facts
     stack:

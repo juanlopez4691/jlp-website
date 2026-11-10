@@ -13,6 +13,7 @@ export const heroBlock = z
     tagline: z.string(),
     lead: z.string(),
     contact: z.string(),
+    email: z.email(),
     imageAlt: z.string(),
   })
   .strict()

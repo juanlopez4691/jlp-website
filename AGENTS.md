@@ -83,6 +83,12 @@ reporting work as done.
   scroll-driven animations but no triggers, and the variant also skips print.
   On a grid list, stagger the items with `reveal-stagger-2`, `-3` or `-4` (the
   column count at `lg`) on the list. Its `@keyframes` follow the rule above.
+  The process steps of the How block add `relay` (same gate) on the `Step`
+  inside each revealed item: after the reveal, the top rule of each step fills
+  into a thicker bar while the step lifts, one column after the other. It
+  reuses the item's `--reveal` trigger and the stagger's `--reveal-column`.
+  Chrome triggers only the first of an element's animations, so give each
+  triggered animation its own element or pseudo-element.
 - **Smooth scrolling.** `<html>` has `motion-safe:scroll-smooth`, so in-page
   links glide only for users who allow motion. Keep it there, not on blocks.
 - **Page transitions.** Pages cross-fade with native cross-document view

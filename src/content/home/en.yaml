@@ -10,6 +10,7 @@ blocks:
     tagline: I forge reliable websites with WordPress, WooCommerce, Laravel and Statamic.
     lead: I take care of the technical side, from architecture to launch, so your project works on day one and stays fast, secure and easy to maintain.
     contact: Tell me about your project
+    email: hello@lojopez.dev
     imageAlt: Woodcut of a blacksmith at the anvil
   - type: facts
     stack:

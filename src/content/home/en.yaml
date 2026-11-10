@@ -294,6 +294,6 @@ blocks:
     id: contact
     eyebrow: Contact me
     title: Let's talk about what you're building.
-    address: hello@lojopez.dev
-    email: Email me
+    email: hello@lojopez.dev
+    button: Email me
     note: I reply in Spanish, Catalan or English.

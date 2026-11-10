@@ -2,7 +2,7 @@ import type { NavigationCopy } from "../es/navigation"
 
 export const navigation: NavigationCopy = {
   sections: {
-    home: "Home",
+    top: "Home",
     services: "Services",
     work: "Work",
     recommendations: "Recommendations",

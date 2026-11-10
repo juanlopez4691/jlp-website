@@ -34,12 +34,12 @@ export async function getHomePage(lang: Locale): Promise<HomePageContent> {
   const blocks = resolveBlocks(entry.data.blocks, file)
   const ids = blocks.flatMap((block) => (block.id ? [block.id] : []))
 
-  // Each key of the header and footer links to a block of this page; one with
-  // no block would point nowhere.
+  // Each key of the header and footer links to a block of this page, except
+  // the first, the top of the document; one with no block would point nowhere.
   const { sections } = useTranslations(lang, "navigation")
 
   for (const key of Object.keys(sections)) {
-    if (key !== "home" && !ids.includes(key)) {
+    if (key !== "top" && !ids.includes(key)) {
       throw new Error(
         `${file}: no block has the id "${key}", which navigation.sections.${key} links to`
       )

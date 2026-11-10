@@ -30,7 +30,7 @@ const year = new Date().getFullYear()
 const siteLinks: FooterLink[] = Object.entries(navigation.sections).map(
   ([anchor, label]) => ({
     label,
-    href: anchor === "home" ? home : `${home}#${anchor}`,
+    href: anchor === "top" ? home : `${home}#${anchor}`,
   })
 )
 

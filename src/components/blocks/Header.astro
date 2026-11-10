@@ -172,7 +172,7 @@ const underline =
       const atBottom =
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 1
-      let current = "#home"
+      let current = "#top"
       sections.forEach((section) => {
         if (atBottom || section.getBoundingClientRect().top <= line)
           current = `#${section.id}`

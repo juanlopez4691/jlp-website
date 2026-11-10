@@ -7,8 +7,8 @@ export const contactBlock = z
     ...blockMeta,
     eyebrow: z.string(),
     title: z.string(),
-    address: z.string(),
-    email: z.string(),
+    email: z.email(),
+    button: z.string(),
     note: z.string(),
   })
   .strict()

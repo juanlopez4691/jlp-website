@@ -46,15 +46,15 @@ const navigation = useTranslations(locale, "navigation")
       class="md:max-w-124 xl:max-w-155"
     />
     <a
-      href={`mailto:${contact.address}`}
+      href={`mailto:${contact.email}`}
       data-shake
       class="mt-4 inline-block text-3xl leading-none font-normal tracking-tight wrap-break-word text-saffron focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-saffron md:text-5xl xl:text-7xl"
     >
-      {contact.address}
+      {contact.email}
     </a>
     <div class="mt-10 flex flex-col gap-4 md:w-fit md:flex-row">
-      <Button type="primary-on-dark" href={`mailto:${contact.address}`}>
-        {contact.email}
+      <Button type="primary-on-dark" href={`mailto:${contact.email}`}>
+        {contact.button}
       </Button>
       <Button
         type="secondary-on-dark"

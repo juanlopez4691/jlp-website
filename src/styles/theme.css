@@ -88,7 +88,7 @@
   animation-duration: 600ms;
   animation-timing-function: ease-out;
   animation-fill-mode: both;
-  animation-delay: var(--reveal-delay, 0ms);
+  animation-delay: calc(var(--reveal-column, 0) * 80ms);
   animation-trigger: --reveal play-once;
 }
 @keyframes reveal {
@@ -97,50 +97,50 @@
     translate: 0 2rem;
   }
 }
-/* Reveal stagger: on a grid list, delays each item by its column. */
+/* Reveal stagger: on a grid list, delays each item by its column (0 to 3). */
 @utility reveal-stagger-2 {
   @variant md {
     & > :nth-child(even) {
-      --reveal-delay: 80ms;
+      --reveal-column: 1;
     }
   }
 }
 @utility reveal-stagger-3 {
   @variant md {
     & > :nth-child(even) {
-      --reveal-delay: 80ms;
+      --reveal-column: 1;
     }
   }
   @variant lg {
     & > :nth-child(3n + 1) {
-      --reveal-delay: 0ms;
+      --reveal-column: 0;
     }
     & > :nth-child(3n + 2) {
-      --reveal-delay: 80ms;
+      --reveal-column: 1;
     }
     & > :nth-child(3n) {
-      --reveal-delay: 160ms;
+      --reveal-column: 2;
     }
   }
 }
 @utility reveal-stagger-4 {
   @variant md {
     & > :nth-child(even) {
-      --reveal-delay: 80ms;
+      --reveal-column: 1;
     }
   }
   @variant lg {
     & > :nth-child(4n + 1) {
-      --reveal-delay: 0ms;
+      --reveal-column: 0;
     }
     & > :nth-child(4n + 2) {
-      --reveal-delay: 80ms;
+      --reveal-column: 1;
     }
     & > :nth-child(4n + 3) {
-      --reveal-delay: 160ms;
+      --reveal-column: 2;
     }
     & > :nth-child(4n) {
-      --reveal-delay: 240ms;
+      --reveal-column: 3;
     }
   }
 }

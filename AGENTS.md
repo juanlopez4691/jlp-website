@@ -42,7 +42,8 @@ src/
 ├── pages/        routes; [lang]/ holds the localized pages
 ├── styles/       global.css, theme.css (Tailwind theme) and article.css (long-form text)
 ├── assets/       images processed by Astro
-└── worker.ts     Cloudflare Worker: redirects `/` to the browser language
+└── worker.ts     Cloudflare Worker: redirects `/` to the browser language,
+                  answers 404 on the 404 page's own paths
 public/_headers   response headers, including the CSP
 ```
 
@@ -182,10 +183,13 @@ reporting work as done.
   caches rendered content: after changing a plugin, delete
   `.astro/data-store.json` and `node_modules/.astro/data-store.json`.
 - **Languages.** Spanish (default) and English, at `/es` and `/en`, with
-  Astro's i18n routing. `/` is the only path that runs the Worker
-  (`src/worker.ts`): it redirects with a 302 to the first language in the
-  browser's `Accept-Language` that the site has (Catalan reads Spanish),
-  otherwise to `/en`. Any other missing path never reaches the Worker:
+  Astro's i18n routing. `/` and the 404 page's own paths (`/404`, `/es/404`,
+  `/en/404`) run the Worker (`src/worker.ts`), set in `run_worker_first`. `/`
+  redirects with a 302 to the first language in the browser's
+  `Accept-Language` that the site has (Catalan reads Spanish), otherwise to
+  `/en`. The three 404 paths are served from `dist/` through the `ASSETS`
+  binding with status 404, because the built `404.html` files are otherwise
+  reachable with a 200. Any other missing path never reaches the Worker:
   `not_found_handling: "404-page"` in `wrangler.jsonc` serves the nearest
   `404.html` with status 404, so `/es/<missing>` gets `src/pages/[lang]/404.astro`
   in Spanish and `/en/<missing>` in English. A path with no language prefix gets

@@ -52,7 +52,7 @@
 
 @layer base {
   body {
-    @apply bg-mint font-sans text-ink;
+    @apply bg-mint font-sans text-ink not-forced-colors:selection:bg-ink not-forced-colors:selection:text-saffron;
   }
 
   /* Titles use the display font. Sizes and tracking are set per component. */

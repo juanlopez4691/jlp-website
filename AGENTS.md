@@ -97,9 +97,10 @@ reporting work as done.
   inside `@media (prefers-reduced-motion: no-preference)`, so users who prefer
   reduced motion get none. No client router (`ClientRouter` is JavaScript).
 - **Breakpoints are the defaults, and four are used**: base, `md` (768), `lg`
-  (1024) and `xl` (1280). Do not use `sm` or `2xl`. Between 768 and 1023px the
-  tablet layout applies. The header links show from `lg`, not from the `xl` of
-  its Penpot variant, and the hero image from `lg`, where it shrinks and the
+  (1024) and `xl` (1280). Do not use `sm` or `2xl`, with one exception: the
+  hero buttons sit in a row from `sm` (640), on purpose. Between 768 and 1023px
+  the tablet layout applies. The header links show from `lg`, not from the `xl`
+  of its Penpot variant, and the hero image from `lg`, where it shrinks and the
   text keeps its width. The quote block grows from `lg`: its marks are 224px
   wide (192 on tablet, 288 on desktop) and its text column 768px (640 on
   tablet, 896 on desktop). There is no fluid scaling and no `clamp()`.

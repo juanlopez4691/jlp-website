@@ -1,5 +1,9 @@
 import type { Locale } from "@/i18n"
 
+type Env = {
+  ASSETS: { fetch(input: URL): Promise<Response> }
+}
+
 /**
  * Picks the language of the site from the `Accept-Language` header: the first
  * one the visitor can read, in their order of preference. Catalan reads
@@ -31,27 +35,29 @@ function pickLocale(acceptLanguage: string | null): Locale {
 }
 
 /**
- * Answers a request for the site root with a temporary redirect to the language
- * the browser asks for. Only `/` runs the Worker. Other missing paths get the
- * nearest `404.html` from `not_found_handling`, so the non-root branch is only
- * a guard.
- *
- * @returns The redirect to the language, or a 404 for any other path.
+ * `/` redirects to the browser's language. The only other paths that reach the
+ * Worker are the 404 page's own (`run_worker_first`): they get the page with
+ * status 404, not the 200 the asset would answer.
  */
 export default {
-  fetch(request: Request): Response {
-    if (new URL(request.url).pathname !== "/") {
-      return new Response(null, { status: 404 })
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const url = new URL(request.url)
+
+    if (url.pathname === "/") {
+      const locale = pickLocale(request.headers.get("Accept-Language"))
+
+      return new Response(null, {
+        status: 302,
+        headers: {
+          Location: new URL(`/${locale}`, request.url).href,
+          Vary: "Accept-Language",
+        },
+      })
     }
 
-    const locale = pickLocale(request.headers.get("Accept-Language"))
+    // Not the request: its If-None-Match could turn this into an empty 304.
+    const page = await env.ASSETS.fetch(new URL(url.pathname, request.url))
 
-    return new Response(null, {
-      status: 302,
-      headers: {
-        Location: new URL(`/${locale}`, request.url).href,
-        Vary: "Accept-Language",
-      },
-    })
+    return new Response(page.body, { status: 404, headers: page.headers })
   },
 }

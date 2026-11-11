@@ -204,9 +204,9 @@ stops them once the worktree is gone.
 
 ### Option B: without Docker
 
-1. Install the Bun version in the `packageManager` field of `package.json`
-   (1.4.4 today). Bumping it means bumping the `FROM` of
-   `.docker/bun/Dockerfile` too: CI fails when the two differ.
+1. Install the Bun version in the `packageManager` field of `package.json`.
+   Bumping it means bumping the `FROM` of `.docker/bun/Dockerfile` too: CI
+   fails when the two differ.
 2. Clone the repository and start the dev server:
 
    ```bash

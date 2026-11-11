@@ -23,8 +23,9 @@ jobs:
           persist-credentials: false
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
       - name: Bun version matches the Dockerfile
-        run: grep -qx "FROM oven/bun:$(bun --version)" .docker/bun/Dockerfile
+        run: grep -qxF "FROM oven/bun:$(bun --version)" .docker/bun/Dockerfile
       - run: bun install --frozen-lockfile
+      # --bun runs the scripts under Bun, as in the container, where node is Bun.
       - run: bun --bun run lint
       - run: bun --bun run format:check
       - run: bun --bun run check

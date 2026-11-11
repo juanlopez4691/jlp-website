@@ -18,6 +18,7 @@ const home = getRelativeLocaleUrl(lang)
 ---
 
 <Main title={title} locale={lang}>
+  <meta slot="head" name="robots" content="noindex" />
   <main class="flex flex-1 flex-col justify-between">
     <section class="mx-auto max-w-6xl px-8 py-16 text-center md:py-30 xl:px-0">
       <Image

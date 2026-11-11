@@ -32,7 +32,8 @@ src/
 ├── libs/         helpers, such as the class merge utility
 ├── pages/        routes; [lang]/ holds the localized pages
 ├── styles/       global.css, theme.css (Tailwind theme) and article.css
-└── worker.ts     Cloudflare Worker: redirects `/` to the browser language
+└── worker.ts     Cloudflare Worker: redirects `/` to the browser language,
+                  answers 404 on the 404 page's own paths
 public/
 ├── _headers      response headers, including the CSP
 └── robots.txt    crawler rules and the sitemap URL
@@ -286,9 +287,11 @@ not to `bun run dev`.
 
 The site is built into `dist/` and served as static assets by a Cloudflare
 Worker, configured in `wrangler.jsonc`. It uses the custom domain `lojopez.dev`.
-Only `/` runs the Worker (`run_worker_first`), which redirects to the browser
-language; everything else is served from `dist/`. A missing path gets the 404
-page of its language, `/es/…` in Spanish and `/en/…` in English.
+`/` and the 404 page's own paths run the Worker (`run_worker_first`);
+everything else is served from `dist/`. `/` redirects to the browser language,
+and `/404`, `/es/404` and `/en/404` answer the 404 page with status 404. A
+missing path gets the 404 page of its language, `/es/…` in Spanish and
+`/en/…` in English.
 
 ```bash
 bun run deploy

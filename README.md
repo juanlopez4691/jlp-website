@@ -120,6 +120,10 @@ machine (see Option B). Run `bun install` there first. Wrangler does not work in
 the container either: `node` there is a symlink to Bun, and under Bun it answers
 503 to every request.
 
+GitHub Actions runs these checks too: `.github/workflows/ci.yml` runs `lint`,
+`format:check`, `check` and `build` on every pull request to `main` and every
+push to `main`, with the Bun version from `packageManager` in `package.json`.
+
 #### How it works
 
 `rift setup` does the following, and `rift up` repeats the steps that are
@@ -200,7 +204,9 @@ stops them once the worktree is gone.
 
 ### Option B: without Docker
 
-1. Install [Bun](https://bun.sh/docs/installation).
+1. Install the Bun version in the `packageManager` field of `package.json`
+   (1.4.4 today). Bumping it means bumping the `FROM` of
+   `.docker/bun/Dockerfile` too: CI fails when the two differ.
 2. Clone the repository and start the dev server:
 
    ```bash
@@ -216,16 +222,17 @@ The site is served at `http://localhost:4321`, without HTTPS.
 
 #### Commands
 
-| Command           | What it does                            |
-| ----------------- | --------------------------------------- |
-| `bun install`     | Install dependencies                    |
-| `bun run dev`     | Dev server at `http://localhost:4321`   |
-| `bun run build`   | Build the site into `dist/`             |
-| `bun run preview` | Build, then serve `dist/` with Wrangler |
-| `bun run deploy`  | Build and deploy to Cloudflare          |
-| `bun run lint`    | Run ESLint                              |
-| `bun run format`  | Format the code with Prettier           |
-| `bun run check`   | Type-check the `.astro` and TS files    |
+| Command                | What it does                                |
+| ---------------------- | ------------------------------------------- |
+| `bun install`          | Install dependencies                        |
+| `bun run dev`          | Dev server at `http://localhost:4321`       |
+| `bun run build`        | Build the site into `dist/`                 |
+| `bun run preview`      | Build, then serve `dist/` with Wrangler     |
+| `bun run deploy`       | Build and deploy to Cloudflare              |
+| `bun run lint`         | Run ESLint                                  |
+| `bun run format`       | Format the code with Prettier               |
+| `bun run format:check` | Check the formatting without changing files |
+| `bun run check`        | Type-check the `.astro` and TS files        |
 
 ## Languages
 

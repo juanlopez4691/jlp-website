@@ -63,7 +63,10 @@ docker compose exec app bun run build
 Without Docker: `bun install`, `bun run dev` (<http://localhost:4321>).
 
 Run `lint`, `format:check`, `check` (the Astro type check) and `build` before
-reporting work as done.
+reporting work as done. CI (`.github/workflows/ci.yml`) runs the same four on
+every pull request and on pushes to `main`, and the Bun version lives in
+`packageManager` in `package.json` and the Dockerfile's `FROM`, which must
+match.
 
 ## Code rules
 

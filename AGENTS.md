@@ -66,7 +66,7 @@ Without Docker: `bun install`, `bun run dev` (<http://localhost:4321>).
 Run `lint`, `format:check`, `check` (the Astro type check), `test` and `build`
 before reporting work as done. `build` runs the tests first and stops if one
 fails, so `preview`, `deploy` and CI run them too. A test is a `*.test.ts` file
-next to the module it tests and uses `bun:test`, typed by `src/bun-test.d.ts`.
+next to the module it tests and uses `bun:test`, typed by `@types/bun`.
 CI (`.github/workflows/ci.yml`) runs the same checks on every pull request and
 on pushes to `main`, and the Bun version lives in `packageManager` in
 `package.json` and the Dockerfile's `FROM`, which must match.

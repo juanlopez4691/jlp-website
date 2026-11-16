@@ -31,3 +31,11 @@ test("a cell with no alignment gets no class", () => {
 test("a code block's pre can be reached by the keyboard", () => {
   expect(render("```js\nconst a = 1\n```")).toContain('<pre tabindex="0">')
 })
+
+test("a table with empty headers gets no empty name, and stays focusable", () => {
+  const html = render("|  |  |\n| --- | --- |\n| A | 1 |")
+
+  expect(html).toContain('<div class="table-scroll" tabindex="0">')
+  expect(html).not.toContain("aria-label")
+  expect(html).not.toContain('role="region"')
+})

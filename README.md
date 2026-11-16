@@ -104,11 +104,12 @@ docker compose exec app bun run lint
 | Script         | Run it                | What it does                                    |
 | -------------- | --------------------- | ----------------------------------------------- |
 | `dev`          | Starts by itself      | The dev server. The container runs it on start  |
-| `build`        | In the container      | Build the site into `dist/`                     |
+| `build`        | In the container      | Run the tests, then build the site into `dist/` |
 | `lint`         | In the container      | Run ESLint                                      |
 | `format`       | In the container      | Format the code with Prettier                   |
 | `format:check` | In the container      | Check the formatting without changing files     |
 | `check`        | In the container      | Type-check the `.astro` and TypeScript files    |
+| `test`         | In the container      | Run the tests with `bun test`                   |
 | `astro`        | In the container      | The Astro CLI, for example `bun run astro add`  |
 | `preview`      | On your machine       | Build, then serve `dist/` with Wrangler         |
 | `deploy`       | On your machine       | Build and deploy to Cloudflare                  |
@@ -123,6 +124,7 @@ the container either: `node` there is a symlink to Bun, and under Bun it answers
 GitHub Actions runs these checks too: `.github/workflows/ci.yml` runs `lint`,
 `format:check`, `check` and `build` on every pull request to `main` and every
 push to `main`, with the Bun version from `packageManager` in `package.json`.
+`build` runs the tests first, so CI runs them once.
 
 #### How it works
 

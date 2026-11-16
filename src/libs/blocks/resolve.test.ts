@@ -74,7 +74,7 @@ test("the type and the id pass through, and props holds the rest", () => {
 
   expect(block.type).toBe("facts")
   expect(block.id).toBe("about")
-  expect(block.props).toEqual({
+  expect(block.props).toEqual<Record<string, unknown>>({
     title: "Facts",
     items: [{ label: "Years", value: "10" }],
   })

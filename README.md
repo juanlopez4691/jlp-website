@@ -224,17 +224,18 @@ The site is served at `http://localhost:4321`, without HTTPS.
 
 #### Commands
 
-| Command                | What it does                                |
-| ---------------------- | ------------------------------------------- |
-| `bun install`          | Install dependencies                        |
-| `bun run dev`          | Dev server at `http://localhost:4321`       |
-| `bun run build`        | Build the site into `dist/`                 |
-| `bun run preview`      | Build, then serve `dist/` with Wrangler     |
-| `bun run deploy`       | Build and deploy to Cloudflare              |
-| `bun run lint`         | Run ESLint                                  |
-| `bun run format`       | Format the code with Prettier               |
-| `bun run format:check` | Check the formatting without changing files |
-| `bun run check`        | Type-check the `.astro` and TS files        |
+| Command                | What it does                                    |
+| ---------------------- | ----------------------------------------------- |
+| `bun install`          | Install dependencies                            |
+| `bun run dev`          | Dev server at `http://localhost:4321`           |
+| `bun run build`        | Run the tests, then build the site into `dist/` |
+| `bun run preview`      | Build, then serve `dist/` with Wrangler         |
+| `bun run deploy`       | Build and deploy to Cloudflare                  |
+| `bun run lint`         | Run ESLint                                      |
+| `bun run format`       | Format the code with Prettier                   |
+| `bun run format:check` | Check the formatting without changing files     |
+| `bun run check`        | Type-check the `.astro` and TS files            |
+| `bun run test`         | Run the tests with `bun test`                   |
 
 ## Languages
 

@@ -29,4 +29,7 @@ jobs:
       - run: bun --bun run lint
       - run: bun --bun run format:check
       - run: bun --bun run check
+      # CI has no CV files (they are not in git), so its build only warns.
       - run: bun --bun run build
+        env:
+          ALLOW_MISSING_DOWNLOADS: "1"

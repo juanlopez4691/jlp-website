@@ -2,12 +2,14 @@
 import { defineConfig } from "astro/config"
 import { satteri } from "@astrojs/markdown-satteri"
 import tailwindcss from "@tailwindcss/vite"
+import { downloads } from "./src/libs/downloads"
 import { markdownHeadingIds } from "./src/libs/markdownHeadingIds"
 import { markdownLanguage } from "./src/libs/markdownLanguage"
 import { markdownScrollable } from "./src/libs/markdownScrollable"
 
 // https://astro.build/config
 export default defineConfig({
+  integrations: [downloads()],
   site: "https://lojopez.dev",
   trailingSlash: "never",
   // The default highlighter writes inline `style` attributes, which the CSP

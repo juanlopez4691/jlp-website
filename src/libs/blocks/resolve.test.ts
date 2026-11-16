@@ -16,7 +16,7 @@ test("the first block has no arrow", () => {
   expect(block.arrow).toBe(undefined)
 })
 
-test("the hero and facts never take an arrow", () => {
+test("the hero takes no arrow, even below another block", () => {
   const resolved = resolveBlocks(
     blocks({ type: "facts" }, { type: "hero" }),
     "home/es.yaml"

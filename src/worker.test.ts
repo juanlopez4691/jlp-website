@@ -28,12 +28,10 @@ const visitRoot = async (acceptLanguage?: string) => {
 
   if (acceptLanguage) headers["Accept-Language"] = acceptLanguage
 
-  const response = await worker.fetch(
+  return worker.fetch(
     new Request("https://lojopez.dev/", { headers }),
     assetEnv().env
   )
-
-  return response
 }
 
 test("Spanish reads Spanish", async () => {
@@ -75,7 +73,7 @@ test("quality order beats header order", async () => {
 })
 
 test("a language with q=0 is excluded", async () => {
-  const response = await visitRoot("es;q=0, en")
+  const response = await visitRoot("es;q=0")
 
   expect(response.headers.get("Location")).toBe("https://lojopez.dev/en")
 })

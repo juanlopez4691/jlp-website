@@ -1,7 +1,10 @@
 import { defineHastPlugin } from "satteri"
 import type { HastNode } from "satteri"
 
-/** The header cells of a table, which name it for screen readers. */
+/**
+ * The header cells of a table, which name it for screen readers. A table with
+ * no header text gets an unnamed wrapper, with no region role.
+ */
 const headerCells = (node: HastNode): HastNode[] => {
   if (node.type === "element" && node.tagName === "th") return [node]
 
@@ -47,16 +50,17 @@ export const markdownScrollable = defineHastPlugin({
     {
       filter: ["table"],
       visit(node, ctx) {
+        const label = headerCells(node)
+          .map((cell) => ctx.textContent(cell).trim())
+          .filter(Boolean)
+          .join(", ")
+
         ctx.wrapNode(node, {
           type: "element",
           tagName: "div",
           properties: {
             className: ["table-scroll"],
-            role: "region",
-            ariaLabel: headerCells(node)
-              .map((cell) => ctx.textContent(cell))
-              .filter(Boolean)
-              .join(", "),
+            ...(label === "" ? {} : { role: "region", ariaLabel: label }),
             tabIndex: 0,
           },
           children: [],

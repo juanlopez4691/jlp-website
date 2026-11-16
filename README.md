@@ -300,6 +300,13 @@ and `/404`, `/es/404` and `/en/404` answer the 404 page with status 404. A
 missing path gets the 404 page of its language, `/es/…` in Spanish and
 `/en/…` in English.
 
+The CV PDFs (`cv-joan_lopez-es.pdf` and `cv-joan_lopez-en.pdf`) are not in
+git. Put them in `public/downloads/`, in every checkout and worktree, or
+`build` (and so `preview` and `deploy`) fails and names the missing file. The
+file names come from the CV links in `src/i18n/<lang>/navigation.ts`. CI sets
+`ALLOW_MISSING_DOWNLOADS=1` to build without them and only warns; `deploy`
+always checks.
+
 ```bash
 bun run deploy
 ```

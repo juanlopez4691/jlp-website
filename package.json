@@ -13,7 +13,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro build && wrangler dev",
-    "deploy": "astro build && wrangler deploy",
+    "deploy": "ALLOW_MISSING_DOWNLOADS=0 astro build && wrangler deploy",
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,astro,js,mjs,json,jsonc,md,css}\"",
     "format:check": "prettier --check \"**/*.{ts,astro,js,mjs,json,jsonc,md,css}\"",

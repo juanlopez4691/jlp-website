@@ -57,16 +57,19 @@ Prefer the Docker environment (see `README.md`); run scripts in the container:
 docker compose exec app bun run lint
 docker compose exec app bun run format:check
 docker compose exec app bun run check
+docker compose exec app bun run test
 docker compose exec app bun run build
 ```
 
 Without Docker: `bun install`, `bun run dev` (<http://localhost:4321>).
 
-Run `lint`, `format:check`, `check` (the Astro type check) and `build` before
-reporting work as done. CI (`.github/workflows/ci.yml`) runs the same four on
-every pull request and on pushes to `main`, and the Bun version lives in
-`packageManager` in `package.json` and the Dockerfile's `FROM`, which must
-match.
+Run `lint`, `format:check`, `check` (the Astro type check), `test` and `build`
+before reporting work as done. `build` runs the tests first and stops if one
+fails, so `preview`, `deploy` and CI run them too. A test is a `*.test.ts` file
+next to the module it tests and uses `bun:test`, typed by `src/bun-test.d.ts`.
+CI (`.github/workflows/ci.yml`) runs the same checks on every pull request and
+on pushes to `main`, and the Bun version lives in `packageManager` in
+`package.json` and the Dockerfile's `FROM`, which must match.
 
 ## Code rules
 
@@ -176,9 +179,8 @@ match.
   `navigation.newTab` hint, and translates the footnote labels, so a raw external
   link needs its own `target`, `rel` and hint.
   `src/libs/markdownHeadingIds.ts` gives each heading an accent-free id, in the
-  style of a WordPress slug, so a raw heading needs its own unique id. No other
-  check runs its test: after changing the plugin, run
-  `bun src/libs/markdownHeadingIds.test.ts`.
+  style of a WordPress slug, so a raw heading needs its own unique id. Its test
+  runs with `bun run test` and on every build.
   `article.css` draws the icon of the `IconExternalLink` atom on any link with
   `target="_blank"`. Syntax
   highlighting stays off for the CSP. The page copy is `contentPage`, because

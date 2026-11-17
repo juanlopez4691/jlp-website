@@ -12,7 +12,7 @@ This notice follows article 10 of Spanish [Law 34/2002 of 11 July on information
 - **Owner:** Juan José López Jiménez, known professionally as Joan López
 - **Tax ID (NIF):** 43413194G
 - **Address:** Carrer Sants Màrtirs 12, Vilassar de Dalt, 08339 Barcelona
-- **Email:** hello@lojopez.dev
+- **Email:** <hello@lojopez.dev>
 - **Activity:** Personal website and portfolio of Joan López, freelance web developer.
 
 ## What this site is for
@@ -32,6 +32,7 @@ The names and trademarks of companies and technologies I mention belong to their
 - "Blacksmith at the anvil", from <i lang="la">De Magnete</i> by William Gilbert (1600). Image: [Wellcome Library, London](https://wellcomecollection.org/works/wrmgs36a) (Wellcome Collection), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Blacksmith_at_the_anvil._Wellcome_L0005875.jpg). Changes: trimmed to the figure, background removed and recolored.
 - "Gentleman with two telephones", illustration by B. Bonnafoux, from <i lang="fr">Le téléphone, le microphone et le phonographe</i> by Théodose du Moncel (1880). Public domain. Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Fig_25_Gentleman_with_two_telephones_1880.jpg). Change: background removed.
 - "Icarus", engraving by Hendrik Goltzius (1588), after Cornelis van Haarlem, from the series <i lang="en">The Four Disgracers</i>. Los Angeles County Museum of Art, Mary Stansbury Ruiz Bequest (M.88.91.104). Public domain. Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Icarus_LACMA_M.88.91.104.jpg). Change: background removed.
+- "Glaspuster ved Lampen", Fig. 248 from Opfindelsernes Bog vol. V (André Lütken, 1880), digitised by Morten Bisgaard. Public domain, Source: [Wikisource](https://da.wikisource.org/wiki/Fil:Opfindelsernes_bog5_fig248.png). Change: background removed.
 
 ## Use of artificial intelligence
 

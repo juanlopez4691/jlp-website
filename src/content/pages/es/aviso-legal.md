@@ -12,7 +12,7 @@ De acuerdo con el artículo 10 de la [Ley 34/2002, de 11 de julio, de servicios 
 - **Titular:** Juan José López Jiménez, conocido profesionalmente como Joan López
 - **NIF:** 43413194G
 - **Domicilio:** Carrer Sants Màrtirs 12, Vilassar de Dalt, 08339 Barcelona
-- **Correo electrónico:** hello@lojopez.dev
+- **Correo electrónico:** <hello@lojopez.dev>
 - **Actividad:** Sitio personal y portfolio de Joan López, desarrollador web freelance.
 
 ## Para qué sirve este sitio
@@ -32,6 +32,7 @@ Los nombres y marcas de empresas y tecnologías que menciono pertenecen a sus ti
 - «Blacksmith at the anvil», de <i lang="la">De Magnete</i> de William Gilbert (1600). Imagen: [Wellcome Library, London](https://wellcomecollection.org/works/wrmgs36a) (Wellcome Collection), con licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Fuente: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Blacksmith_at_the_anvil._Wellcome_L0005875.jpg). Cambios: recortada a la figura, con el fondo eliminado y recoloreada.
 - «Gentleman with two telephones», ilustración de B. Bonnafoux, de <i lang="fr">Le téléphone, le microphone et le phonographe</i> de Théodose du Moncel (1880). Dominio público. Fuente: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Fig_25_Gentleman_with_two_telephones_1880.jpg). Cambio: fondo eliminado.
 - «Icarus», grabado de Hendrik Goltzius (1588), a partir de Cornelis van Haarlem, de la serie <i lang="en">The Four Disgracers</i>. Los Angeles County Museum of Art, legado de Mary Stansbury Ruiz (M.88.91.104). Dominio público. Fuente: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Icarus_LACMA_M.88.91.104.jpg). Cambio: fondo eliminado.
+- "Glaspuster ved Lampen", Fig. 248 de Opfindelsernes Bog vol. V (André Lütken, 1880), digitalizado por Morten Bisgaard. Dominio público. Fuente: [Wikisource](https://da.wikisource.org/wiki/Fil:Opfindelsernes_bog5_fig248.png). Cambio: fondo eliminado.
 
 ## Uso de inteligencia artificial
 

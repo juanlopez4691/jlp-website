@@ -9,7 +9,7 @@ blocks:
       prefix: Construyo
       sentences:
         - [soluciones, web sólidas]
-        - [apps web, que escalan]
+        - [apps web, escalables]
         - [tiendas web, que venden]
         - [sitios web, rápidos]
     role: con WordPress, WooCommerce, Laravel y Statamic.

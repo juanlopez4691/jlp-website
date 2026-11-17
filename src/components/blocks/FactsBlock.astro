@@ -1,5 +1,6 @@
 ---
 import Fact from "@/components/molecules/Fact.astro"
+import Figure from "@/components/molecules/Figure.astro"
 import { cn } from "@/libs/utils"
 import type { FactsBlockCopy } from "@/libs/blocks"
 
@@ -9,35 +10,14 @@ type Props = FactsBlockCopy & {
 }
 
 const { id, class: className, ...facts } = Astro.props
-
-// The column wrappers only exist as boxes on tablet (md), where each column
-// stacks on its own; from lg, and on phone, they dissolve into the grid.
-const column = "contents md:flex md:flex-col md:gap-6 lg:contents"
 ---
 
-<section id={id} class={cn("bg-navy py-8", className)}>
-  <div class="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-8 lg:grid-cols-3 xl:grid-cols-12 xl:gap-x-8 xl:px-0">
-    <dl class={column}>
-      <Fact
-        label={facts.stack.label}
-        class="col-span-2 lg:col-span-1 xl:col-span-3"
-      >
-        {facts.stack.value}
-      </Fact>
-      <Fact label={facts.experience.label} class="xl:col-span-2">
-        {facts.experience.value}
-      </Fact>
-      <Fact label={facts.clients.label} class="xl:col-span-2">
-        {facts.clients.value}
-      </Fact>
-    </dl>
-    <dl class={column}>
-      <Fact label={facts.location.label} class="xl:col-span-2">
-        {facts.location.value}
-      </Fact>
-      <Fact label={facts.languages.label} class="xl:col-span-3">
-        {facts.languages.value}
-      </Fact>
-    </dl>
+<section id={id} class={cn("bg-navy py-10", className)}>
+  <div class="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-8 px-8 lg:grid-cols-3 xl:grid-cols-[max-content_max-content_3fr_2fr_3fr] xl:gap-12 xl:px-0">
+    <Figure number={facts.experience.number} label={facts.experience.label} />
+    <Figure number={facts.clients.number} label={facts.clients.label} />
+    <Fact label={facts.stack.label}>{facts.stack.value}</Fact>
+    <Fact label={facts.location.label}>{facts.location.value}</Fact>
+    <Fact label={facts.languages.label}>{facts.languages.value}</Fact>
   </div>
 </section>

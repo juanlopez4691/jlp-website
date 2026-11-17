@@ -17,6 +17,8 @@ type Props = HeroBlockCopy & {
 const { locale, id, class: className, ...hero } = Astro.props
 const navigation = useTranslations(locale, "navigation")
 
+const [sentence] = hero.claim.sentences
+
 // Hidden below `lg`, where a blank GIF keeps it from downloading. `<Image>`
 // can only skip it with `loading="lazy"`, which delays the LCP.
 const image = await getImage({
@@ -31,24 +33,21 @@ const blank =
 ---
 
 <section id={id} class={cn("bg-saffron pt-6 pb-16 md:pb-20", className)}>
-  <div class="mx-auto flex max-w-6xl items-start gap-0 md:gap-2 xl:gap-8 px-8 xl:px-0">
-    <div class="flex-1 md:mx-auto md:max-w-140 lg:mx-0 lg:w-116 lg:max-w-none lg:flex-none">
-      <Pill kind="availability" class="w-full md:w-auto">
+  <div class="mx-auto flex max-w-6xl gap-8 px-8 xl:px-0">
+    <div class="flex flex-1 flex-col gap-8 *:[text-box:trim-both_cap_alphabetic] md:mx-auto md:max-w-140 lg:mx-0 lg:w-116 lg:max-w-none lg:flex-none">
+      <Pill kind="availability" class="md:self-start">
         <span class="md:hidden">{hero.availabilityShort}</span>
         <span class="hidden md:inline">{hero.availability}</span>
       </Pill>
-      <h1 class="mt-6 text-6xl leading-none font-bold tracking-tight md:text-7xl xl:text-8xl xl:leading-h1">
-        {hero.greeting} <br class="hidden lg:inline" />
-        {hero.name}
+      <p class="font-display text-xl leading-tight font-bold">{hero.tagline}</p>
+      <h1 class="text-6xl leading-[0.9] font-bold tracking-tight md:text-7xl xl:text-[5.5rem]">
+        <span class="block">{hero.claim.prefix}</span>{" "}
+        <span class="block">{sentence[0]}</span>{" "}
+        <span class="block">{sentence[1]}</span>
       </h1>
-      <p class="mt-6 font-display text-2xl leading-tight font-medium">
-        {hero.role}
-      </p>
-      <p class="mt-3 font-display text-2xl leading-tight font-bold">
-        {hero.tagline}
-      </p>
-      <p class="mt-3 text-lg leading-normal">{hero.lead}</p>
-      <div class="mt-6 flex flex-col gap-4 sm:flex-row">
+      <p class="font-display text-2xl leading-tight font-bold">{hero.role}</p>
+      <p class="text-lg leading-normal">{hero.lead}</p>
+      <div class="flex flex-col gap-4 sm:flex-row">
         <Button type="primary" href={`mailto:${hero.email}`}>
           {hero.contact}
         </Button>
@@ -57,7 +56,7 @@ const blank =
         </Button>
       </div>
     </div>
-    <picture class="contents">
+    <picture class="hidden min-w-0 flex-1 lg:block">
       <source
         media="(min-width: 1024px)"
         srcset={image.srcSet.attribute}
@@ -70,7 +69,7 @@ const blank =
         width={image.attributes.width}
         height={image.attributes.height}
         fetchpriority="high"
-        class="hidden h-auto min-w-0 flex-1 lg:block"
+        class="size-full object-cover"
       />
     </picture>
   </div>

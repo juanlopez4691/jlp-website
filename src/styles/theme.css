@@ -18,6 +18,8 @@
 
   /* Chip line height (Tailwind has 1.25, not 1.2). */
   --leading-pill: 1.2;
+  /* Big number line height: the figure number (and the V2 How step number). */
+  --leading-number: 0.8;
 
   /* Label letter spacing (tracking-tight covers the display sizes). */
   --tracking-eyebrow: 1.84px;

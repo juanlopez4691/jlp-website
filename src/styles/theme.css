@@ -24,7 +24,6 @@
   /* Label letter spacing (tracking-tight covers the display sizes). */
   --tracking-eyebrow: 1.84px;
   --tracking-tag: 1px;
-  --tracking-fact: 0.75px;
 
   --animate-shake: shake 400ms linear;
   @keyframes shake {

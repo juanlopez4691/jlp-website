@@ -17,7 +17,7 @@ type Props = HeroBlockCopy & {
 const { locale, id, class: className, ...hero } = Astro.props
 const navigation = useTranslations(locale, "navigation")
 
-const [sentence] = hero.claim.sentences
+const [first] = hero.claim.sentences
 
 // Hidden below `lg`, where a blank GIF keeps it from downloading. `<Image>`
 // can only skip it with `loading="lazy"`, which delays the LCP.
@@ -34,16 +34,25 @@ const blank =
 
 <section id={id} class={cn("bg-saffron pt-6 pb-16 md:pb-20", className)}>
   <div class="mx-auto flex max-w-6xl gap-8 px-8 xl:px-0">
-    <div class="flex flex-1 flex-col gap-8 *:[text-box:trim-both_cap_alphabetic] md:mx-auto md:max-w-140 lg:mx-0 lg:w-116 lg:max-w-none lg:flex-none">
+    <div class="flex min-w-0 flex-1 flex-col gap-8 *:[text-box:trim-both_cap_alphabetic] md:mx-auto md:max-w-140 lg:mx-0 lg:w-116 lg:max-w-none lg:flex-none">
       <Pill kind="availability" class="md:self-start">
         <span class="md:hidden">{hero.availabilityShort}</span>
         <span class="hidden md:inline">{hero.availability}</span>
       </Pill>
       <p class="font-display text-xl leading-tight font-bold">{hero.tagline}</p>
-      <h1 class="text-6xl leading-[0.9] font-bold tracking-tight md:text-7xl xl:text-[5.5rem]">
+      <h1 class="text-[3.5rem] leading-[0.9] font-bold tracking-tight md:text-7xl xl:text-[5.5rem]">
         <span class="block">{hero.claim.prefix}</span>{" "}
-        <span class="block">{sentence[0]}</span>{" "}
-        <span class="block">{sentence[1]}</span>
+        <span class="sr-only">{first.join(" ")}</span>
+        <span
+          aria-hidden="true"
+          class="block"
+          data-hero-claim
+          data-sentences={JSON.stringify(hero.claim.sentences)}
+        >
+          {first.map((line) => (
+            <span class="block text-nowrap">{line}</span>
+          ))}
+        </span>
       </h1>
       <p class="font-display text-2xl leading-tight font-bold">{hero.role}</p>
       <p class="text-lg leading-normal">{hero.lead}</p>
@@ -74,3 +83,158 @@ const blank =
     </picture>
   </div>
 </section>
+
+<script>
+  import { decodeFrame, GLYPHS, settleTimes } from "@/libs/decode"
+
+  // Cycles the claim through its sentences, decoding each one from random glyphs.
+  const HOLD_MS = 2000
+  const DECODE_MS = 700
+  const FRAME_MS = 45
+
+  const claim = document.querySelector<HTMLElement>("[data-hero-claim]")
+  const heading = claim?.closest("h1")
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)")
+
+  const lines = [...(claim?.children ?? [])].filter(
+    (child): child is HTMLElement => child instanceof HTMLElement
+  )
+
+  const sentences: string[][] = JSON.parse(claim?.dataset.sentences ?? "[]")
+
+  if (
+    heading &&
+    lines.length > 0 &&
+    sentences.length >= 2 &&
+    !reduced.matches
+  ) {
+    let current = 0
+    let target = 0
+    let running = false
+    let stopped = false
+    let inView = false
+    let holdTimer: number | undefined
+    let frameTimer: number | undefined
+    let glyphFor = (char: string) => char
+
+    const settle = (index: number) => {
+      current = target = index
+      lines.forEach((line, i) => {
+        line.textContent = sentences[index][i] ?? ""
+      })
+    }
+
+    const halt = () => {
+      window.clearTimeout(holdTimer)
+      window.clearInterval(frameTimer)
+      holdTimer = frameTimer = undefined
+    }
+
+    // Only glyphs no wider than the letter they replace, so a line never grows.
+    const glyphPools = () => {
+      const context = document.createElement("canvas").getContext("2d")
+      if (!context) return (char: string) => char
+
+      // Not the computed `font` shorthand, which some browsers leave empty.
+      const style = getComputedStyle(lines[0] ?? heading)
+      context.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`
+      const width = (text: string) => context.measureText(text).width
+
+      // Measured once: the comparison holds at any font size or letter spacing.
+      const glyphs = [...GLYPHS].map((glyph) => ({
+        glyph,
+        width: width(glyph),
+      }))
+      const pools = new Map<string, string[]>()
+      for (const line of sentences.flat())
+        for (const char of line) {
+          if (pools.has(char)) continue
+          const limit = width(char)
+          const fits = glyphs
+            .filter((glyph) => glyph.width <= limit)
+            .map(({ glyph }) => glyph)
+          pools.set(char, fits.length > 0 ? fits : [char])
+        }
+
+      return (char: string) => {
+        const pool = pools.get(char) ?? [char]
+        return pool[Math.floor(Math.random() * pool.length)] ?? char
+      }
+    }
+
+    const hold = () => {
+      holdTimer = window.setTimeout(decode, HOLD_MS)
+    }
+
+    const decode = () => {
+      target = (current + 1) % sentences.length
+      const settleAt = sentences[target].map((text) =>
+        settleTimes(text.length, DECODE_MS)
+      )
+      const start = performance.now()
+
+      frameTimer = window.setInterval(() => {
+        const elapsed = performance.now() - start
+        lines.forEach((line, i) => {
+          line.textContent = decodeFrame(
+            sentences[target][i] ?? "",
+            elapsed,
+            settleAt[i] ?? 0,
+            glyphFor
+          )
+        })
+        if (elapsed < DECODE_MS) return
+        halt()
+        settle(target)
+        hold()
+      }, FRAME_MS)
+    }
+
+    // The incoming sentence shows settled; resuming starts with a hold.
+    const stop = () => {
+      if (!running) return
+      running = false
+      halt()
+      settle(target)
+    }
+
+    const start = () => {
+      if (running || stopped) return
+      running = true
+      settle(target)
+      hold()
+    }
+
+    const refresh = () => {
+      if (stopped) return
+      if (inView && !document.hidden) start()
+      else stop()
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      inView = entries.at(-1)?.isIntersecting ?? false
+      refresh()
+    })
+
+    const onVisibility = () => refresh()
+
+    const onReduced = () => {
+      if (!reduced.matches) return
+      stopped = true
+      running = false
+      observer.disconnect()
+      document.removeEventListener("visibilitychange", onVisibility)
+      halt()
+      settle(0)
+    }
+    reduced.addEventListener("change", onReduced)
+
+    // Measure the glyphs in the web font, not the fallback.
+    void document.fonts.ready.then(() => {
+      if (stopped || reduced.matches) return
+      glyphFor = glyphPools()
+      observer.observe(heading)
+      document.addEventListener("visibilitychange", onVisibility)
+    })
+  }
+</script>

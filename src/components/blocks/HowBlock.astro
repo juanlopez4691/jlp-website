@@ -1,5 +1,5 @@
 ---
-import { getImage } from "astro:assets"
+import { Image } from "astro:assets"
 import type { ComponentProps } from "astro/types"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
@@ -17,17 +17,6 @@ type Props = HowBlockCopy & {
 }
 
 const { id, arrow, class: className, ...process } = Astro.props
-
-// Hidden below `lg`, where a blank GIF keeps it from downloading.
-const image = await getImage({
-  src: workshop,
-  width: 304,
-  densities: [1, 2],
-  format: "avif",
-  quality: 35,
-})
-const blank =
-  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
 ---
 
 <section
@@ -47,22 +36,16 @@ const blank =
       ))}
     </ol>
     <div class="mt-16 lg:flex lg:items-center lg:gap-12">
-      <picture class="hidden shrink-0 lg:block">
-        <source
-          media="(min-width: 1024px)"
-          srcset={image.srcSet.attribute}
-          type="image/avif"
-        />
-        <source srcset={blank} />
-        <img
-          src={image.src}
-          alt={process.imageAlt}
-          width={image.attributes.width}
-          height={image.attributes.height}
-          loading="lazy"
-          class="h-116 w-76 object-contain"
-        />
-      </picture>
+      <Image
+        src={workshop}
+        alt={process.imageAlt}
+        width={304}
+        densities={[1, 2]}
+        format="avif"
+        quality={35}
+        loading="lazy"
+        class="hidden h-116 w-76 shrink-0 object-contain lg:block"
+      />
       <ul class="flex max-w-prose flex-col gap-8 md:mx-auto lg:mx-0">
         {process.principles.map((principle) => (
           <li class="motion-safe:scroll-triggered:reveal">

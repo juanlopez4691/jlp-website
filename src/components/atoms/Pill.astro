@@ -17,9 +17,9 @@ const { kind, tone = "on-light", class: className } = Astro.props
 /** Whole class strings, so Tailwind sees them. */
 const kinds = {
   availability:
-    "inline-flex items-center gap-2 rounded-full bg-ink py-2 pr-4 pl-2.5 text-sm leading-normal font-semibold text-mint",
+    "inline-flex items-center gap-2 rounded-full bg-ink py-2 pr-4 pl-2.5 text-sm leading-pill font-semibold text-mint",
   chip: "inline-flex items-center rounded-full border-[1.5px] border-current px-3 py-1 text-sm leading-pill font-medium",
-  date: "inline-flex items-center rounded-full bg-saffron px-4 py-2 text-sm leading-normal font-semibold whitespace-nowrap text-ink",
+  date: "inline-flex items-center rounded-full bg-saffron px-4 py-2 text-sm leading-pill font-semibold whitespace-nowrap text-ink",
   "chip-filled":
     "inline-flex items-center rounded-full border-[1.5px] border-saffron bg-saffron px-3 py-1 text-sm leading-pill font-medium text-ink",
 }
@@ -31,7 +31,14 @@ const tones = {
 }
 ---
 
-<span class={cn(kinds[kind], kind === "chip" && tones[tone], className)}>
+<span
+  class={cn(
+    kinds[kind],
+    "max-w-fit",
+    kind === "chip" && tones[tone],
+    className
+  )}
+>
   {kind === "availability" && (
     <span class="size-2.5 shrink-0 rounded-full bg-saffron" />
   )}

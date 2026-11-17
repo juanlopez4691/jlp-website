@@ -95,6 +95,15 @@
     translate: 0 2rem;
   }
 }
+/* Relay: holds the step's arrow out of its window until the script draws it. */
+@utility relay {
+  & [data-step-arrow] {
+    translate: -100% 0;
+  }
+  & [data-step-arrow-inner] {
+    translate: 100% 0;
+  }
+}
 /* Reveal stagger: on a grid list, delays each item by its column (0 to 3). */
 @utility reveal-stagger-2 {
   @variant md {

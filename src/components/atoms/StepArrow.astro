@@ -12,11 +12,15 @@ const { class: className } = Astro.props
   aria-hidden="true"
   class={cn("pointer-events-none relative h-12 text-ink", className)}
 >
-  <span class="absolute top-1/2 right-1 left-0 h-1.5 -translate-y-1/2 bg-current"></span>
-  <svg
-    viewBox="0 0 24 39.6"
-    class="absolute top-1/2 right-0 w-6 -translate-y-1/2 fill-current"
-  >
-    <path d="M24 19.8 4.24 0 0 4.24 15.56 19.8 0 35.36 4.24 39.6Z"></path>
-  </svg>
+  <span data-step-arrow class="absolute inset-0 overflow-hidden">
+    <span data-step-arrow-inner class="absolute inset-0">
+      <span class="absolute top-1/2 right-1 left-0 h-1.5 -translate-y-1/2 bg-current"></span>
+      <svg
+        viewBox="0 0 24 39.6"
+        class="absolute top-1/2 right-0 w-6 -translate-y-1/2 fill-current"
+      >
+        <path d="M24 19.8 4.24 0 0 4.24 15.56 19.8 0 35.36 4.24 39.6Z"></path>
+      </svg>
+    </span>
+  </span>
 </div>

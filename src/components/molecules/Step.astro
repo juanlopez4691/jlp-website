@@ -18,7 +18,9 @@ const { number, title, class: className } = Astro.props
     aria-hidden="true"
     class="h-26.25 overflow-hidden font-display text-[11rem] leading-number font-bold tracking-[-0.04em] -indent-1.5"
   >
-    {number}
+    <span data-step-number class="block">
+      {number}
+    </span>
   </p>
   <div class="relative h-0.5 bg-ink">
     <StepArrow class="absolute inset-x-0 top-1/2 -translate-y-1/2" />

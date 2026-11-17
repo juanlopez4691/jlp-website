@@ -26,9 +26,12 @@ const { id, arrow, class: className, ...process } = Astro.props
   {arrow && <SectionArrow color={arrow} />}
   <div class="mx-auto max-w-6xl px-8 xl:px-0">
     <SectionHeader eyebrow={process.eyebrow} title={process.title} />
-    <ol class="reveal-stagger-4 mt-12 grid gap-8 md:grid-cols-2 md:gap-y-10 lg:grid-cols-4 lg:gap-x-10">
+    <ol
+      data-process-steps
+      class="reveal-stagger-4 mt-12 grid gap-8 md:grid-cols-2 md:gap-y-10 lg:grid-cols-4 lg:gap-x-10"
+    >
       {process.steps.map((step, index) => (
-        <li class="motion-safe:scroll-triggered:reveal">
+        <li class="-mb-4 pb-4 motion-safe:relay motion-safe:scroll-triggered:reveal">
           <Step number={index + 1} title={step.title}>
             {step.body}
           </Step>
@@ -56,3 +59,327 @@ const { id, arrow, class: className, ...process } = Astro.props
     </div>
   </div>
 </section>
+
+<script>
+  /*
+   * Each number rises out of its rule as its step is revealed. Then, in order,
+   * each step draws its arrow and lifts once it is in view. Hovering a step that
+   * has played replays it.
+   */
+  const STEP_MS = 700
+  // The lift moves the <li>, which is also the hover area. Its pb-4 keeps the
+  // pointer inside while it rises, so keep the two in step.
+  const LIFT = "-1rem"
+  const BACK_MS = 300
+  const PAUSE_MS = 500
+  const RISE_MS = 650
+  const RISE_DELAY_MS = 200
+  const REVEAL_COLUMN_MS = 80
+  const RISE_EASING = "cubic-bezier(0.3, 0.7, 0.2, 1)"
+  const NUMBER_HIDDEN = "0 115%"
+  const NUMBER_SHOWN = "0 0"
+
+  const list = document.querySelector<HTMLElement>("[data-process-steps]")
+
+  if (list) {
+    const reducedMotion = () =>
+      matchMedia("(prefers-reduced-motion: reduce)").matches
+
+    type StepEntry = {
+      /** The <li>: the hover area, and what lifts. */
+      item: HTMLElement
+      /** The number's 105px box, observed for visibility: it always fits the viewport. */
+      numberBox: HTMLElement
+      /** The window that reveals the arrow. */
+      arrow: HTMLElement | null
+      /** Slid against the window, so the arrow stays put. */
+      arrowInner: HTMLElement | null
+      number: HTMLElement | null
+      /** Holds the number down until it rises. */
+      numberHold: Animation | null
+      rise: Animation | null
+      /** The animations of this step's replay, for cancelling before the next. */
+      replayed: Animation[]
+      /** The intro of this step has played to its end. */
+      played: boolean
+    }
+
+    const steps = [...list.children].flatMap<StepEntry>((item) => {
+      if (!(item instanceof HTMLElement)) return []
+      const number = item.querySelector<HTMLElement>("[data-step-number]")
+      const numberBox = number?.parentElement
+      if (!numberBox) return []
+      const arrow = item.querySelector<HTMLElement>("[data-step-arrow]")
+      const arrowInner =
+        arrow?.querySelector<HTMLElement>("[data-step-arrow-inner]") ?? null
+      return [
+        {
+          item,
+          numberBox,
+          arrow,
+          arrowInner,
+          number,
+          numberHold: null,
+          rise: null,
+          replayed: [],
+          played: false,
+        },
+      ]
+    })
+
+    // Reveals the arrow from the left, from `from` (0 to 1) to the end: the window
+    // slides in while the inner layer slides back, so the arrow stays put and the
+    // head shows last. Transforms only, so it keeps its pace on a busy main thread.
+    const drawArrow = (
+      { arrow, arrowInner }: StepEntry,
+      from: number,
+      options: KeyframeAnimationOptions
+    ) => {
+      if (!arrow || !arrowInner) return []
+      const inner = arrowInner.animate(
+        [{ translate: `${(1 - from) * 100}% 0` }, { translate: "0 0" }],
+        options
+      )
+      const frame = arrow.animate(
+        [{ translate: `${(from - 1) * 100}% 0` }, { translate: "0 0" }],
+        options
+      )
+      return [frame, inner]
+    }
+
+    const translateY = (element: HTMLElement) =>
+      parseFloat(getComputedStyle(element).translate.split(" ")[1]) || 0
+
+    const cancelReplay = (processStep: StepEntry) => {
+      processStep.replayed.forEach((animation) => animation.cancel())
+      processStep.replayed = []
+    }
+
+    // Numbers start below their rule. Without scripts or motion they just show.
+    if (!reducedMotion())
+      steps.forEach((processStep) => {
+        processStep.numberHold =
+          processStep.number?.animate([{ translate: NUMBER_HIDDEN }], {
+            duration: 0,
+            fill: "forwards",
+          }) ?? null
+      })
+
+    // Runs once per step, from whichever comes first: the <li>'s reveal start
+    // (browsers with scroll triggers), the observer when the number box is in
+    // view (browsers without them), or playIntro (a fallback, so the intro never
+    // waits on a rise that has not started).
+    const rise = (processStep: StepEntry, delay: number) => {
+      const { number, numberHold } = processStep
+      if (!number || !numberHold || processStep.rise) return
+      processStep.rise = number.animate(
+        [{ translate: NUMBER_HIDDEN }, { translate: NUMBER_SHOWN }],
+        { duration: RISE_MS, delay, easing: RISE_EASING, fill: "backwards" }
+      )
+      // The rise holds the number down through its delay.
+      numberHold.cancel()
+    }
+
+    const riseDelay = ({ item }: StepEntry) =>
+      RISE_DELAY_MS +
+      (Number(getComputedStyle(item).getPropertyValue("--reveal-column")) ||
+        0) *
+        REVEAL_COLUMN_MS
+
+    steps.forEach((processStep) => {
+      processStep.item.addEventListener("animationstart", (event) => {
+        if (
+          event.target === processStep.item &&
+          event.animationName === "reveal"
+        )
+          rise(processStep, RISE_DELAY_MS)
+      })
+    })
+
+    // The card's own reveal, a CSS animation. Without one (no triggers, no
+    // motion) the card is ready.
+    const ready = async (item: HTMLElement) => {
+      const reveal = item
+        .getAnimations()
+        .find(
+          (animation): animation is CSSAnimation =>
+            animation instanceof CSSAnimation &&
+            animation.animationName === "reveal"
+        )
+      // A cancelled reveal rejects: treat it as done.
+      await reveal?.finished.catch(() => undefined)
+    }
+
+    // One observer for all the steps. Each change wakes the `whenTurn` waiting on it.
+    const ratios = steps.map(() => 0)
+    // Scrolled past: the number box is above the viewport.
+    const above = steps.map(() => false)
+    let wake: (() => void) | null = null
+    const changed = () =>
+      new Promise<void>((resolve) => {
+        wake = resolve
+      })
+    const visibility = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = steps.findIndex(
+            ({ numberBox }) => numberBox === entry.target
+          )
+          if (index === -1) return
+          ratios[index] = entry.intersectionRatio
+          above[index] =
+            entry.boundingClientRect.top < (entry.rootBounds?.top ?? 0)
+          // No reveal (no scroll triggers): rise once in view, in column order.
+          const processStep = steps[index]
+          if (processStep && entry.intersectionRatio >= 0.89)
+            rise(processStep, riseDelay(processStep))
+        })
+        wake?.()
+        wake = null
+      },
+      { threshold: [0, 0.9] }
+    )
+    steps.forEach(({ numberBox }) => visibility.observe(numberBox))
+
+    // The reported ratio can land just under the 0.9 threshold.
+    const inView = (index: number) => (ratios[index] ?? 0) >= 0.89
+
+    // A step's turn comes when it is in view, or once it has been scrolled past.
+    const whenTurn = async (index: number) => {
+      while (!inView(index) && !above[index]) await changed()
+    }
+
+    const pause = (ms: number) =>
+      new Promise<void>((resolve) => {
+        setTimeout(resolve, ms)
+      })
+
+    const animateStep = (
+      processStep: StepEntry,
+      fill: FillMode,
+      hover: boolean
+    ) => {
+      const { item, number } = processStep
+      const arrow = drawArrow(processStep, 0, {
+        duration: STEP_MS,
+        delay: 0,
+        easing: "ease-in-out",
+        fill,
+      })
+      const lift = item.animate(
+        [
+          { translate: "0 0", easing: "ease-in-out" },
+          { translate: `0 ${LIFT}`, offset: 0.35 },
+          { translate: `0 ${LIFT}`, offset: 0.65, easing: "ease-in-out" },
+          { translate: "0 0" },
+        ],
+        { duration: STEP_MS, delay: 0, fill }
+      )
+      // On hover the number dips into the rule and rises again.
+      const dip =
+        hover && number
+          ? number.animate(
+              [
+                { translate: NUMBER_SHOWN },
+                { translate: NUMBER_HIDDEN, offset: 0.3 },
+                { translate: NUMBER_SHOWN },
+              ],
+              { duration: STEP_MS, easing: RISE_EASING }
+            )
+          : null
+      return { arrow, lift, dip }
+    }
+
+    const playStep = (processStep: StepEntry) => {
+      const { arrow, lift } = animateStep(processStep, "forwards", false)
+      // The browser drops a finished animation that a later one overrides: these
+      // hold the drawn arrow.
+      arrow.forEach((animation) => animation.persist())
+      return lift
+    }
+
+    // Drawn with no animation, for a step scrolled past.
+    const restStep = (processStep: StepEntry) => {
+      drawArrow(processStep, 1, { duration: 0, fill: "forwards" }).forEach(
+        (animation) => animation.persist()
+      )
+      processStep.numberHold?.cancel()
+      // So a later `rise` does nothing.
+      processStep.numberHold = null
+      processStep.played = true
+    }
+
+    const playIntro = async () => {
+      if (reducedMotion()) return
+      // Only the first step that plays waits PAUSE_MS, counted from when its
+      // number lands.
+      let paused = false
+      for (const [index, processStep] of steps.entries()) {
+        await whenTurn(index)
+        // Scrolled past: its reveal may never run, so do not wait for it.
+        if (!inView(index)) {
+          restStep(processStep)
+          continue
+        }
+        rise(processStep, riseDelay(processStep))
+        await ready(processStep.item)
+        // The number is fully up before its arrow draws.
+        await processStep.rise?.finished.catch(() => undefined)
+        if (!paused) {
+          paused = true
+          await pause(PAUSE_MS)
+        }
+        // A cancelled animation rejects: carry on.
+        await playStep(processStep).finished.catch(() => undefined)
+        processStep.played = true
+      }
+    }
+
+    // A replay runs to its end: re-entering mid-replay does not restart it.
+    const replaying = (processStep: StepEntry) =>
+      processStep.replayed.some(
+        (animation) => animation.playState === "running"
+      )
+
+    const replay = (processStep: StepEntry) => {
+      cancelReplay(processStep)
+      const { arrow, lift, dip } = animateStep(processStep, "both", true)
+      processStep.replayed.push(...arrow, lift)
+      if (dip) processStep.replayed.push(dip)
+    }
+
+    // On leave only the lift eases back; the arrow and the number finish.
+    const easeBack = (processStep: StepEntry) => {
+      const { item } = processStep
+      const lift = processStep.replayed.find(
+        (animation) =>
+          animation.playState === "running" &&
+          (animation.effect as KeyframeEffect | null)?.target === item
+      )
+      if (!lift) return
+      // Read before cancelling: a cancel drops the step to rest.
+      const y = translateY(item)
+      lift.cancel()
+      if (y !== 0)
+        item.animate([{ translate: `0 ${y}px` }, { translate: "0 0" }], {
+          duration: BACK_MS,
+          easing: "ease-out",
+        })
+    }
+
+    steps.forEach((processStep) => {
+      processStep.item.addEventListener("pointerenter", (event) => {
+        if (event.pointerType === "touch") return
+        if (reducedMotion()) return
+        if (!processStep.played || replaying(processStep)) return
+        replay(processStep)
+      })
+      processStep.item.addEventListener("pointerleave", (event) => {
+        if (event.pointerType === "touch") return
+        easeBack(processStep)
+      })
+    })
+
+    void playIntro()
+  }
+</script>

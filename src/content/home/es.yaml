@@ -18,15 +18,15 @@ blocks:
     email: hello@lojopez.dev
     imageAlt: Grabado de un herrero en el yunque
   - type: facts
+    experience:
+      number: "+25"
+      label: años de experiencia
+    clients:
+      number: "+15"
+      label: empresas desde 2021
     stack:
       label: Stack principal
       value: PHP, Laravel, Statamic, WordPress, WooCommerce
-    experience:
-      label: Experiencia
-      value: +25 años
-    clients:
-      label: Clientes
-      value: +15 empresas desde 2021
     location:
       label: Ubicación
       value: Cerca de Barcelona, España

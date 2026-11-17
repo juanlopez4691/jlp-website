@@ -5,9 +5,9 @@ export const factsBlock = z
   .object({
     type: z.literal("facts"),
     ...blockMeta,
+    experience: z.object({ number: z.string(), label: z.string() }).strict(),
+    clients: z.object({ number: z.string(), label: z.string() }).strict(),
     stack: z.object({ label: z.string(), value: z.string() }).strict(),
-    experience: z.object({ label: z.string(), value: z.string() }).strict(),
-    clients: z.object({ label: z.string(), value: z.string() }).strict(),
     location: z.object({ label: z.string(), value: z.string() }).strict(),
     languages: z.object({ label: z.string(), value: z.string() }).strict(),
   })

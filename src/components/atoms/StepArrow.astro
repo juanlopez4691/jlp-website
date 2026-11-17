@@ -10,7 +10,7 @@ const { class: className } = Astro.props
 
 <div
   aria-hidden="true"
-  class={cn("pointer-events-none h-12 text-ink", className)}
+  class={cn("pointer-events-none relative h-12 text-ink", className)}
 >
   <span class="absolute top-1/2 right-1 left-0 h-1.5 -translate-y-1/2 bg-current"></span>
   <svg

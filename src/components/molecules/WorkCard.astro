@@ -7,11 +7,11 @@ interface Props {
   client: string
   /** The project, one line or two. */
   title: string
-  /** The outcome. Secondary cards do not show it. */
+  /** The result headline under the client. Primary cards only. */
   result?: string
   /** Technologies, up to four. */
   chips: string[]
-  /** `primary` is a mint card; `secondary` is transparent with a mint border, for "More work". */
+  /** `primary` is ink text on a mint card; `secondary` is mint text on an outline card. */
   type?: "primary" | "secondary"
   /** The title element. Secondary cards sit under the "More work" `h3`. */
   heading?: "h3" | "h4"
@@ -33,27 +33,38 @@ const Heading = heading
 
 <article
   class={cn(
-    "flex h-full flex-col gap-4 rounded-lg p-6",
-    type === "secondary"
-      ? "border-[1.5px] border-mint text-mint"
-      : "bg-mint text-ink",
+    "flex h-full flex-col gap-4",
+    type === "secondary" ? "text-mint" : "text-ink",
     className
   )}
 >
-  <div class="flex flex-col gap-1">
-    <p class="text-sm leading-normal font-semibold tracking-tag uppercase">
-      {client}
-    </p>
-    <Heading class="text-2xl leading-tight font-bold">{title}</Heading>
-  </div>
-  <div class="flex flex-1 flex-col gap-4">
-    <p class="text-lg leading-relaxed">
-      <slot />
-    </p>
-    {result && <p class="text-base leading-normal font-semibold">{result}</p>}
-  </div>
+  {type === "primary" ? (
+    <>
+      <div class="flex flex-col gap-2">
+        <p class="text-sm leading-normal font-semibold tracking-tag uppercase">
+          {client}
+        </p>
+        {result && (
+          <p class="font-display text-3xl leading-[1.1] font-bold tracking-tight">
+            {result}
+          </p>
+        )}
+      </div>
+      <Heading class="text-xl leading-tight font-bold">{title}</Heading>
+    </>
+  ) : (
+    <div class="flex flex-col gap-1">
+      <p class="text-sm leading-normal font-semibold tracking-tag uppercase">
+        {client}
+      </p>
+      <Heading class="text-2xl leading-tight font-bold">{title}</Heading>
+    </div>
+  )}
+  <p class="flex-1 text-lg leading-relaxed">
+    <slot />
+  </p>
   {chips.length > 0 && (
-    <ul class="flex flex-wrap gap-2 pt-2">
+    <ul class={cn("flex flex-wrap gap-2", type === "secondary" && "pt-2")}>
       {chips.map((chip) => (
         <li>
           <Pill

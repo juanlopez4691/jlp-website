@@ -4,10 +4,15 @@ blocks:
   - type: hero
     availability: Open to freelance, contract and full-time work
     availabilityShort: Open to freelance and full-time work
-    greeting: Hello, I'm
-    name: Joan López
-    role: Senior web developer.
-    tagline: I forge reliable websites with WordPress, WooCommerce, Laravel and Statamic.
+    tagline: Hello, I'm Joan López. Senior web developer.
+    claim:
+      prefix: I forge
+      sentences:
+        - [solid web, solutions]
+        - [web apps, that scale]
+        - [web shops, that sell]
+        - [performant, websites]
+    role: with WordPress, WooCommerce, Laravel and Statamic.
     lead: I take care of the technical side, from architecture to launch, so your project works on day one and stays fast, secure and easy to maintain.
     contact: Tell me about your project
     email: hello@lojopez.dev

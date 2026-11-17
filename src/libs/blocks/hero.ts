@@ -7,10 +7,14 @@ export const heroBlock = z
     ...blockMeta,
     availability: z.string(),
     availabilityShort: z.string(),
-    greeting: z.string(),
-    name: z.string(),
-    role: z.string(),
     tagline: z.string(),
+    claim: z
+      .object({
+        prefix: z.string(),
+        sentences: z.array(z.tuple([z.string(), z.string()])).min(1),
+      })
+      .strict(),
+    role: z.string(),
     lead: z.string(),
     contact: z.string(),
     email: z.email(),

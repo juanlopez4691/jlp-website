@@ -13,7 +13,7 @@ const { id, class: className, ...facts } = Astro.props
 ---
 
 <section id={id} class={cn("bg-navy py-10", className)}>
-  <div class="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-8 px-8 lg:grid-cols-3 xl:grid-cols-[max-content_max-content_3fr_2fr_3fr] xl:gap-12 xl:px-0">
+  <div class="mx-auto grid max-w-6xl grid-cols-2 md:max-w-156 lg:max-w-6xl gap-x-6 gap-y-8 px-8 lg:grid-cols-3 xl:grid-cols-[max-content_max-content_3fr_2fr_3fr] xl:gap-12 xl:px-0">
     <Figure number={facts.experience.number} label={facts.experience.label} />
     <Figure number={facts.clients.number} label={facts.clients.label} />
     <Fact label={facts.stack.label}>{facts.stack.value}</Fact>

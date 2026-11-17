@@ -171,24 +171,25 @@ blocks:
     id: process
     eyebrow: Mi proceso
     title: Cómo trabajo
+    imageAlt: Grabado de un soplador de vidrio trabajando con su lámpara en un banco, bajo estantes llenos de matraces y frascos.
     steps:
-      - title: 1. Escuchar y entender
+      - title: Escuchar y entender
         body: Analizamos juntos tus objetivos, tu web o sistema actual y cualquier limitación.
-      - title: 2. Planificar y proponer
+      - title: Planificar y proponer
         body: Defino la arquitectura, el stack técnico, las integraciones y te preparo un presupuesto.
-      - title: 3. Construir y verificar
-        body: Entrego por iteraciones y te voy enseñando los progresos, con tests y análisis estático en el pipeline.
-      - title: 4. Lanzar y mantener
+      - title: Construir y verificar
+        body: Entrego por iteraciones y te voy enseñando los progresos, con tests automáticos y análisis estático.
+      - title: Lanzar y mantener
         body: Despliego, reviso el rendimiento, la seguridad y mantengo todo al día tras el lanzamiento.
     principles:
       - title: Me ocupo de la parte técnica de principio a fin
-        body: Me ocupo de la arquitectura, la implementación, el rendimiento, la seguridad, el CI/CD, el despliegue y el mantenimiento.”
+        body: Me encargo de la arquitectura, la implementación, el rendimiento, la seguridad, los flujos de CI/CD, la entrega y el mantenimiento.
       - title: Construyo para el uso real
-        body: Dedico tiempo a entender lo que necesitas y construyo software que funciona bien en la práctica. Me gusta trabajar de cerca con diseñadores, desarrolladores y equipos de producto.
+        body: Escucho con atención tus requisitos y los convierto en productos que funcionan en el uso real. Trabajo bien con diseñadores, desarrolladores y responsables de producto.
       - title: Tests y análisis estático en el pipeline
-        body: Tests automáticos, análisis estático y formateo y refactorización automáticos mantienen el código limpio, detectan errores antes de llegar a producción y hacen los cambios más seguros.
-      - title: La IA es parte de cómo trabajo
-        body: Uso agentes de IA para acelerar el desarrollo, probar enfoques y encargarme de las tareas repetitivas. Con tests y análisis estático de respaldo, entrego funcionalidades fiables más rápido.
+        body: Respaldo el código con tests automáticos, análisis estático y formateo y refactorización automáticos, para detectar errores antes de que lleguen a producción.
+      - title: La IA forma parte de mi día a día
+        body: Uso agentes de IA para programar, junto con tests automáticos y análisis estático, para entregar funcionalidades fiables más rápido.
   - type: experience
     id: experience
     eyebrow: Experiencia

@@ -171,24 +171,25 @@ blocks:
     id: process
     eyebrow: My process
     title: How I work
+    imageAlt: Engraving of a glassblower at his lamp, working at a bench under shelves of flasks and bottles.
     steps:
-      - title: 1. Listen and learn
+      - title: Listen and learn
         body: We go through your goals, your current site or system and any constraints.
-      - title: 2. Plan and propose
+      - title: Plan and propose
         body: I define the architecture, tech stack, integrations and give you an estimate.
-      - title: 3. Build and verify
-        body: I deliver in iterations and show progress along the way, with tests and static analysis in the pipeline.
-      - title: 4. Launch and support
+      - title: Build and verify
+        body: I deliver in iterations and show progress along the way, with automated tests and static analysis.
+      - title: Launch and support
         body: I deploy, check performance, security and keep everything updated after launch.
     principles:
       - title: I own the technical side end to end
-        body: I cover architecture, implementation, performance, security, CI/CD, deployment and maintenance.
+        body: I take care of architecture, implementation, performance, security, CI/CD flows, delivery and maintenance.
       - title: I build for real use
-        body: I take the time to understand what you need, then build software that works well in practice. I also like working closely with designers, developers and product teams.
-      - title: Quality is part of the process
-        body: Automated tests, static analysis and automatic formatting and refactoring keep the codebase clean and catch bugs before they reach production, so changes are safer to make.
-      - title: AI is part of how I work
-        body: I use AI coding agents to speed up development, try different approaches and handle repetitive tasks. With automated tests and static analysis backing them, I ship reliable features faster.
+        body: I listen closely to your requirements and turn them into products that hold up in real use. I work well with designers, developers and product stakeholders.
+      - title: Tests and static analysis in the pipeline
+        body: I back the code with automated tests, static analysis and automatic formatting and refactoring, to catch bugs before they reach production.
+      - title: AI is part of my daily workflow
+        body: I use AI coding agents, together with automated tests and static analysis, to ship reliable features faster.
   - type: experience
     id: experience
     eyebrow: Experience

@@ -3,6 +3,7 @@ import type { ComponentProps } from "astro/types"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import WorkCard from "@/components/molecules/WorkCard.astro"
+import WorkCardFeatured from "@/components/molecules/WorkCardFeatured.astro"
 import { cn } from "@/libs/utils"
 import type { WorkBlockCopy } from "@/libs/blocks"
 
@@ -23,9 +24,25 @@ const { id, arrow, class: className, ...work } = Astro.props
   {arrow && <SectionArrow color={arrow} />}
   <div class="mx-auto max-w-6xl px-8 xl:px-0">
     <SectionHeader tone="on-dark" eyebrow={work.eyebrow} title={work.title} />
-    <ul class="reveal-stagger-2 mt-12 grid gap-6 md:grid-cols-2">
+    <ul class="mt-12 flex flex-col gap-6">
+      {work.featured.map((item, index) => (
+        <li class="overflow-hidden rounded-tr-[48px] rounded-bl-[48px] bg-mint motion-safe:scroll-triggered:reveal">
+          <WorkCardFeatured
+            client={item.client}
+            result={item.result}
+            title={item.title}
+            chips={item.chips}
+            color={item.color}
+            layout={index % 2 === 0 ? "row" : "row-reversed"}
+          >
+            {item.body}
+          </WorkCardFeatured>
+        </li>
+      ))}
+    </ul>
+    <ul class="reveal-stagger-2 mt-6 grid gap-6 md:grid-cols-2">
       {work.items.map((item) => (
-        <li class="motion-safe:scroll-triggered:reveal">
+        <li class="rounded-tr-[48px] rounded-bl-[48px] bg-mint p-8 motion-safe:scroll-triggered:reveal">
           <WorkCard
             client={item.client}
             title={item.title}
@@ -41,7 +58,7 @@ const { id, arrow, class: className, ...work } = Astro.props
     <h3 class="mt-12 text-3xl leading-tight font-bold">{work.moreTitle}</h3>
     <ul class="reveal-stagger-3 mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {work.more.map((item) => (
-        <li class="motion-safe:scroll-triggered:reveal">
+        <li class="rounded-tr-[48px] rounded-bl-[48px] border-[1.5px] border-mint p-8 motion-safe:scroll-triggered:reveal">
           <WorkCard
             client={item.client}
             title={item.title}

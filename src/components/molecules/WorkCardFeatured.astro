@@ -1,0 +1,70 @@
+---
+import Pill from "@/components/atoms/Pill.astro"
+import { cn } from "@/libs/utils"
+
+interface Props {
+  /** The client name, plain uppercase text. */
+  client: string
+  /** The outcome, large, in the result panel. */
+  result: string
+  /** The project, one line or two. */
+  title: string
+  /** Technologies, up to four. */
+  chips: string[]
+  /** The fill of the result panel. */
+  color: "saffron" | "coral"
+  /** `row-reversed` puts the body first from `lg`; below it, the card is stacked. */
+  layout?: "row" | "row-reversed"
+  class?: string
+}
+
+const {
+  client,
+  result,
+  title,
+  chips,
+  color,
+  layout = "row",
+  class: className,
+} = Astro.props
+
+/** Whole class strings, so Tailwind sees them. */
+const colors = {
+  saffron: "bg-saffron",
+  coral: "bg-coral",
+}
+---
+
+<article class={cn("grid h-full text-ink lg:grid-cols-12", className)}>
+  <div
+    class={cn(
+      "flex flex-col gap-0.5 p-8 lg:col-span-5 lg:pt-[41px]",
+      colors[color],
+      layout === "row-reversed" && "lg:order-last"
+    )}
+  >
+    <p class="text-sm leading-normal font-semibold tracking-tag uppercase">
+      {client}
+    </p>
+    <p class="font-display text-4xl leading-none font-bold tracking-tight lg:text-5xl">
+      {result}
+    </p>
+  </div>
+  <div class="flex flex-col gap-4 p-8 lg:col-span-7 lg:gap-6">
+    <h3 class="text-2xl leading-tight font-bold">{title}</h3>
+    <p class="flex-1 text-lg leading-relaxed">
+      <slot />
+    </p>
+    {chips.length > 0 && (
+      <ul class="flex flex-wrap gap-2">
+        {chips.map((chip) => (
+          <li>
+            <Pill kind="chip" tone="on-light">
+              {chip}
+            </Pill>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</article>

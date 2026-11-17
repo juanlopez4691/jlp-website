@@ -7,6 +7,7 @@ export const howBlock = z
     ...blockMeta,
     eyebrow: z.string(),
     title: z.string(),
+    imageAlt: z.string(),
     steps: z
       .array(z.object({ title: z.string(), body: z.string() }).strict())
       .min(1),

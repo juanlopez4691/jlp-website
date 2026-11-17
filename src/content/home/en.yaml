@@ -59,47 +59,50 @@ blocks:
     eyebrow: Selected work
     title: Things I've built
     moreTitle: More work
-    items:
+    featured:
       - client: Zone Soft
-        title: TicketBAI e-invoicing compliance
+        title: TicketBAI e-invoicing integration
         body: A centralized API that bridges TicketBAI e-invoicing for all three Basque provinces (Álava, Bizkaia and Gipuzkoa), with XAdES-T digital signatures.
-        result: Full regulatory compliance from launch.
+        result: Full regulatory compliance.
         chips:
           - Slim Framework
           - SOLID
           - XAdES-T
+        color: saffron
       - client: 8Belts
-        title: Ecommerce checkout and integrations
+        title: Custom checkout and integrations
         body: A WooCommerce site with a fully custom sales and checkout flow and integrations with Holded, HubSpot and the 8Belts platform API.
-        result: Better operational efficiency and load times under 1.5 s.
+        result: Load times under 1.5 seconds.
         chips:
           - WooCommerce
           - Holded
           - HubSpot
+        color: coral
+    items:
       - client: Efiori
         title: Marketplace automation
         body: Automated business-logic validation for a floral marketplace, plus a custom delivery-date engine based on customer location, order date, product stock and delivery service availability.
-        result: More accurate supplier assignment and margin calculation, and less time per order.
+        result: Flowers delivered on time.
         chips:
           - WooCommerce
       - client: Vibliotec
         title: Video training platform
-        body: Built from scratch, with a custom video player, protected Vimeo delivery, minute-synced comments and a module that lets users resume the last-viewed course video across devices.
-        result: A video learning SaaS platform for sports coaching.
+        body: A custom video player, protected Vimeo delivery, minute-synced comments and a module that lets users resume the last-viewed course video across devices.
+        result: A video learning SaaS from scratch.
         chips:
           - Craft CMS
           - Vimeo
       - client: Play Your Brand
-        title: Custom CRM
+        title: Custom CRM & DB migration
         body: Co-led the architecture, database design and full implementation, and introduced CI/CD and automated testing. Led the full database migration to the new schema.
-        result: Migration completed with minimal data loss.
+        result: A flawless database migration.
         chips:
           - Laravel
           - Filament
       - client: Abacum
-        title: Website migration
+        title: Website migration to WordPress
         body: Migrated the SaaS product website from Webflow to WordPress with a new design, integrations with Brevo, HubSpot and other external services.
-        result: Improved editorial experience, content design flexibility and faster loading times.
+        result: From static to CMS driven site.
         chips:
           - Webflow
           - WordPress

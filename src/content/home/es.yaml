@@ -59,47 +59,50 @@ blocks:
     eyebrow: Trabajos destacados
     title: Lo que he construido
     moreTitle: Más trabajos
-    items:
+    featured:
       - client: Zone Soft
-        title: Cumplimiento de la facturación electrónica TicketBAI
+        title: Integración de la facturación electrónica TicketBAI
         body: Una API centralizada que integra la facturación electrónica TicketBAI para las tres provincias vascas (Álava, Bizkaia y Gipuzkoa), con firma digital XAdES-T.
-        result: Cumplimiento normativo completo desde el lanzamiento.
+        result: Cumplimiento total de la normativa.
         chips:
           - Slim Framework
           - SOLID
           - XAdES-T
+        color: saffron
       - client: 8Belts
-        title: Proceso de compra e integraciones de ecommerce
+        title: Checkout personalizado e integraciones
         body: Una web WooCommerce con un flujo de venta y checkout totalmente a medida e integraciones con Holded, HubSpot y la API de la plataforma de 8Belts.
-        result: Más eficiencia operativa y tiempos de carga por debajo de 1,5 s.
+        result: Tiempos de carga inferiores a 1,5 seg.
         chips:
           - WooCommerce
           - Holded
           - HubSpot
+        color: coral
+    items:
       - client: Efiori
         title: Automatización de un marketplace
         body: Validación automática de la lógica de negocio de un marketplace de floristería, y un motor de fechas de entrega a medida según la ubicación del cliente, la fecha del pedido, el stock y la disponibilidad del servicio de reparto.
-        result: Asignación de proveedores y cálculo de márgenes más precisos, y menos tiempo por pedido.
+        result: Flores entregadas a tiempo.
         chips:
           - WooCommerce
       - client: Vibliotec
         title: Plataforma de formación en vídeo
-        body: Hecha desde cero, con un reproductor de vídeo propio, entrega protegida desde Vimeo, comentarios sincronizados al minuto y un módulo que permite retomar el último vídeo del curso desde cualquier dispositivo.
-        result: Una plataforma SaaS de aprendizaje en vídeo para entrenadores deportivos.
+        body: Un reproductor de vídeo propio, entrega protegida desde Vimeo, comentarios sincronizados al minuto y un módulo que permite retomar el último vídeo del curso desde cualquier dispositivo.
+        result: Un SaaS de formación en vídeo desde cero.
         chips:
           - Craft CMS
           - Vimeo
       - client: Play Your Brand
-        title: CRM a medida
+        title: CRM a medida y migración de la base de datos
         body: Codirigí la arquitectura, el diseño de la base de datos y toda la implementación, e introduje CI/CD y tests automatizados. Dirigí la migración completa de la base de datos al nuevo esquema.
-        result: Migración completada con una pérdida de datos mínima.
+        result: Una migración de base de datos impecable.
         chips:
           - Laravel
           - Filament
       - client: Abacum
-        title: Migración de la web
+        title: Migración de la web a WordPress
         body: Migré la web SaaS de producto desde Webflow a WordPress, con un nuevo diseño e integraciones con Brevo, HubSpot y otros servicios externos.
-        result: Mejor experiencia editorial, flexibilidad en el diseño de contenidos y tiempos de carga optimizados.
+        result: De web estática a web gestionada con un CMS.
         chips:
           - Webflow
           - WordPress

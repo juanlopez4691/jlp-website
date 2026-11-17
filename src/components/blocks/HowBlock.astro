@@ -28,7 +28,7 @@ const { id, arrow, class: className, ...process } = Astro.props
     <SectionHeader eyebrow={process.eyebrow} title={process.title} />
     <ol
       data-process-steps
-      class="reveal-stagger-4 mt-12 grid gap-8 md:grid-cols-2 md:gap-y-10 lg:grid-cols-4 lg:gap-x-10"
+      class="reveal-stagger-4 mt-5.5 grid gap-8 md:grid-cols-2 md:gap-y-10 lg:grid-cols-4 lg:gap-x-10"
     >
       {process.steps.map((step, index) => (
         <li class="-mb-4 pb-4 motion-safe:relay motion-safe:scroll-triggered:reveal">

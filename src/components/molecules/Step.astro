@@ -1,18 +1,30 @@
 ---
+import StepArrow from "@/components/atoms/StepArrow.astro"
 import { cn } from "@/libs/utils"
 
 interface Props {
-  /** The step, with its number, such as "1. Listen and learn". */
+  /** The position of the step, 1-based. */
+  number: number
+  /** The step without its number, such as "Listen and learn". */
   title: string
   class?: string
 }
 
-const { title, class: className } = Astro.props
+const { number, title, class: className } = Astro.props
 ---
 
-<div class={cn("flex flex-col gap-3 border-t-2 border-ink pt-3", className)}>
-  <h3 class="text-2xl leading-tight font-bold">{title}</h3>
-  <p class="text-lg leading-normal">
+<div class={cn("flex flex-col", className)}>
+  <p
+    aria-hidden="true"
+    class="h-26.25 overflow-hidden font-display text-[11rem] leading-number font-bold tracking-[-0.04em] -indent-1.5"
+  >
+    {number}
+  </p>
+  <div class="relative h-0.5 bg-ink">
+    <StepArrow class="absolute inset-x-0 top-1/2 -translate-y-1/2" />
+  </div>
+  <h3 class="mt-6 text-2xl leading-tight font-bold">{title}</h3>
+  <p class="mt-2 text-lg leading-normal">
     <slot />
   </p>
 </div>

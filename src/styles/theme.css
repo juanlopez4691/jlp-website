@@ -18,7 +18,7 @@
 
   /* Chip line height (Tailwind has 1.25, not 1.2). */
   --leading-pill: 1.2;
-  /* Big number line height: the figure number (and the V2 How step number). */
+  /* Big number line height: the figure number and the step number. */
   --leading-number: 0.8;
 
   /* Label letter spacing (tracking-tight covers the display sizes). */
@@ -93,27 +93,6 @@
   from {
     opacity: 0;
     translate: 0 2rem;
-  }
-}
-/*
- * Relay: the resting bar over the top rule of a process step. The script in
- * HowBlock.astro fills it and lifts the step. Without scripts only the 2px
- * border shows.
- */
-@utility relay {
-  & > * {
-    position: relative;
-  }
-  & > *::before {
-    content: "";
-    position: absolute;
-    inset-inline: 0;
-    /* Over the 2px top border of Step (border-t-2). */
-    top: -2px;
-    height: 6px;
-    background-color: var(--color-ink);
-    scale: 0 1;
-    transform-origin: left;
   }
 }
 /* Reveal stagger: on a grid list, delays each item by its column (0 to 3). */

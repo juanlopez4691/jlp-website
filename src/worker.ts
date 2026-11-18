@@ -35,9 +35,11 @@ function pickLocale(acceptLanguage: string | null): Locale {
 }
 
 /**
- * `/` redirects to the browser's language. The only other paths that reach the
- * Worker are the 404 page's own (`run_worker_first`): they get the page with
- * status 404, not the 200 the asset would answer.
+ * `/` redirects to the browser's language. `_headers` does not reach responses
+ * the Worker builds, so the redirect copies the headers of the page it points
+ * to. The only other paths that reach the Worker are the 404 page's own
+ * (`run_worker_first`): they get the page with status 404, not the 200 the
+ * asset would answer.
  */
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -46,13 +48,22 @@ export default {
     if (url.pathname === "/") {
       const locale = pickLocale(request.headers.get("Accept-Language"))
 
-      return new Response(null, {
-        status: 302,
-        headers: {
-          Location: new URL(`/${locale}`, request.url).href,
-          Vary: "Accept-Language",
-        },
-      })
+      const target = new URL(`/${locale}`, request.url)
+      const page = await env.ASSETS.fetch(target)
+      const headers = new Headers(page.headers)
+
+      // Only its headers are used.
+      await page.body?.cancel()
+
+      // These describe the page's body; the redirect has none.
+      headers.delete("Content-Type")
+      headers.delete("Content-Length")
+      headers.delete("Content-Encoding")
+      headers.delete("ETag")
+      headers.set("Location", target.href)
+      headers.set("Vary", "Accept-Language")
+
+      return new Response(null, { status: 302, headers })
     }
 
     // Not the request: its If-None-Match could turn this into an empty 304.

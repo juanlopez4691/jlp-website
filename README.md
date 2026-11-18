@@ -281,9 +281,12 @@ its frontmatter: it gets a `noindex` meta tag and leaves the sitemap.
 ## Security headers
 
 `public/_headers` sets the security headers: a Content-Security-Policy, HSTS
-(one year, subdomains included), a Permissions-Policy that turns off the
-browser features the site does not use, and the usual `nosniff`, referrer and
-frame rules. Check them at <https://securityheaders.com>.
+(one year, subdomains included, preload), a Permissions-Policy that turns off
+the browser features the site does not use, the usual `nosniff`, referrer and
+frame rules, and the cross-origin ones: `Cross-Origin-Opener-Policy` and
+`Cross-Origin-Resource-Policy` set to `same-origin`, and
+`X-Permitted-Cross-Domain-Policies: none`. Check them at
+<https://securityheaders.com>.
 
 It also caches `/_astro/*` for a year as `immutable`: Astro puts a content hash
 in those file names, so a change gets a new URL. Everything else, HTML

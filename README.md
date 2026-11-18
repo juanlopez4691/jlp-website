@@ -295,7 +295,8 @@ included, keeps Cloudflare's default (`max-age=0, must-revalidate`) and is
 revalidated on each visit.
 
 Headers from `_headers` apply to the deployed site and to `bun run preview`,
-not to `bun run dev`.
+not to `bun run dev`. The `/` redirect, which the Worker builds, copies them
+from the page it points to, so `_headers` is the only place that lists them.
 
 ## Deployment
 

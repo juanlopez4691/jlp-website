@@ -285,8 +285,9 @@ its frontmatter: it gets a `noindex` meta tag and leaves the sitemap.
 the browser features the site does not use, the usual `nosniff`, referrer and
 frame rules, and the cross-origin ones: `Cross-Origin-Opener-Policy` and
 `Cross-Origin-Resource-Policy` set to `same-origin`, and
-`X-Permitted-Cross-Domain-Policies: none`. Check them at
-<https://securityheaders.com>.
+`X-Permitted-Cross-Domain-Policies: none`. The deployed HSTS header comes from
+Cloudflare's HSTS setting for the zone, and `_headers` mirrors it so
+`bun run preview` matches. Check them at <https://securityheaders.com>.
 
 It also caches `/_astro/*` for a year as `immutable`: Astro puts a content hash
 in those file names, so a change gets a new URL. Everything else, HTML

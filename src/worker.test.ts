@@ -13,7 +13,13 @@ const assetEnv = () => {
         requested.push(input.href)
 
         return new Response("not found", {
-          headers: { "Content-Type": "text/html" },
+          headers: {
+            "Content-Type": "text/html",
+            "Content-Length": "9",
+            "Content-Encoding": "gzip",
+            "Content-Security-Policy": "default-src 'none'",
+            ETag: '"page"',
+          },
         })
       },
     },
@@ -76,6 +82,29 @@ test("a language with q=0 is excluded", async () => {
   const response = await visitRoot("es;q=0")
 
   expect(response.headers.get("Location")).toBe("https://lojopez.dev/en")
+})
+
+test("the redirect sends the page's security headers", async () => {
+  const { env, requested } = assetEnv()
+
+  const response = await worker.fetch(
+    new Request("https://lojopez.dev/", {
+      headers: { "Accept-Language": "es" },
+    }),
+    env
+  )
+
+  expect(response.status).toBe(302)
+  expect(response.headers.get("Location")).toBe("https://lojopez.dev/es")
+  expect(response.headers.get("Vary")).toBe("Accept-Language")
+  expect(response.headers.get("Content-Security-Policy")).toBe(
+    "default-src 'none'"
+  )
+  expect(response.headers.get("Content-Type")).toBeNull()
+  expect(response.headers.get("Content-Length")).toBeNull()
+  expect(response.headers.get("Content-Encoding")).toBeNull()
+  expect(response.headers.get("ETag")).toBeNull()
+  expect(requested).toEqual(["https://lojopez.dev/es"])
 })
 
 test("the 404 page keeps its status and its page", async () => {

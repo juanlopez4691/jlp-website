@@ -18,6 +18,10 @@ The design is the source of truth. Do not invent layout, sizes or copy.
   `components/<Name>/README.md` before building a component.
 - Penpot file: pages `00 Foundations`, `01 Components`, `02 Home` and
   `03 Content`.
+- The Penpot MCP server is `penpot`, in the user config of Claude Code. It
+  only works while the Penpot MCP plugin is connected to the file in a browser
+  tab that is not suspended. If a call answers "No Penpot instance connected",
+  ask Joan to reconnect the plugin.
 - If the Penpot MCP tools are not loaded in your session, use
   `/Users/joanlopez/Projects/personal/scripts/penpot.sh` on the host (not in Docker).
   Run it without arguments for usage. Read `high_level_overview` first, then

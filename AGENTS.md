@@ -16,8 +16,15 @@ The design is the source of truth. Do not invent layout, sizes or copy.
   relative one, because worktrees can live elsewhere (Orca puts them in
   `~/orca/workspaces/`). Read `README.md`, `tokens.json` and
   `components/<Name>/README.md` before building a component.
-- Penpot file: pages `00 Foundations`, `01 Components`, `02 Home` and
-  `03 Content`.
+- Penpot file: pages `00 Foundations`, `01 v1. Components`, `02 v1. Home`,
+  `03 Content`, `04 v2. Components` and `05 v2. Home`. V2 is the design to
+  build: its components are in the asset folder `V2`, and `05 v2. Home` is the
+  current Home. The V1 pages are kept for reference and for the components V2
+  reuses as they are.
+- The Penpot MCP server is `penpot`, in the user config of Claude Code. It
+  only works while the Penpot MCP plugin is connected to the file in a browser
+  tab that is not suspended. If a call answers "No Penpot instance connected",
+  ask Joan to reconnect the plugin.
 - If the Penpot MCP tools are not loaded in your session, use
   `/Users/joanlopez/Projects/personal/scripts/penpot.sh` on the host (not in Docker).
   Run it without arguments for usage. Read `high_level_overview` first, then
@@ -47,7 +54,7 @@ src/
 public/_headers   response headers, including the CSP
 ```
 
-The Home page is a list of block components, in the same order as `02 Home`.
+The Home page is a list of block components, in the same order as `05 v2. Home`.
 
 ## Commands
 
@@ -80,7 +87,8 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   when the design needs one and Tailwind has none; it goes in `theme.css`.
   A value with a single use is an arbitrary value instead, with no token: the
   two radii with no class, 28px and 48px, are `rounded-[28px]` and
-  `rounded-[48px]`, and the 404 title is `lg:text-[12.5rem]`.
+  `rounded-[48px]`, the hero claim is `text-[3.5rem]` and `xl:text-[5rem]`,
+  and the 404 title is `lg:text-[12.5rem]`.
 - **Scroll-driven animations.** Their `@keyframes` go in `theme.css`, outside
   `@theme`, because Tailwind drops theme keyframes that no `--animate-*` uses.
   Gate them with the `scroll-driven:` variant and use the `scroll-linked`
@@ -93,13 +101,20 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   scroll-driven animations but no triggers, and the variant also skips print.
   On a grid list, stagger the items with `reveal-stagger-2`, `-3` or `-4` (the
   column count at `lg`) on the list. Its `@keyframes` follow the rule above.
-  The bar and the lift of the process steps are played by a `<script>` in
-  `HowBlock.astro` (Web Animations API), not by CSS: in order, each step once
-  its card has appeared and it is in view, and a step scrolled past is shown at
-  once. `relay` on each `<li>` only draws the resting bar. Once a step has
-  played, hovering it replays it and leaving eases it back.
+  The process steps are played by a `<script>` in `HowBlock.astro` (Web
+  Animations API), not by CSS: each number rises out of its rule with its
+  step's reveal, then in order each step draws its arrow and lifts once it is
+  in view; a step above the viewport is shown at rest. `relay` on each `<li>`
+  only hides the arrow until the script draws it. Once a step has played,
+  hovering it replays it (the number dips into the rule) and leaving eases the
+  lift back.
   Chrome triggers only the first of an element's animations, so give each
   triggered animation its own element or pseudo-element.
+- **Hero claim.** The hero `h1` cycles through the sentences of its content
+  entry with a `<script>` in `HeroBlock.astro`; the frame logic is in
+  `src/libs/decode.ts`, tested in `decode.test.ts`. Each claim line is
+  `text-nowrap`, so the `h1` never changes height, and every line of a new
+  sentence must fit 296px at 56px (a 360px phone).
 - **Smooth scrolling.** `<html>` has `motion-safe:scroll-smooth`, so in-page
   links glide only for users who allow motion. Keep it there, not on blocks.
 - **Page transitions.** Pages cross-fade with native cross-document view
@@ -107,8 +122,9 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   inside `@media (prefers-reduced-motion: no-preference)`, so users who prefer
   reduced motion get none. No client router (`ClientRouter` is JavaScript).
 - **Breakpoints are the defaults, and four are used**: base, `md` (768), `lg`
-  (1024) and `xl` (1280). Do not use `sm` or `2xl`, with one exception: the
-  hero buttons sit in a row from `sm` (640), on purpose. Between 768 and 1023px
+  (1024) and `xl` (1280). Do not use `sm` or `2xl`, with one exception, on
+  purpose: from `sm` (640) the hero buttons sit in a row and the hero claim
+  grows from 56px to 72px. Between 768 and 1023px
   the tablet layout applies. The header links show from `lg`, not from the `xl`
   of its Penpot variant, and the hero image from `lg`, where it shrinks and the
   text keeps its width. The quote block grows from `lg`: its marks are 224px
@@ -236,8 +252,8 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
 ## Git
 
 - Agents may commit, on their own branch in their own worktree. Use the
-  `git-commit` skill. Never commit to `main`, and never merge or rebase onto
-  `main`.
+  `git-commit` skill. Never commit to `main` or merge into it. Rebasing your
+  own branch onto `origin/main` is fine.
 - Conventional commits, enforced by commitlint: no scope, and the extra types
   `ai` and `content` exist.
 - One topic per commit. Concise, human-readable message, no "and", no body.

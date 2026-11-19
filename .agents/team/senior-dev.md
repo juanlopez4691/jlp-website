@@ -63,7 +63,7 @@ Input: `.agents/work/handoff.md` and the branch.
 
 When the review is approved:
 
-1. Run `git fetch origin` and `git rebase origin/main`, then run the four
+1. Run `git fetch origin` and `git rebase origin/main`, then run the
    checks again. If the rebase conflicts, run `git rebase --abort`, stop and
    tell Joan.
 2. Push the branch and open a draft PR as `AGENTS.md` describes, using

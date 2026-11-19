@@ -87,7 +87,8 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   when the design needs one and Tailwind has none; it goes in `theme.css`.
   A value with a single use is an arbitrary value instead, with no token: the
   two radii with no class, 28px and 48px, are `rounded-[28px]` and
-  `rounded-[48px]`, and the 404 title is `lg:text-[12.5rem]`.
+  `rounded-[48px]`, the hero claim is `text-[3.5rem]` and `xl:text-[5rem]`,
+  and the 404 title is `lg:text-[12.5rem]`.
 - **Scroll-driven animations.** Their `@keyframes` go in `theme.css`, outside
   `@theme`, because Tailwind drops theme keyframes that no `--animate-*` uses.
   Gate them with the `scroll-driven:` variant and use the `scroll-linked`
@@ -107,6 +108,11 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   played, hovering it replays it and leaving eases it back.
   Chrome triggers only the first of an element's animations, so give each
   triggered animation its own element or pseudo-element.
+- **Hero claim.** The hero `h1` cycles through the sentences of its content
+  entry with a `<script>` in `HeroBlock.astro`; the frame logic is in
+  `src/libs/decode.ts`, tested in `decode.test.ts`. Each claim line is
+  `text-nowrap`, so the `h1` never changes height, and every line of a new
+  sentence must fit 296px at 56px (a 360px phone).
 - **Smooth scrolling.** `<html>` has `motion-safe:scroll-smooth`, so in-page
   links glide only for users who allow motion. Keep it there, not on blocks.
 - **Page transitions.** Pages cross-fade with native cross-document view
@@ -114,8 +120,9 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   inside `@media (prefers-reduced-motion: no-preference)`, so users who prefer
   reduced motion get none. No client router (`ClientRouter` is JavaScript).
 - **Breakpoints are the defaults, and four are used**: base, `md` (768), `lg`
-  (1024) and `xl` (1280). Do not use `sm` or `2xl`, with one exception: the
-  hero buttons sit in a row from `sm` (640), on purpose. Between 768 and 1023px
+  (1024) and `xl` (1280). Do not use `sm` or `2xl`, with one exception, on
+  purpose: from `sm` (640) the hero buttons sit in a row and the hero claim
+  grows from 56px to 72px. Between 768 and 1023px
   the tablet layout applies. The header links show from `lg`, not from the `xl`
   of its Penpot variant, and the hero image from `lg`, where it shrinks and the
   text keeps its width. The quote block grows from `lg`: its marks are 224px

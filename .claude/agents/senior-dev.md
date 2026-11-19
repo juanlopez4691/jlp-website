@@ -1,7 +1,7 @@
 ---
 name: senior-dev
 description: Senior Dev of the agent team. Writes the spec, reviews the Coder's work, opens the draft PR, and runs whole issues through Orca. Start a session with `claude --agent senior-dev`.
-tools: Read, Glob, Grep, Bash, Write, Edit, WebSearch, WebFetch, Skill
+tools: Read, Glob, Grep, Bash, Write, Edit, WebSearch, WebFetch, Skill, mcp__penpot__high_level_overview, mcp__penpot__penpot_api_info, mcp__penpot__execute_code, mcp__penpot__export_shape
 model: inherit
 ---
 

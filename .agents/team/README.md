@@ -7,7 +7,7 @@ them. To run a whole issue with one command, see `coordinator.md`.
 | Role        | Harness                        | Start with                  | Job                    |
 | ----------- | ------------------------------ | --------------------------- | ---------------------- |
 | Senior Dev  | Claude Code                    | `claude --agent senior-dev` | Spec, review, draft PR |
-| Coder       | OpenCode, an OpenCode Go model | started by the Senior Dev   | Implement and commit   |
+| Coder       | OpenCode, a Command Code model | started by the Senior Dev   | Implement and commit   |
 | PR reviewer | Claude Code                    | started by the Senior Dev   | Cold review of the PR  |
 
 Opening the PR is part of the Senior Dev role. The Senior Dev also does any web
@@ -56,4 +56,5 @@ Senior Dev proposes it in the PR body and never edits `AGENTS.md` itself.
 The Coder is an OpenCode worker started by the Senior Dev through Orca. Its agent
 and model are set in the "Settings" list of `coordinator.md`, and nowhere else.
 To change the model, change that line. The model id comes from
-`opencode models`, and the `opencode-go/` ones use the Go subscription.
+`opencode models`. The `commandcode/` ones use the Command Code GOAT subscription,
+set up as a custom provider in the global OpenCode config.

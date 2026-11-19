@@ -101,11 +101,13 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   scroll-driven animations but no triggers, and the variant also skips print.
   On a grid list, stagger the items with `reveal-stagger-2`, `-3` or `-4` (the
   column count at `lg`) on the list. Its `@keyframes` follow the rule above.
-  The bar and the lift of the process steps are played by a `<script>` in
-  `HowBlock.astro` (Web Animations API), not by CSS: in order, each step once
-  its card has appeared and it is in view, and a step scrolled past is shown at
-  once. `relay` on each `<li>` only draws the resting bar. Once a step has
-  played, hovering it replays it and leaving eases it back.
+  The process steps are played by a `<script>` in `HowBlock.astro` (Web
+  Animations API), not by CSS: each number rises out of its rule with its
+  step's reveal, then in order each step draws its arrow and lifts once it is
+  in view; a step above the viewport is shown at rest. `relay` on each `<li>`
+  only hides the arrow until the script draws it. Once a step has played,
+  hovering it replays it (the number dips into the rule) and leaving eases the
+  lift back.
   Chrome triggers only the first of an element's animations, so give each
   triggered animation its own element or pseudo-element.
 - **Hero claim.** The hero `h1` cycles through the sentences of its content

@@ -16,8 +16,11 @@ The design is the source of truth. Do not invent layout, sizes or copy.
   relative one, because worktrees can live elsewhere (Orca puts them in
   `~/orca/workspaces/`). Read `README.md`, `tokens.json` and
   `components/<Name>/README.md` before building a component.
-- Penpot file: pages `00 Foundations`, `01 Components`, `02 Home` and
-  `03 Content`.
+- Penpot file: pages `00 Foundations`, `01 v1. Components`, `02 v1. Home`,
+  `03 Content`, `04 v2. Components` and `05 v2. Home`. V2 is the design to
+  build: its components are in the asset folder `V2`, and `05 v2. Home` is the
+  current Home. The V1 pages are kept for reference and for the components V2
+  reuses as they are.
 - The Penpot MCP server is `penpot`, in the user config of Claude Code. It
   only works while the Penpot MCP plugin is connected to the file in a browser
   tab that is not suspended. If a call answers "No Penpot instance connected",
@@ -51,7 +54,7 @@ src/
 public/_headers   response headers, including the CSP
 ```
 
-The Home page is a list of block components, in the same order as `02 Home`.
+The Home page is a list of block components, in the same order as `05 v2. Home`.
 
 ## Commands
 

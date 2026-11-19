@@ -252,8 +252,8 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
 ## Git
 
 - Agents may commit, on their own branch in their own worktree. Use the
-  `git-commit` skill. Never commit to `main`, and never merge or rebase onto
-  `main`.
+  `git-commit` skill. Never commit to `main` or merge into it. Rebasing your
+  own branch onto `origin/main` is fine.
 - Conventional commits, enforced by commitlint: no scope, and the extra types
   `ai` and `content` exist.
 - One topic per commit. Concise, human-readable message, no "and", no body.

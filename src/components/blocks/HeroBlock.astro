@@ -40,7 +40,8 @@ const blank =
         <span class="hidden md:inline">{hero.availability}</span>
       </Pill>
       <p class="font-display text-xl leading-tight font-bold">{hero.tagline}</p>
-      <h1 class="text-[3.5rem] leading-[0.9] font-bold tracking-tight sm:text-7xl xl:text-[5rem]">
+      {/* No text-box trim: Safari on iOS trims the bottom of the first nested block, so the lines overlap. The margins are the trim of Familjen Grotesk (cap 0.2em, baseline 0.05em). */}
+      <h1 class="-mt-[0.2em] -mb-[0.05em] text-[3.5rem] leading-[0.9] font-bold tracking-tight [text-box:normal]! sm:text-7xl xl:text-[5rem]">
         <span class="block">{hero.claim.prefix}</span>{" "}
         <span class="sr-only">{first.join(" ")}</span>
         <span

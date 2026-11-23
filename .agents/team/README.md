@@ -4,11 +4,11 @@ Three roles, one worktree per PR (see "Workflow" in `AGENTS.md`). These files
 are the source of truth for each role. `.claude/agents/` only points at
 them. To run a whole issue with one command, see `coordinator.md`.
 
-| Role        | Harness                        | Start with                  | Job                    |
-| ----------- | ------------------------------ | --------------------------- | ---------------------- |
-| Senior Dev  | Claude Code                    | `claude --agent senior-dev` | Spec, review, draft PR |
-| Coder       | OpenCode, a Command Code model | started by the Senior Dev   | Implement and commit   |
-| PR reviewer | Claude Code                    | started by the Senior Dev   | Cold review of the PR  |
+| Role        | Harness                  | Start with                  | Job                    |
+| ----------- | ------------------------ | --------------------------- | ---------------------- |
+| Senior Dev  | Claude Code              | `claude --agent senior-dev` | Spec, review, draft PR |
+| Coder       | Pi, a Command Code model | started by the Senior Dev   | Implement and commit   |
+| PR reviewer | Claude Code              | started by the Senior Dev   | Cold review of the PR  |
 
 Opening the PR is part of the Senior Dev role. The Senior Dev also does any web
 research. On request, it also plans the backlog with the `backlog` skill: it proposes a
@@ -53,8 +53,8 @@ Senior Dev proposes it in the PR body and never edits `AGENTS.md` itself.
 
 ## Coder model
 
-The Coder is an OpenCode worker started by the Senior Dev through Orca. Its agent
+The Coder is a Pi worker started by the Senior Dev through Orca. Its agent
 and model are set in the "Settings" list of `coordinator.md`, and nowhere else.
 To change the model, change that line. The model id comes from
-`opencode models`. The `commandcode/` ones use the Command Code GOAT subscription,
-set up as a custom provider in the global OpenCode config.
+`pi model`. The `commandcode/` ones use the Command Code GOAT subscription,
+set up as a custom provider in the global Pi harness config.

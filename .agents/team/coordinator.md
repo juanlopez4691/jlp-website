@@ -13,7 +13,7 @@ unless Joan says "only the spec" or "only the backlog".
 
 Change the Coder here, nowhere else.
 
-- Coder agent: `opencode`
+- Coder agent: `pi`
 - Coder model: `commandcode/deepseek/deepseek-v4.1-flash`
 - Reviewer agent: `claude`
 - Review rounds: at most 3

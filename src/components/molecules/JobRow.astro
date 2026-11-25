@@ -3,8 +3,9 @@ import Pill from "@/components/atoms/Pill.astro"
 import { cn } from "@/libs/utils"
 
 /**
- * A list item, so it must sit in the track of a `<Slider as="ol">`: the log's
- * grid from `md` up, and below it one stop of the timeline.
+ * A list item. Its list must be a `Slider` track with `grid grid-cols-[auto_1fr]
+ * pl-8`: in the log the `auto` column holds the date pill and `pl-8` is the
+ * graph column.
  */
 interface Props {
   /** The job period, such as "Jan 2021 to Present". */

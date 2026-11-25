@@ -28,7 +28,7 @@ const titleId = `${id ?? "services"}-title`
  * Two rows below `md`, filled by rows: half the cards, rounded up. One to six
  * cards give 1, 1, 2, 2, 3 and 3 columns, so no two teal cards touch.
  */
-const columns = Math.min(3, Math.max(1, Math.ceil(services.items.length / 2)))
+const columns = Math.ceil(services.items.length / 2)
 
 /** Whole class strings, so Tailwind sees them. */
 const tracks: Record<number, string> = {

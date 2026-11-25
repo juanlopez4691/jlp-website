@@ -3,17 +3,12 @@ import { useTranslations, type Locale } from "@/i18n"
 import { cn } from "@/libs/utils"
 
 interface Props {
-  /** The list: `ul` for cards, `ol` for a sequence. */
   as: "ul" | "ol"
-  /** The id of the title on the page that names the region. */
   labelledby: string
-  /** The language of the dots' labels. */
   locale: Locale
-  /** The surface the slider sits on. */
   tone?: "on-light" | "on-dark"
-  /** The wrapper. */
   class?: string
-  /** The list. Rows, break and item width are classes the block passes in. */
+  // Rows, break and item width are classes the block passes in.
   trackClass?: string
 }
 
@@ -28,7 +23,7 @@ const {
 
 const copy = useTranslations(locale, "slider")
 
-/** Whole class strings, so Tailwind sees them. */
+// Whole class strings, so Tailwind sees them.
 const tones = {
   "on-light": {
     track: "focus-visible:outline-ink",
@@ -46,11 +41,7 @@ const tones = {
   data-slider
   class={cn("slider:motion-safe:scroll-triggered:reveal", className)}
 >
-  {/*
-    The region must not be the scroll container: its `view()` timeline has to
-    follow the page. Below `md` the list is one, so it bleeds to both screen
-    edges and rests its items on the container edge.
-  */}
+  {/* The wrapper is not the scroller, so its `view()` timeline follows the page. */}
   <Tag
     aria-labelledby={labelledby}
     data-slider-track
@@ -69,11 +60,7 @@ const tones = {
   >
     <slot />
   </Tag>
-  {/*
-    The row holds its 44px before the script fills it, and takes no space at
-    all without one. The script sets the `hidden` attribute when the track does
-    not scroll, which preflight makes win over `slider:flex`.
-  */}
+  {/* Keeps its height before the script fills it, so nothing shifts. */}
   <div
     data-slider-dots
     data-label={copy.goTo}
@@ -98,19 +85,12 @@ const tones = {
 <script>
   import { currentStop, sliderStops } from "@/libs/slider"
 
-  /** One slider on the page, and the nodes the script works on. */
   type Slider = {
-    /** The scroll container. */
     track: HTMLElement
-    /** The row the dots live in. */
     dots: HTMLElement
-    /** One dot button, cloned per stop. */
     template: HTMLTemplateElement
-    /** The translated label, with `{position}` and `{total}` to fill. */
     label: string
-    /** The stops, recomputed when the track resizes. */
     stops: number[]
-    /** One button per stop. */
     buttons: HTMLButtonElement[]
   }
 
@@ -136,8 +116,6 @@ const tones = {
   const reducedMotion = () =>
     matchMedia("(prefers-reduced-motion: reduce)").matches
 
-  // Where each item rests when it is snapped to the start, from the track's
-  // content edge, so the first one is 0 whatever the padding.
   const stopsOf = ({ track }: Slider) => {
     const padding = parseFloat(getComputedStyle(track).paddingLeft) || 0
     const offsets = [...track.children].flatMap((child) =>
@@ -163,8 +141,6 @@ const tones = {
     })
   }
 
-  // One button per stop, cloned from the template. Kept as they are when the
-  // number of stops does not change, so focus survives a resize.
   const buildDots = (slider: Slider) => {
     slider.buttons = slider.stops.flatMap((_, index) => {
       const button = slider.template.content.firstElementChild?.cloneNode(true)
@@ -187,12 +163,12 @@ const tones = {
     const stops = stopsOf(slider)
     const rebuilt = stops.length !== slider.stops.length
     slider.stops = stops
-    // One stop: nothing to navigate, so no dots and nothing to focus. From `md`
-    // up the track does not scroll, so this covers the grid too.
+    // From md up the track does not scroll, so this also covers the grid.
     const scrolls = stops.length > 1
     slider.dots.hidden = !scrolls
     if (scrolls) slider.track.tabIndex = 0
     else slider.track.removeAttribute("tabindex")
+    // Rebuilt only when the count changes, so a focused dot keeps its focus.
     if (rebuilt) buildDots(slider)
     sync(slider)
   }

@@ -11,6 +11,7 @@ const copySections = {
   "src/components/atoms/NavLang.astro": "navLang",
   "src/components/blocks/Header.astro": "header",
   "src/components/blocks/Footer.astro": "footer",
+  "src/components/molecules/Quote.astro": "quote",
   "src/components/molecules/Slider.astro": "slider",
 }
 

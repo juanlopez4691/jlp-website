@@ -42,16 +42,14 @@ const titleId = `${id ?? "recommendations"}-title`
       <div class="motion-safe:scroll-triggered:reveal rounded-[28px] bg-navy p-6 text-mint md:p-8 lg:p-12">
         <Quote
           featured
+          quote={featured.quote}
+          locale={locale}
           name={featured.name}
           role={featured.role}
           href={featured.href}
           photo={featured.photo}
           newTab={navigation.newTab}
-        >
-          {featured.quote.map((paragraph) => (
-            <p>{paragraph}</p>
-          ))}
-        </Quote>
+        />
       </div>
       {rest.length > 0 && (
         <Slider
@@ -68,16 +66,14 @@ const titleId = `${id ?? "recommendations"}-title`
             <li class="md:motion-safe:scroll-triggered:reveal">
               <div class="h-full rounded-[28px] bg-white p-6 md:p-8">
                 <Quote
+                  quote={item.quote}
+                  locale={locale}
                   name={item.name}
                   role={item.role}
                   href={item.href}
                   photo={item.photo}
                   newTab={navigation.newTab}
-                >
-                  {item.quote.map((paragraph) => (
-                    <p>{paragraph}</p>
-                  ))}
-                </Quote>
+                />
               </div>
             </li>
           ))}

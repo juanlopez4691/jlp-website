@@ -3,10 +3,15 @@ import { Image } from "astro:assets"
 import type { ImageMetadata } from "astro"
 import IconExternalLink from "@/components/atoms/IconExternalLink.astro"
 import { cn } from "@/libs/utils"
+import { useTranslations, type Locale } from "@/i18n"
 
 interface Props {
   /** The `Style` variant: the big quote that sits in the navy card. */
   featured?: boolean
+  /** The paragraphs of the quote. */
+  quote: string[]
+  /** Language of the current page. */
+  locale: Locale
   /** Name of the person. */
   name: string
   /** Their role and company. */
@@ -22,6 +27,8 @@ interface Props {
 
 const {
   featured = false,
+  quote,
+  locale,
   name,
   role,
   href,
@@ -29,19 +36,39 @@ const {
   newTab,
   class: className,
 } = Astro.props
+
+const copy = useTranslations(locale, "quote")
+const collapsible = !featured && quote.length > 1
 ---
 
 <figure class={cn("flex h-full flex-col justify-between gap-8", className)}>
-  <blockquote
-    class={cn(
-      "space-y-4",
-      featured
-        ? "text-2xl leading-snug tracking-tight md:text-3xl xl:text-4xl"
-        : "text-lg leading-normal"
+  <div>
+    <blockquote
+      class={cn(
+        "space-y-4",
+        featured
+          ? "text-2xl leading-snug tracking-tight md:text-3xl xl:text-4xl"
+          : "text-lg leading-normal slider:has-[+[aria-expanded=false]]:*:not-first:hidden slider:has-[+[aria-expanded=false]]:*:first:mb-0"
+      )}
+    >
+      {quote.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </blockquote>
+    {collapsible && (
+      <button
+        type="button"
+        data-quote-toggle
+        class="group/toggle mt-2 hidden cursor-pointer py-1 text-base leading-normal font-medium underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current slider:aria-[expanded]:block"
+      >
+        <span class="group-aria-expanded/toggle:hidden">{copy.more}</span>
+        <span class="hidden group-aria-expanded/toggle:inline">
+          {copy.less}
+        </span>
+        <span class="sr-only">: {name}</span>
+      </button>
     )}
-  >
-    <slot />
-  </blockquote>
+  </div>
   <figcaption class="flex items-center gap-2">
     {photo && (
       <Image
@@ -68,3 +95,17 @@ const {
     </div>
   </figcaption>
 </figure>
+
+<script>
+  /*
+   * Collapsing is opt-in: without `aria-expanded` nothing hides and no toggle
+   * shows, so the full text stays with JavaScript off or a blocked script.
+   */
+  for (const toggle of document.querySelectorAll("[data-quote-toggle]")) {
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") === "true"
+      toggle.setAttribute("aria-expanded", `${!open}`)
+    })
+    toggle.setAttribute("aria-expanded", "false")
+  }
+</script>

@@ -26,9 +26,6 @@ const position = (index: number): "first" | "middle" | "last" => {
   if (index === experience.jobs.length - 1) return "last"
   return "middle"
 }
-
-// A lone job is one full-width stop, with no timeline and no dots.
-const scrolls = experience.jobs.length > 1
 ---
 
 <section
@@ -50,7 +47,7 @@ const scrolls = experience.jobs.length > 1
       trackClass={cn(
         "grid grid-cols-[auto_1fr] gap-x-6 pl-8",
         "slider:grid-cols-none slider:items-start",
-        scrolls &&
+        experience.jobs.length > 1 &&
           "slider:[--slide:90%] slider:min-[680px]:[--slide:calc((100%_-_1.25rem)/2)]"
       )}
     >

@@ -2,19 +2,29 @@
 import type { ComponentProps } from "astro/types"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
+import Slider from "@/components/molecules/Slider.astro"
 import WorkCard from "@/components/molecules/WorkCard.astro"
 import WorkCardFeatured from "@/components/molecules/WorkCardFeatured.astro"
 import { cn } from "@/libs/utils"
+import type { Locale } from "@/i18n"
 import type { WorkBlockCopy } from "@/libs/blocks"
 
 type Props = WorkBlockCopy & {
+  /** Language of the current page. */
+  locale: Locale
   id?: string
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
   class?: string
 }
 
-const { id, arrow, class: className, ...work } = Astro.props
+const { locale, id, arrow, class: className, ...work } = Astro.props
+
+const titleId = `${id ?? "work"}-title`
+const moreTitleId = `${id ?? "work"}-more-title`
+
+// Whole class strings, so Tailwind sees them.
+const twoUp = "slider:min-[680px]:[--slide:calc((100%_-_1.25rem)/2)]"
 ---
 
 <section
@@ -23,7 +33,12 @@ const { id, arrow, class: className, ...work } = Astro.props
 >
   {arrow && <SectionArrow color={arrow} />}
   <div class="mx-auto max-w-6xl px-8 xl:px-0">
-    <SectionHeader tone="on-dark" eyebrow={work.eyebrow} title={work.title} />
+    <SectionHeader
+      tone="on-dark"
+      eyebrow={work.eyebrow}
+      title={work.title}
+      titleId={titleId}
+    />
     <ul class="mt-12 flex flex-col gap-6">
       {work.featured.map((item, index) => (
         <li class="overflow-hidden rounded-tr-[48px] rounded-bl-[48px] bg-mint motion-safe:scroll-triggered:reveal">
@@ -40,9 +55,19 @@ const { id, arrow, class: className, ...work } = Astro.props
         </li>
       ))}
     </ul>
-    <ul class="reveal-stagger-2 mt-6 grid gap-6 md:grid-cols-2">
+    <Slider
+      as="ul"
+      labelledby={titleId}
+      locale={locale}
+      tone="on-dark"
+      class="mt-6"
+      trackClass={cn(
+        "reveal-stagger-2 grid gap-6 md:grid-cols-2",
+        work.items.length > 1 && twoUp
+      )}
+    >
       {work.items.map((item) => (
-        <li class="rounded-tr-[48px] rounded-bl-[48px] bg-mint p-8 motion-safe:scroll-triggered:reveal">
+        <li class="rounded-tr-[48px] rounded-bl-[48px] bg-mint p-8 md:motion-safe:scroll-triggered:reveal">
           <WorkCard
             client={item.client}
             title={item.title}
@@ -54,11 +79,23 @@ const { id, arrow, class: className, ...work } = Astro.props
           </WorkCard>
         </li>
       ))}
-    </ul>
-    <h3 class="mt-12 text-3xl leading-tight font-bold">{work.moreTitle}</h3>
-    <ul class="reveal-stagger-3 mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    </Slider>
+    <h3 id={moreTitleId} class="mt-12 text-3xl leading-tight font-bold">
+      {work.moreTitle}
+    </h3>
+    <Slider
+      as="ul"
+      labelledby={moreTitleId}
+      locale={locale}
+      tone="on-dark"
+      class="mt-4"
+      trackClass={cn(
+        "reveal-stagger-3 grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+        work.more.length > 1 && twoUp
+      )}
+    >
       {work.more.map((item) => (
-        <li class="rounded-tr-[48px] rounded-bl-[48px] border-[1.5px] border-mint p-8 motion-safe:scroll-triggered:reveal">
+        <li class="rounded-tr-[48px] rounded-bl-[48px] border-[1.5px] border-mint p-8 md:motion-safe:scroll-triggered:reveal">
           <WorkCard
             client={item.client}
             title={item.title}
@@ -70,6 +107,6 @@ const { id, arrow, class: className, ...work } = Astro.props
           </WorkCard>
         </li>
       ))}
-    </ul>
+    </Slider>
   </div>
 </section>

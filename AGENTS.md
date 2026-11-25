@@ -44,7 +44,7 @@ src/
 │                 language), and long-form pages in pages/<lang>/<slug>.md
 ├── layouts/      Main.astro, the HTML shell, and NotFound.astro, the 404 page
 ├── i18n/         site-wide copy (header, footer, navigation, language
-│                 switcher, meta) and the labels of long-form pages
+│                 switcher, slider, meta) and the labels of long-form pages
 ├── libs/         helpers, such as cn() in utils.ts
 ├── pages/        routes; [lang]/ holds the localized pages
 ├── styles/       global.css, theme.css (Tailwind theme) and article.css (long-form text)
@@ -101,6 +101,9 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   scroll-driven animations but no triggers, and the variant also skips print.
   On a grid list, stagger the items with `reveal-stagger-2`, `-3` or `-4` (the
   column count at `lg`) on the list. Its `@keyframes` follow the rule above.
+  A slider is a scroll container, which `view()` would follow, so below `md`
+  it reveals once, on its wrapper, and its items use
+  `md:motion-safe:scroll-triggered:reveal`.
   The process steps are played by a `<script>` in `HowBlock.astro` (Web
   Animations API), not by CSS: each number rises out of its rule with its
   step's reveal, then in order each step draws its arrow and lifts once it is
@@ -117,14 +120,22 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   sentence must fit 296px at 56px (a 360px phone).
 - **Smooth scrolling.** `<html>` has `motion-safe:scroll-smooth`, so in-page
   links glide only for users who allow motion. Keep it there, not on blocks.
+- **Sliders.** Below `md` a list can be a `Slider`: native scroll with scroll
+  snap, and a script only for the dots. Everything that makes it a slider
+  uses the `slider:` variant, which is below `md` and `screen` only, so print
+  keeps the block's own layout. Rows, break and item width (`--slide`) are
+  classes the block passes in `trackClass`. The stop logic is in
+  `src/libs/slider.ts`, tested in `slider.test.ts`.
 - **Page transitions.** Pages cross-fade with native cross-document view
   transitions: `@view-transition { navigation: auto; }` once in `global.css`,
   inside `@media (prefers-reduced-motion: no-preference)`, so users who prefer
   reduced motion get none. No client router (`ClientRouter` is JavaScript).
 - **Breakpoints are the defaults, and four are used**: base, `md` (768), `lg`
-  (1024) and `xl` (1280). Do not use `sm` or `2xl`, with one exception, on
+  (1024) and `xl` (1280). Do not use `sm` or `2xl`, with two exceptions, on
   purpose: from `sm` (640) the hero buttons sit in a row and the hero claim
-  grows from 56px to 72px. Between 768 and 1023px
+  grows from 56px to 72px. The second is the phone sliders: their columns in
+  view may break at `min-[620px]` (services) and `min-[680px]` (the others),
+  always under `slider:`. Between 768 and 1023px
   the tablet layout applies. The header links show from `lg`, not from the `xl`
   of its Penpot variant, and the hero image from `lg`, where it shrinks and the
   text keeps its width. The quote block grows from `lg`: its marks are 224px
@@ -143,8 +154,9 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   would blend into the block behind it; on a dark block it has none. Keyboard
   focus is `:focus-visible` only: a 2px gap and a 2px outline outside the
   border, mint gap and ink ring on light blocks, ink gap and saffron ring on
-  dark blocks. No `box-shadow` or `ring-*`, so the focus stays visible in
-  forced-colors mode.
+  dark blocks. A scroller that touches the screen edges is not a button: its
+  outline is inset, or its sides would be off screen. No `box-shadow` or
+  `ring-*`, so the focus stays visible in forced-colors mode.
 - **Colors and fonts** come from `theme.css`: saffron, coral, teal, mint, navy
   and ink; Familjen Grotesk for display, Figtree for text. Ink is the dark
   text, outline and button color and the footer background; navy is only for
@@ -225,7 +237,7 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   `/es/<missing>` shows the English 404 there too. Pages live in
   `src/pages/[lang]/`.
   Only site-wide copy lives in `src/i18n/es/` and `src/i18n/en/`, one file per
-  section (header, footer, navigation, language switcher, meta and
+  section (header, footer, navigation, language switcher, slider, meta and
   `contentPage`), and each `en/` file is typed against its `es/` counterpart,
   so keys cannot drift: the `es/` file exports its shape as `<Name>Copy`
   (`HeaderCopy`) and the `en/` file uses it. `useTranslations(locale, section)`

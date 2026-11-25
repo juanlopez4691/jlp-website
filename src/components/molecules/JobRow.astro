@@ -28,16 +28,19 @@ const { period, title, company, position, class: className } = Astro.props
  * the pill; `top-5` and `h-4` start and end the line inside the 14px node,
  * which sits on the centre of the pill (the pill never wraps). Below `md`, the
  * two `auto` columns share the pill, so the edge between them is its centre
- * and keeps the node there whatever its width, and `-right-5.25` is the 20px
- * gap plus 1px that overlaps the next segment and hides the seam.
+ * and keeps the node there whatever its width, and the line reaches across
+ * the Slider's `--gap` plus 1px that overlaps the next segment and hides the
+ * seam.
  *
  * The 30px graph over the pill is `pt-7.5`, `-top-7.5` and `h-7.5`;
  * `top-1.75` centres the node 7px into it, `top-1.5` the 2px line on the node,
  * and `top-3.5` starts the connector under the node.
  */
 const spines = {
-  first: "top-5 bottom-0 slider:col-[2/-1] slider:-right-5.25",
-  middle: "top-0 bottom-0 slider:col-[1/-1] slider:-right-5.25",
+  first:
+    "top-5 bottom-0 slider:col-[2/-1] slider:-right-[calc(var(--gap)+1px)]",
+  middle:
+    "top-0 bottom-0 slider:col-[1/-1] slider:-right-[calc(var(--gap)+1px)]",
   last: "top-0 h-4 slider:col-[1/2] slider:right-0",
 }
 

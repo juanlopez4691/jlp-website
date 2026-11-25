@@ -3,8 +3,8 @@ import Pill from "@/components/atoms/Pill.astro"
 import { cn } from "@/libs/utils"
 
 /**
- * A list item. Must sit in an `<ol>` with `grid grid-cols-[auto_1fr] pl-8`:
- * the `auto` column holds the date pill and `pl-8` is the graph column.
+ * A list item, so it must sit in the track of a `<Slider as="ol">`: the log's
+ * grid from `md` up, and below it one stop of the timeline.
  */
 interface Props {
   /** The job period, such as "Jan 2021 to Present". */
@@ -25,12 +25,15 @@ const { period, title, company, position, class: className } = Astro.props
  * `pl-8` on the list; the line is centred 12px into it, which is `-left-5`
  * (12 − 32) from the row and `left-3` inside the `right-full w-8` box beside
  * the pill; `top-5` and `h-4` start and end the line inside the 14px node,
- * which sits on the centre of the 37px pill (the pill never wraps).
+ * which sits on the centre of the 37px pill (the pill never wraps). Below
+ * `md`, the two `auto` columns share the pill, so the edge between them is its
+ * centre and keeps the node there whatever its width, and `-right-5.25` is the
+ * 20px gap plus 1px that overlaps the next segment and hides the seam.
  */
 const spines = {
-  first: "top-5 bottom-0",
-  middle: "top-0 bottom-0",
-  last: "top-0 h-4",
+  first: "top-5 bottom-0 slider:col-[2/-1] slider:-right-5.25",
+  middle: "top-0 bottom-0 slider:col-[1/-1] slider:-right-5.25",
+  last: "top-0 h-4 slider:col-[1/2] slider:right-0 slider:h-0.5",
 }
 
 const nodes = {
@@ -42,8 +45,9 @@ const nodes = {
 
 <li
   class={cn(
-    "relative col-span-2 grid grid-cols-subgrid gap-y-3",
+    "group relative col-span-2 grid grid-cols-subgrid gap-y-3",
     position !== "last" && "pb-10",
+    "slider:col-span-1 slider:grid-cols-[auto_auto_1fr] slider:pt-7.5 slider:pb-0",
     className
   )}
 >
@@ -51,15 +55,20 @@ const nodes = {
     aria-hidden="true"
     class={cn(
       "absolute -left-5 w-0.5 -translate-x-1/2 bg-ink",
+      "slider:top-1.5 slider:bottom-auto slider:left-0 slider:h-0.5 slider:w-auto slider:translate-x-0 slider:group-only:hidden",
       spines[position]
     )}
   />
-  <div class="relative self-start">
-    <span aria-hidden="true" class="absolute top-0 right-full h-full w-8">
-      <span class="absolute top-1/2 right-0 left-3 h-[1.5px] -translate-y-1/2 bg-ink" />
+  <div class="relative self-start slider:col-span-2">
+    <span
+      aria-hidden="true"
+      class="absolute top-0 right-full h-full w-8 slider:inset-x-0 slider:-top-7.5 slider:h-7.5 slider:w-auto"
+    >
+      <span class="absolute top-1/2 right-0 left-3 h-[1.5px] -translate-y-1/2 bg-ink slider:top-3.5 slider:right-auto slider:bottom-0 slider:left-1/2 slider:h-auto slider:w-[1.5px] slider:-translate-x-1/2 slider:translate-y-0" />
       <span
         class={cn(
           "absolute top-1/2 left-3 size-3.5 -translate-1/2 rounded-full border-2 border-ink",
+          "slider:top-1.75 slider:left-1/2",
           nodes[position]
         )}
       />
@@ -68,7 +77,7 @@ const nodes = {
       {period}
     </Pill>
   </div>
-  <div class="col-span-2 flex flex-col gap-2 md:col-span-1">
+  <div class="col-span-2 flex flex-col gap-2 slider:col-span-3 md:col-span-1">
     <div class="flex flex-col gap-1">
       <h3 class="font-display text-2xl leading-tight font-bold">{title}</h3>
       <p class="text-base leading-tight">{company}</p>

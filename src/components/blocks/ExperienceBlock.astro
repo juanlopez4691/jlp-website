@@ -3,17 +3,22 @@ import type { ComponentProps } from "astro/types"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import JobRow from "@/components/molecules/JobRow.astro"
+import Slider from "@/components/molecules/Slider.astro"
 import { cn } from "@/libs/utils"
+import type { Locale } from "@/i18n"
 import type { ExperienceBlockCopy } from "@/libs/blocks"
 
 type Props = ExperienceBlockCopy & {
   id?: string
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
+  locale: Locale
   class?: string
 }
 
-const { id, arrow, class: className, ...experience } = Astro.props
+const { id, arrow, locale, class: className, ...experience } = Astro.props
+
+const titleId = `${id ?? "experience"}-title`
 
 /** The first job opens the log and the last one closes it. */
 const position = (index: number): "first" | "middle" | "last" => {
@@ -21,6 +26,9 @@ const position = (index: number): "first" | "middle" | "last" => {
   if (index === experience.jobs.length - 1) return "last"
   return "middle"
 }
+
+// A lone job is one full-width stop, with no timeline and no dots.
+const scrolls = experience.jobs.length > 1
 ---
 
 <section
@@ -29,19 +37,34 @@ const position = (index: number): "first" | "middle" | "last" => {
 >
   {arrow && <SectionArrow color={arrow} />}
   <div class="mx-auto max-w-6xl px-8 xl:px-0">
-    <SectionHeader eyebrow={experience.eyebrow} title={experience.title} />
-    <ol class="mt-12 grid grid-cols-[auto_1fr] gap-x-6 pl-8">
+    <SectionHeader
+      eyebrow={experience.eyebrow}
+      title={experience.title}
+      titleId={titleId}
+    />
+    <Slider
+      as="ol"
+      labelledby={titleId}
+      locale={locale}
+      class="mt-12"
+      trackClass={cn(
+        "grid grid-cols-[auto_1fr] gap-x-6 pl-8",
+        "slider:grid-cols-none slider:items-start",
+        scrolls &&
+          "slider:[--slide:90%] slider:min-[680px]:[--slide:calc((100%_-_1.25rem)/2)]"
+      )}
+    >
       {experience.jobs.map((job, index) => (
         <JobRow
           period={job.period}
           title={job.title}
           company={job.company}
           position={position(index)}
-          class="motion-safe:scroll-triggered:reveal"
+          class="md:motion-safe:scroll-triggered:reveal"
         >
           {job.body}
         </JobRow>
       ))}
-    </ol>
+    </Slider>
   </div>
 </section>

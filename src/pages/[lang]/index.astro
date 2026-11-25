@@ -86,6 +86,7 @@ const translations: Translations = Object.fromEntries(
         case "experience":
           return (
             <ExperienceBlock
+              locale={lang}
               id={block.id}
               arrow={block.arrow}
               {...block.props}

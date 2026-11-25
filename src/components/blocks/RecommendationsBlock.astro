@@ -58,7 +58,11 @@ const titleId = `${id ?? "recommendations"}-title`
           as="ul"
           labelledby={titleId}
           locale={locale}
-          trackClass="reveal-stagger-2 grid gap-6 md:grid-cols-2 slider:min-[680px]:[--slide:calc((100%_-_1.25rem)/2)]"
+          trackClass={cn(
+            "reveal-stagger-2 grid gap-6 md:grid-cols-2",
+            rest.length > 1 &&
+              "slider:min-[680px]:[--slide:calc((100%_-_1.25rem)/2)]"
+          )}
         >
           {rest.map((item) => (
             <li class="md:motion-safe:scroll-triggered:reveal">

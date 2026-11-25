@@ -44,7 +44,7 @@ src/
 │                 language), and long-form pages in pages/<lang>/<slug>.md
 ├── layouts/      Main.astro, the HTML shell, and NotFound.astro, the 404 page
 ├── i18n/         site-wide copy (header, footer, navigation, language
-│                 switcher, slider, meta) and the labels of long-form pages
+│                 switcher, slider, quote, meta) and the labels of long-form pages
 ├── libs/         helpers, such as cn() in utils.ts
 ├── pages/        routes; [lang]/ holds the localized pages
 ├── styles/       global.css, theme.css (Tailwind theme) and article.css (long-form text)
@@ -125,7 +125,8 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   uses the `slider:` variant, which is below `md` and `screen` only, so print
   keeps the block's own layout. Rows, break and item width (`--slide`) are
   classes the block passes in `trackClass`. The stop logic is in
-  `src/libs/slider.ts`, tested in `slider.test.ts`.
+  `src/libs/slider.ts`, tested in `slider.test.ts`. `Quote` also uses `slider:`,
+  to collapse a long quote below `md`.
 - **Page transitions.** Pages cross-fade with native cross-document view
   transitions: `@view-transition { navigation: auto; }` once in `global.css`,
   inside `@media (prefers-reduced-motion: no-preference)`, so users who prefer
@@ -237,8 +238,8 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   `/es/<missing>` shows the English 404 there too. Pages live in
   `src/pages/[lang]/`.
   Only site-wide copy lives in `src/i18n/es/` and `src/i18n/en/`, one file per
-  section (header, footer, navigation, language switcher, slider, meta and
-  `contentPage`), and each `en/` file is typed against its `es/` counterpart,
+  section (header, footer, navigation, language switcher, slider, quote, meta
+  and `contentPage`), and each `en/` file is typed against its `es/` counterpart,
   so keys cannot drift: the `es/` file exports its shape as `<Name>Copy`
   (`HeaderCopy`) and the `en/` file uses it. `useTranslations(locale, section)`
   returns one section. The `copySections` map in `eslint.config.js` keeps it to

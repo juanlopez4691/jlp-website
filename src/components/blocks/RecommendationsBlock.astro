@@ -58,8 +58,7 @@ const titleId = `${id ?? "recommendations"}-title`
           locale={locale}
           trackClass={cn(
             "reveal-stagger-2 grid gap-6 md:grid-cols-2",
-            rest.length > 1 &&
-              "slider:min-[680px]:[--slide:calc((100%_-_1.25rem)/2)]"
+            rest.length > 1 && "slider:min-[680px]:slide-half"
           )}
         >
           {rest.map((item) => (

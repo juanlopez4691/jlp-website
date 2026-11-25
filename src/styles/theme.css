@@ -44,6 +44,11 @@
 /* Screen only, so print keeps each block's layout. */
 @custom-variant slider (@media screen and (width < 48rem));
 
+/* Two slides in view, minus the Slider's gap (gap-x-5). */
+@utility slide-half {
+  --slide: calc((100% - --spacing(5)) / 2);
+}
+
 /* Scroll animations. Outside @theme, which drops keyframes no --animate-* uses. */
 @custom-variant scroll-driven (@supports (animation-timeline: scroll()));
 @utility scroll-linked {

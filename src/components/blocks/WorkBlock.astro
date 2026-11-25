@@ -22,8 +22,6 @@ const { locale, id, arrow, class: className, ...work } = Astro.props
 
 const titleId = `${id ?? "work"}-title`
 const moreTitleId = `${id ?? "work"}-more-title`
-
-const twoUp = "slider:min-[680px]:[--slide:calc((100%_-_1.25rem)/2)]"
 ---
 
 <section
@@ -62,7 +60,7 @@ const twoUp = "slider:min-[680px]:[--slide:calc((100%_-_1.25rem)/2)]"
       class="mt-6"
       trackClass={cn(
         "reveal-stagger-2 grid gap-6 md:grid-cols-2",
-        work.items.length > 1 && twoUp
+        work.items.length > 1 && "slider:min-[680px]:slide-half"
       )}
     >
       {work.items.map((item) => (
@@ -90,7 +88,7 @@ const twoUp = "slider:min-[680px]:[--slide:calc((100%_-_1.25rem)/2)]"
       class="mt-4"
       trackClass={cn(
         "reveal-stagger-3 grid gap-6 md:grid-cols-2 lg:grid-cols-3",
-        work.more.length > 1 && twoUp
+        work.more.length > 1 && "slider:min-[680px]:slide-half"
       )}
     >
       {work.more.map((item) => (

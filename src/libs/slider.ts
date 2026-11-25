@@ -9,7 +9,7 @@
  *   content edge.
  * @param max - The furthest the track can scroll: `scrollWidth - clientWidth`.
  *
- * @returns The stops, ascending, at least 2px apart.
+ * @returns The stops, ascending, more than 2px apart.
  */
 export function sliderStops(offsets: number[], max: number): number[] {
   const stops: number[] = []
@@ -18,8 +18,9 @@ export function sliderStops(offsets: number[], max: number): number[] {
     .map((offset) => Math.min(Math.max(offset, 0), max))
     .sort((a, b) => a - b)) {
     const last = stops.at(-1)
-    // Browsers round layout to whole pixels, so equal positions can differ by 1.
-    if (last === undefined || offset - last >= 2) stops.push(offset)
+    // Browsers round layout to whole pixels, so equal positions can differ by a
+    // pixel or two.
+    if (last === undefined || offset - last > 2) stops.push(offset)
   }
 
   return stops

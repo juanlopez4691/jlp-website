@@ -167,9 +167,7 @@ const tones = {
   // number of stops does not change, so focus survives a resize.
   const buildDots = (slider: Slider) => {
     slider.buttons = slider.stops.flatMap((_, index) => {
-      const clone = slider.template.content.cloneNode(true)
-      const button =
-        clone instanceof DocumentFragment ? clone.firstElementChild : null
+      const button = slider.template.content.firstElementChild?.cloneNode(true)
       if (!(button instanceof HTMLButtonElement)) return []
       button.setAttribute(
         "aria-label",

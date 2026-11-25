@@ -124,7 +124,9 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   snap, and a script only for the dots. Everything that makes it a slider
   uses the `slider:` variant, which is below `md` and `screen` only, so print
   keeps the block's own layout. Rows, break and item width (`--slide`) are
-  classes the block passes in `trackClass`. The stop logic is in
+  classes the block passes in `trackClass`. Two slides in view is the
+  `slide-half` utility, under the block's break (`slider:min-[620px]:slide-half`
+  or `slider:min-[680px]:slide-half`). The stop logic is in
   `src/libs/slider.ts`, tested in `slider.test.ts`. `Quote` also uses `slider:`,
   to collapse a long quote below `md`.
 - **Page transitions.** Pages cross-fade with native cross-document view

@@ -48,7 +48,7 @@ const position = (index: number): "first" | "middle" | "last" => {
         "grid grid-cols-[auto_1fr] gap-x-6 pl-8",
         "slider:grid-cols-none slider:items-start",
         experience.jobs.length > 1 &&
-          "slider:[--slide:90%] slider:min-[680px]:[--slide:calc((100%_-_1.25rem)/2)]"
+          "slider:[--slide:90%] slider:min-[680px]:slide-half"
       )}
     >
       {experience.jobs.map((job, index) => (

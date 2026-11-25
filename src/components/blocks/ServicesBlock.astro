@@ -51,7 +51,7 @@ const tracks: Record<number, string> = {
         "reveal-stagger-3 grid gap-6 md:grid-cols-2 lg:grid-cols-3",
         "slider:grid-flow-row",
         tracks[columns],
-        columns > 1 && "slider:min-[620px]:[--slide:calc((100%_-_1.25rem)/2)]"
+        columns > 1 && "slider:min-[620px]:slide-half"
       )}
     >
       {services.items.map((item, index) => (

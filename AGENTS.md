@@ -125,8 +125,9 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   uses the `slider:` variant, which is below `md` and `screen` only, so print
   keeps the block's own layout. Rows, break and item width (`--slide`) are
   classes the block passes in `trackClass`. Two slides in view is the
-  `slide-half` utility, under the block's break (`slider:min-[620px]:slide-half`
-  or `slider:min-[680px]:slide-half`). The stop logic is in
+  `slide-half` utility, which reads the Slider's `--gap` (20px; a block may
+  set its own, as Experience does with 32px), under the block's break
+  (`slider:min-[620px]:slide-half` or `slider:min-[680px]:slide-half`). The stop logic is in
   `src/libs/slider.ts`, tested in `slider.test.ts`. `Quote` also uses `slider:`,
   to collapse a long quote below `md`.
 - **Page transitions.** Pages cross-fade with native cross-document view

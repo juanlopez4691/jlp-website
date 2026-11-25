@@ -52,7 +52,12 @@ const translations: Translations = Object.fromEntries(
           return <FactsBlock id={block.id} {...block.props} />
         case "services":
           return (
-            <ServicesBlock id={block.id} arrow={block.arrow} {...block.props} />
+            <ServicesBlock
+              locale={lang}
+              id={block.id}
+              arrow={block.arrow}
+              {...block.props}
+            />
           )
         case "quote":
           return (

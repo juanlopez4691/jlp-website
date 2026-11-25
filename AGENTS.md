@@ -260,6 +260,12 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   `src/content/pages/`, adding `src/content/home/<lang>.yaml` and
   `src/content/not-found/<lang>.yaml`, and adding it to
   `src/libs/markdownLanguage.ts`.
+- **Comments.** Only where the code cannot explain itself, and then why, not
+  what or how. `//` for one line, a block comment for several. CSS and Astro
+  markup have only block comments.
+- **Tests.** A test must fail when the code it covers is broken. Check it by
+  breaking the code. Code that no test and no caller needs is removed, not
+  tested.
 
 ## Git
 

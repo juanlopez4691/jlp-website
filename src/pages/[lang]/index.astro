@@ -65,7 +65,12 @@ const translations: Translations = Object.fromEntries(
           )
         case "work":
           return (
-            <WorkBlock id={block.id} arrow={block.arrow} {...block.props} />
+            <WorkBlock
+              locale={lang}
+              id={block.id}
+              arrow={block.arrow}
+              {...block.props}
+            />
           )
         case "recommendations":
           return (

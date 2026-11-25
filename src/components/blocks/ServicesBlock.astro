@@ -33,8 +33,8 @@ const columns = Math.ceil(services.items.length / 2)
 /** Whole class strings, so Tailwind sees them. */
 const tracks: Record<number, string> = {
   1: "slider:grid-cols-[repeat(1,var(--slide))]",
-  2: "slider:grid-cols-[repeat(2,var(--slide))] slider:min-[620px]:[--slide:calc((100%_-_1.25rem)/2)]",
-  3: "slider:grid-cols-[repeat(3,var(--slide))] slider:min-[620px]:[--slide:calc((100%_-_1.25rem)/2)]",
+  2: "slider:grid-cols-[repeat(2,var(--slide))]",
+  3: "slider:grid-cols-[repeat(3,var(--slide))]",
 }
 ---
 
@@ -54,7 +54,8 @@ const tracks: Record<number, string> = {
       trackClass={cn(
         "reveal-stagger-3 grid gap-6 md:grid-cols-2 lg:grid-cols-3",
         "slider:grid-flow-row",
-        tracks[columns]
+        tracks[columns],
+        columns > 1 && "slider:min-[620px]:[--slide:calc((100%_-_1.25rem)/2)]"
       )}
     >
       {services.items.map((item, index) => (

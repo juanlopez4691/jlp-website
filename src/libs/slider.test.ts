@@ -16,6 +16,10 @@ test("a last offset a pixel off the maximum does not add a stop", () => {
   expect(sliderStops([0, 173, 346, 347], 346)).toEqual([0, 173, 346])
 })
 
+test("stops 2 pixels apart merge into one", () => {
+  expect(sliderStops([0, 173, 175, 346], 346)).toEqual([0, 173, 346])
+})
+
 test("two rows repeat the offsets of the first, and they merge", () => {
   expect(sliderStops([0, 346, 692, 0, 346, 692], 692)).toEqual([0, 346, 692])
   expect(sliderStops([0, 346, 692, 0, 346], 692)).toEqual([0, 346, 692])

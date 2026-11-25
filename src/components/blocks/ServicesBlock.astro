@@ -26,7 +26,8 @@ const titleId = `${id ?? "services"}-title`
 
 /**
  * Two rows below `md`, filled by rows: half the cards, rounded up. One to six
- * cards give 1, 1, 2, 2, 3 and 3 columns, so no two teal cards touch.
+ * cards give 1, 1, 2, 2, 3 and 3 columns; with six cards, no two teal cards
+ * touch.
  */
 const columns = Math.ceil(services.items.length / 2)
 

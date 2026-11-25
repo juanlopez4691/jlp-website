@@ -14,9 +14,7 @@
 export function sliderStops(offsets: number[], max: number): number[] {
   const stops: number[] = []
 
-  for (const offset of offsets
-    .map((offset) => Math.min(Math.max(offset, 0), max))
-    .sort((a, b) => a - b)) {
+  for (const offset of offsets.map((offset) => Math.min(offset, max))) {
     const last = stops.at(-1)
     // Browsers round layout to whole pixels, so equal positions can differ by a
     // pixel or two.
@@ -38,10 +36,7 @@ export function currentStop(stops: number[], position: number): number {
   let nearest = 0
 
   for (const [index, stop] of stops.entries())
-    if (
-      index > 0 &&
-      Math.abs(stop - position) < Math.abs((stops[nearest] ?? 0) - position)
-    )
+    if (Math.abs(stop - position) < Math.abs(stops[nearest] - position))
       nearest = index
 
   return nearest

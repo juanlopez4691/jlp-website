@@ -4,6 +4,7 @@ import IconExternalLink from "@/components/atoms/IconExternalLink.astro"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import Quote from "@/components/molecules/Quote.astro"
+import Slider from "@/components/molecules/Slider.astro"
 import { cn } from "@/libs/utils"
 import type { RecommendationsBlockCopy } from "@/libs/blocks"
 import { useTranslations, type Locale } from "@/i18n"
@@ -22,6 +23,8 @@ const navigation = useTranslations(locale, "navigation")
 
 /** The first item is the featured one, in the navy card. */
 const [featured, ...rest] = recommendations.items
+
+const titleId = `${id ?? "recommendations"}-title`
 ---
 
 <section
@@ -33,6 +36,7 @@ const [featured, ...rest] = recommendations.items
     <SectionHeader
       eyebrow={recommendations.eyebrow}
       title={recommendations.title}
+      titleId={titleId}
     />
     <div class="mt-12 flex flex-col gap-6">
       <div class="motion-safe:scroll-triggered:reveal rounded-[28px] bg-navy p-6 text-mint md:p-8 lg:p-12">
@@ -49,25 +53,32 @@ const [featured, ...rest] = recommendations.items
           ))}
         </Quote>
       </div>
-      <ul class="reveal-stagger-2 grid gap-6 md:grid-cols-2">
-        {rest.map((item) => (
-          <li class="motion-safe:scroll-triggered:reveal">
-            <div class="h-full rounded-[28px] bg-white p-6 md:p-8">
-              <Quote
-                name={item.name}
-                role={item.role}
-                href={item.href}
-                photo={item.photo}
-                newTab={navigation.newTab}
-              >
-                {item.quote.map((paragraph) => (
-                  <p>{paragraph}</p>
-                ))}
-              </Quote>
-            </div>
-          </li>
-        ))}
-      </ul>
+      {rest.length > 0 && (
+        <Slider
+          as="ul"
+          labelledby={titleId}
+          locale={locale}
+          trackClass="reveal-stagger-2 grid gap-6 md:grid-cols-2 slider:min-[680px]:[--slide:calc((100%_-_1.25rem)/2)]"
+        >
+          {rest.map((item) => (
+            <li class="md:motion-safe:scroll-triggered:reveal">
+              <div class="h-full rounded-[28px] bg-white p-6 md:p-8">
+                <Quote
+                  name={item.name}
+                  role={item.role}
+                  href={item.href}
+                  photo={item.photo}
+                  newTab={navigation.newTab}
+                >
+                  {item.quote.map((paragraph) => (
+                    <p>{paragraph}</p>
+                  ))}
+                </Quote>
+              </div>
+            </li>
+          ))}
+        </Slider>
+      )}
       <a
         href={recommendations.allHref}
         target="_blank"

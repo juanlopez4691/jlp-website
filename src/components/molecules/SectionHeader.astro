@@ -6,12 +6,20 @@ interface Props {
   eyebrow: string
   /** The heading of the block. */
   title: string
+  /** The id of the heading, for whatever the title names on the page. */
+  titleId?: string
   /** The surface the header sits on. */
   tone?: "on-light" | "on-dark"
   class?: string
 }
 
-const { eyebrow, title, tone = "on-light", class: className } = Astro.props
+const {
+  eyebrow,
+  title,
+  titleId,
+  tone = "on-light",
+  class: className,
+} = Astro.props
 
 /** Whole class strings, so Tailwind sees them. */
 const tones = {
@@ -24,7 +32,10 @@ const tones = {
   <p class="text-sm leading-normal font-semibold tracking-eyebrow uppercase">
     {eyebrow}
   </p>
-  <h2 class="text-4xl leading-none font-bold tracking-tight md:text-5xl xl:text-6xl">
+  <h2
+    id={titleId}
+    class="text-4xl leading-none font-bold tracking-tight md:text-5xl xl:text-6xl"
+  >
     {title}
   </h2>
 </div>

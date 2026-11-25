@@ -43,6 +43,8 @@
 
 /* Scroll animations. Outside @theme, which drops keyframes no --animate-* uses. */
 @custom-variant scroll-driven (@supports (animation-timeline: scroll()));
+/* The phone slider: only below `md`. `screen`, so print keeps each block's layout. */
+@custom-variant slider (@media screen and (width < 48rem));
 @utility scroll-linked {
   animation-timing-function: linear;
   animation-fill-mode: both;

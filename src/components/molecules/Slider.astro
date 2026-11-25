@@ -1,0 +1,209 @@
+---
+import { useTranslations, type Locale } from "@/i18n"
+import { cn } from "@/libs/utils"
+
+interface Props {
+  /** The list: `ul` for cards, `ol` for a sequence. */
+  as: "ul" | "ol"
+  /** The id of the title on the page that names the region. */
+  labelledby: string
+  /** The language of the dots' labels. */
+  locale: Locale
+  /** The surface the slider sits on. */
+  tone?: "on-light" | "on-dark"
+  /** The wrapper. */
+  class?: string
+  /** The list. Rows, break and item width are classes the block passes in. */
+  trackClass?: string
+}
+
+const {
+  as: Tag,
+  labelledby,
+  locale,
+  tone = "on-light",
+  class: className,
+  trackClass,
+} = Astro.props
+
+const copy = useTranslations(locale, "slider")
+
+/** Whole class strings, so Tailwind sees them. */
+const tones = {
+  "on-light": {
+    track: "focus-visible:outline-ink",
+    mark: "text-ink group-focus-visible:outline-ink",
+  },
+  "on-dark": {
+    track: "focus-visible:outline-saffron",
+    mark: "text-mint group-focus-visible:outline-saffron",
+  },
+}
+---
+
+<section
+  aria-labelledby={labelledby}
+  data-slider
+  class={cn("slider:motion-safe:scroll-triggered:reveal", className)}
+>
+  {/*
+    The region must not be the scroll container: its `view()` timeline has to
+    follow the page. Below `md` the list is one, so it bleeds to both screen
+    edges and rests its items on the container edge.
+  */}
+  <Tag
+    data-slider-track
+    class={cn(
+      "slider:relative",
+      "slider:grid slider:grid-flow-col slider:auto-cols-(--slide) slider:auto-rows-fr slider:gap-x-5",
+      "slider:[--slide:100%]",
+      "slider:-mx-8 slider:scroll-px-8 slider:px-8",
+      "slider:-my-2 slider:py-2",
+      "slider:snap-x slider:snap-mandatory slider:overflow-x-auto slider:overflow-y-hidden slider:overscroll-x-contain slider:scrollbar-none",
+      "slider:*:snap-start slider:*:snap-always",
+      "focus-visible:outline-2 focus-visible:-outline-offset-2",
+      tones[tone].track,
+      trackClass
+    )}
+  >
+    <slot />
+  </Tag>
+  {/*
+    The row holds its 44px before the script fills it, and takes no space at
+    all without one. The script sets the `hidden` attribute when the track does
+    not scroll, which preflight makes win over `slider:flex`.
+  */}
+  <div
+    data-slider-dots
+    data-label={copy.goTo}
+    class="mt-4 hidden h-11 justify-center slider:flex slider:noscript:hidden"
+  >
+    <template>
+      <button
+        type="button"
+        class="group flex h-11 w-6 cursor-pointer items-center justify-center focus-visible:outline-none"
+      >
+        <span
+          class={cn(
+            "size-3 rounded-full border-2 border-current group-aria-[current=true]:bg-current group-focus-visible:outline-2 group-focus-visible:outline-offset-2 forced-colors:group-aria-[current=true]:bg-[CanvasText]",
+            tones[tone].mark
+          )}
+        ></span>
+      </button>
+    </template>
+  </div>
+</section>
+
+<script>
+  import { currentStop, sliderStops } from "@/libs/slider"
+
+  /** One slider on the page, and the nodes the script works on. */
+  type Slider = {
+    /** The scroll container. */
+    track: HTMLElement
+    /** The row the dots live in. */
+    dots: HTMLElement
+    /** One dot button, cloned per stop. */
+    template: HTMLTemplateElement
+    /** The translated label, with `{position}` and `{total}` to fill. */
+    label: string
+    /** The stops, recomputed when the track resizes. */
+    stops: number[]
+    /** One button per stop. */
+    buttons: HTMLButtonElement[]
+  }
+
+  const sliders = [
+    ...document.querySelectorAll<HTMLElement>("[data-slider]"),
+  ].flatMap((region): Slider[] => {
+    const track = region.querySelector<HTMLElement>("[data-slider-track]")
+    const dots = region.querySelector<HTMLElement>("[data-slider-dots]")
+    const template = dots?.querySelector("template")
+    if (!track || !dots || !template) return []
+    return [
+      {
+        track,
+        dots,
+        template,
+        label: dots.dataset.label ?? "",
+        stops: [],
+        buttons: [],
+      },
+    ]
+  })
+
+  const reducedMotion = () =>
+    matchMedia("(prefers-reduced-motion: reduce)").matches
+
+  // Where each item rests when it is snapped to the start, from the track's
+  // content edge, so the first one is 0 whatever the padding.
+  const stopsOf = ({ track }: Slider) => {
+    const padding = parseFloat(getComputedStyle(track).paddingLeft) || 0
+    const offsets = [...track.children].flatMap((child) =>
+      child instanceof HTMLElement ? [child.offsetLeft - padding] : []
+    )
+    return sliderStops(offsets, track.scrollWidth - track.clientWidth)
+  }
+
+  const sync = (slider: Slider) => {
+    const current = currentStop(slider.stops, slider.track.scrollLeft)
+    slider.buttons.forEach((button, index) => {
+      if (index === current) button.setAttribute("aria-current", "true")
+      else button.removeAttribute("aria-current")
+    })
+  }
+
+  const goTo = (slider: Slider, index: number) => {
+    const stop = slider.stops[index]
+    if (stop === undefined) return
+    slider.track.scrollTo({
+      left: stop,
+      behavior: reducedMotion() ? "instant" : "smooth",
+    })
+  }
+
+  // One button per stop, cloned from the template. Kept as they are when the
+  // number of stops does not change, so focus survives a resize.
+  const buildDots = (slider: Slider) => {
+    slider.buttons = slider.stops.flatMap((_, index) => {
+      const clone = slider.template.content.cloneNode(true)
+      const button =
+        clone instanceof DocumentFragment ? clone.firstElementChild : null
+      if (!(button instanceof HTMLButtonElement)) return []
+      button.setAttribute(
+        "aria-label",
+        slider.label
+          .replace("{position}", `${index + 1}`)
+          .replace("{total}", `${slider.stops.length}`)
+      )
+      button.addEventListener("click", () => {
+        goTo(slider, index)
+      })
+      return [button]
+    })
+    slider.dots.replaceChildren(slider.template, ...slider.buttons)
+  }
+
+  const render = (slider: Slider) => {
+    const stops = stopsOf(slider)
+    const rebuilt = stops.length !== slider.stops.length
+    slider.stops = stops
+    // One stop: nothing to navigate, so no dots and nothing to focus. From `md`
+    // up the track does not scroll, so this covers the grid too.
+    const scrolls = stops.length > 1
+    slider.dots.hidden = !scrolls
+    if (scrolls) slider.track.tabIndex = 0
+    else slider.track.removeAttribute("tabindex")
+    if (rebuilt) buildDots(slider)
+    sync(slider)
+  }
+
+  const observer = new ResizeObserver(() => sliders.forEach(render))
+
+  for (const slider of sliders) {
+    observer.observe(slider.track)
+    slider.track.addEventListener("scroll", () => sync(slider), {
+      passive: true,
+    })
+  }
+</script>

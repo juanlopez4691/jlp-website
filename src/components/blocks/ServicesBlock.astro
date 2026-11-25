@@ -3,34 +3,67 @@ import type { ComponentProps } from "astro/types"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import ServiceCard from "@/components/molecules/ServiceCard.astro"
+import Slider from "@/components/molecules/Slider.astro"
 import { cn } from "@/libs/utils"
+import type { Locale } from "@/i18n"
 import type { ServicesBlockCopy } from "@/libs/blocks"
 
 type Props = ServicesBlockCopy & {
   id?: string
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
+  /** The language of the slider's labels. */
+  locale: Locale
   class?: string
 }
 
-const { id, arrow, class: className, ...services } = Astro.props
+const { id, arrow, locale, class: className, ...services } = Astro.props
 
 /** The fill rotates per card, as the design has it. */
 const tones = ["saffron", "coral", "teal", "teal", "saffron", "coral"] as const
+
+const titleId = `${id ?? "services"}-title`
+
+/**
+ * Two rows below `md`, filled by rows: half the cards, rounded up. One to six
+ * cards give 1, 1, 2, 2, 3 and 3 columns, so no two teal cards touch.
+ */
+const columns = Math.min(3, Math.max(1, Math.ceil(services.items.length / 2)))
+
+/** Whole class strings, so Tailwind sees them. */
+const tracks: Record<number, string> = {
+  1: "slider:grid-cols-[repeat(1,var(--slide))]",
+  2: "slider:grid-cols-[repeat(2,var(--slide))] slider:min-[620px]:[--slide:calc((100%_-_1.25rem)/2)]",
+  3: "slider:grid-cols-[repeat(3,var(--slide))] slider:min-[620px]:[--slide:calc((100%_-_1.25rem)/2)]",
+}
 ---
 
 <section id={id} class={cn("relative bg-mint py-16 md:py-20", className)}>
   {arrow && <SectionArrow color={arrow} />}
   <div class="mx-auto max-w-6xl px-8 xl:px-0">
-    <SectionHeader eyebrow={services.eyebrow} title={services.title} />
-    <ul class="reveal-stagger-3 mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <SectionHeader
+      eyebrow={services.eyebrow}
+      title={services.title}
+      titleId={titleId}
+    />
+    <Slider
+      as="ul"
+      labelledby={titleId}
+      locale={locale}
+      class="mt-12"
+      trackClass={cn(
+        "reveal-stagger-3 grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+        "slider:grid-flow-row",
+        tracks[columns]
+      )}
+    >
       {services.items.map((item, index) => (
-        <li class="motion-safe:scroll-triggered:reveal">
+        <li class="md:motion-safe:scroll-triggered:reveal">
           <ServiceCard tone={tones[index]} title={item.title}>
             {item.body}
           </ServiceCard>
         </li>
       ))}
-    </ul>
+    </Slider>
   </div>
 </section>

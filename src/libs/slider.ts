@@ -1,37 +1,16 @@
-/**
- * The scroll stops of a slider: one per position where an item can rest against
- * the left edge. Cards that share a position share a stop, which is why a
- * two-row grid, whose rows repeat the same offsets, gives as many stops as a
- * single row. Each offset is clamped to what the track can scroll, so a last
- * card that cannot reach the edge still gets its own stop.
- *
- * @param offsets - The left offset of each item, measured from the track's
- *   content edge.
- * @param max - The furthest the track can scroll: `scrollWidth - clientWidth`.
- *
- * @returns The stops, ascending, more than 2px apart.
- */
+// Items that rest at the same position share a stop.
 export function sliderStops(offsets: number[], max: number): number[] {
   const stops: number[] = []
 
   for (const offset of offsets.map((offset) => Math.min(offset, max))) {
     const last = stops.at(-1)
-    // Browsers round layout to whole pixels, so equal positions can differ by a
-    // pixel or two.
+    // Browsers round layout, so equal positions can differ by up to 2px.
     if (last === undefined || offset - last > 2) stops.push(offset)
   }
 
   return stops
 }
 
-/**
- * The stop the track is nearest to, which is the dot that is current.
- *
- * @param stops - The stops, ascending, as `sliderStops` returns them.
- * @param position - Where the track is scrolled to, in pixels.
- *
- * @returns The index of the nearest stop, and 0 when there is none.
- */
 export function currentStop(stops: number[], position: number): number {
   let nearest = 0
 

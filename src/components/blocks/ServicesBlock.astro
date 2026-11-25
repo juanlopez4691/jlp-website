@@ -12,7 +12,6 @@ type Props = ServicesBlockCopy & {
   id?: string
   /** Color of the block above. Without it, the block has no arrow. */
   arrow?: ComponentProps<typeof SectionArrow>["color"]
-  /** The language of the slider's labels. */
   locale: Locale
   class?: string
 }
@@ -24,14 +23,10 @@ const tones = ["saffron", "coral", "teal", "teal", "saffron", "coral"] as const
 
 const titleId = `${id ?? "services"}-title`
 
-/**
- * Two rows below `md`, filled by rows: half the cards, rounded up. One to six
- * cards give 1, 1, 2, 2, 3 and 3 columns; with six cards, no two teal cards
- * touch.
- */
+// By rows, so with six cards the two teal ones never touch.
 const columns = Math.ceil(services.items.length / 2)
 
-/** Whole class strings, so Tailwind sees them. */
+// Whole class strings, so Tailwind sees them.
 const tracks: Record<number, string> = {
   1: "slider:grid-cols-[repeat(1,var(--slide))]",
   2: "slider:grid-cols-[repeat(2,var(--slide))]",

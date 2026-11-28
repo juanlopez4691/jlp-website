@@ -1,20 +1,20 @@
 ---
-import type { ComponentProps } from "astro/types"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import ServiceCard from "@/components/molecules/ServiceCard.astro"
 import Slider from "@/components/molecules/Slider.astro"
 import { cn } from "@/libs/utils"
 import type { Locale } from "@/i18n"
-import type { ServicesBlockCopy } from "@/libs/blocks"
+import {
+  blockBackground,
+  type BlockProps,
+  type ServicesBlockCopy,
+} from "@/libs/blocks"
 
-type Props = ServicesBlockCopy & {
-  id?: string
-  /** Color of the block above. Without it, the block has no arrow. */
-  arrow?: ComponentProps<typeof SectionArrow>["color"]
-  locale: Locale
-  class?: string
-}
+type Props = ServicesBlockCopy &
+  BlockProps & {
+    locale: Locale
+  }
 
 const { id, arrow, locale, class: className, ...services } = Astro.props
 
@@ -34,7 +34,10 @@ const tracks: Record<number, string> = {
 }
 ---
 
-<section id={id} class={cn("relative bg-mint py-16 md:py-20", className)}>
+<section
+  id={id}
+  class={cn("relative py-16 md:py-20", blockBackground("services"), className)}
+>
   {arrow && <SectionArrow color={arrow} />}
   <div class="mx-auto max-w-6xl px-8 xl:px-0">
     <SectionHeader

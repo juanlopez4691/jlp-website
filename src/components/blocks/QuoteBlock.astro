@@ -1,16 +1,14 @@
 ---
-import type { ComponentProps } from "astro/types"
 import QuoteMark from "@/assets/icons/quote-mark.svg"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import { cn } from "@/libs/utils"
-import type { QuoteBlockCopy } from "@/libs/blocks"
+import {
+  blockBackground,
+  type BlockProps,
+  type QuoteBlockCopy,
+} from "@/libs/blocks"
 
-type Props = QuoteBlockCopy & {
-  id?: string
-  /** Color of the block above. Without it, the block has no arrow. */
-  arrow?: ComponentProps<typeof SectionArrow>["color"]
-  class?: string
-}
+type Props = QuoteBlockCopy & BlockProps
 
 const { id, arrow, class: className, ...quote } = Astro.props
 ---
@@ -18,7 +16,8 @@ const { id, arrow, class: className, ...quote } = Astro.props
 <section
   id={id}
   class={cn(
-    "relative overflow-hidden bg-coral py-16 text-ink md:py-20",
+    "relative overflow-hidden py-16 text-ink md:py-20",
+    blockBackground("quote"),
     className
   )}
 >

@@ -1,0 +1,25 @@
+version: 2
+updates:
+  - package-ecosystem: bun
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: build
+    # Bun itself moves by hand: packageManager and the Dockerfile FROM must
+    # change together, which CI checks.
+    ignore:
+      - dependency-name: bun
+    groups:
+      dependencies:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
+    groups:
+      actions:
+        update-types: [minor, patch]

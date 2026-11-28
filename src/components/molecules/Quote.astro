@@ -18,7 +18,7 @@ interface Props {
   role: string
   /** Their LinkedIn profile. */
   href: string
-  /** Their photo; hidden below lg. Without it, no photo. */
+  /** Their photo, shown at every breakpoint. Without it, no photo. */
   photo?: ImageMetadata
   /** The visually hidden note after each external link. */
   newTab: string
@@ -77,7 +77,7 @@ const collapsible = !featured && quote.length > 1
         width={50}
         height={50}
         densities={[1, 2]}
-        class="size-12.5 rounded-full lg:block"
+        class="size-12.5 rounded-full"
       />
     )}
     <div class="flex flex-col gap-0.5">

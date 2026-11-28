@@ -2,17 +2,18 @@
 import Fact from "@/components/molecules/Fact.astro"
 import Figure from "@/components/molecules/Figure.astro"
 import { cn } from "@/libs/utils"
-import type { FactsBlockCopy } from "@/libs/blocks"
+import {
+  blockBackground,
+  type BlockProps,
+  type FactsBlockCopy,
+} from "@/libs/blocks"
 
-type Props = FactsBlockCopy & {
-  id?: string
-  class?: string
-}
+type Props = FactsBlockCopy & Omit<BlockProps, "arrow">
 
 const { id, class: className, ...facts } = Astro.props
 ---
 
-<section id={id} class={cn("bg-navy py-10", className)}>
+<section id={id} class={cn("py-10", blockBackground("facts"), className)}>
   <div class="mx-auto grid max-w-6xl grid-cols-2 md:max-w-156 lg:max-w-6xl gap-x-6 gap-y-8 px-8 lg:grid-cols-3 xl:grid-cols-[max-content_max-content_3fr_2fr_3fr] xl:gap-12 xl:px-0">
     <Figure number={facts.experience.number} label={facts.experience.label} />
     <Figure number={facts.clients.number} label={facts.clients.label} />

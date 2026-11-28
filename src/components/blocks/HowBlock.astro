@@ -1,27 +1,29 @@
 ---
 import { Image } from "astro:assets"
-import type { ComponentProps } from "astro/types"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import Step from "@/components/molecules/Step.astro"
 import Principle from "@/components/molecules/Principle.astro"
 import workshop from "@/assets/workshop.webp"
 import { cn } from "@/libs/utils"
-import type { HowBlockCopy } from "@/libs/blocks"
+import {
+  blockBackground,
+  type BlockProps,
+  type HowBlockCopy,
+} from "@/libs/blocks"
 
-type Props = HowBlockCopy & {
-  id?: string
-  /** Color of the block above. Without it, the block has no arrow. */
-  arrow?: ComponentProps<typeof SectionArrow>["color"]
-  class?: string
-}
+type Props = HowBlockCopy & BlockProps
 
 const { id, arrow, class: className, ...process } = Astro.props
 ---
 
 <section
   id={id}
-  class={cn("relative bg-coral py-16 text-ink md:py-20", className)}
+  class={cn(
+    "relative py-16 text-ink md:py-20",
+    blockBackground("how"),
+    className
+  )}
 >
   {arrow && <SectionArrow color={arrow} />}
   <div class="mx-auto max-w-6xl px-8 xl:px-0">

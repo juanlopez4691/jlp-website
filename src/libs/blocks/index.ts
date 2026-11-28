@@ -29,6 +29,28 @@ export const blockColors = {
   contact: contactColor,
 } satisfies Record<BlockType, ArrowColor>
 
+/** Whole class names, because Tailwind only sees complete ones. */
+const backgrounds = {
+  saffron: "bg-saffron",
+  coral: "bg-coral",
+  teal: "bg-teal",
+  mint: "bg-mint",
+  navy: "bg-navy",
+} satisfies Record<ArrowColor, string>
+
+/** The `bg-*` class of a block's color. Its text, buttons and focus colors still assume that color. */
+export function blockBackground(type: BlockType): string {
+  return backgrounds[blockColors[type]]
+}
+
+/** The props every block takes besides its copy. */
+export type BlockProps = {
+  id?: string
+  /** Color of the block above. Without it, the block has no arrow. */
+  arrow?: ArrowColor
+  class?: string
+}
+
 export function blocksSchema(image: ImageFunction) {
   return z.array(
     z.discriminatedUnion("type", [

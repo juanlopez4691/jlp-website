@@ -1,5 +1,4 @@
 ---
-import type { ComponentProps } from "astro/types"
 import { Image } from "astro:assets"
 import Button from "@/components/atoms/Button.astro"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
@@ -7,16 +6,17 @@ import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import telephones from "@/assets/telephones.webp"
 import { cn } from "@/libs/utils"
 import { useTranslations, type Locale } from "@/i18n"
-import type { ContactBlockCopy } from "@/libs/blocks"
+import {
+  blockBackground,
+  type BlockProps,
+  type ContactBlockCopy,
+} from "@/libs/blocks"
 
-type Props = ContactBlockCopy & {
-  /** Language of the current page. */
-  locale: Locale
-  id?: string
-  /** Color of the block above. Without it, the block has no arrow. */
-  arrow?: ComponentProps<typeof SectionArrow>["color"]
-  class?: string
-}
+type Props = ContactBlockCopy &
+  BlockProps & {
+    /** Language of the current page. */
+    locale: Locale
+  }
 
 const { locale, id, arrow, class: className, ...contact } = Astro.props
 const navigation = useTranslations(locale, "navigation")
@@ -25,7 +25,8 @@ const navigation = useTranslations(locale, "navigation")
 <section
   id={id}
   class={cn(
-    "relative overflow-hidden bg-teal py-16 text-mint md:py-20",
+    "relative overflow-hidden py-16 text-mint md:py-20",
+    blockBackground("contact"),
     className
   )}
 >

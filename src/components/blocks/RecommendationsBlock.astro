@@ -1,22 +1,22 @@
 ---
-import type { ComponentProps } from "astro/types"
 import IconExternalLink from "@/components/atoms/IconExternalLink.astro"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import Quote from "@/components/molecules/Quote.astro"
 import Slider from "@/components/molecules/Slider.astro"
 import { cn } from "@/libs/utils"
-import type { RecommendationsBlockCopy } from "@/libs/blocks"
+import {
+  blockBackground,
+  type BlockProps,
+  type RecommendationsBlockCopy,
+} from "@/libs/blocks"
 import { useTranslations, type Locale } from "@/i18n"
 
-type Props = RecommendationsBlockCopy & {
-  /** Language of the current page. */
-  locale: Locale
-  id?: string
-  /** Color of the block above. Without it, the block has no arrow. */
-  arrow?: ComponentProps<typeof SectionArrow>["color"]
-  class?: string
-}
+type Props = RecommendationsBlockCopy &
+  BlockProps & {
+    /** Language of the current page. */
+    locale: Locale
+  }
 
 const { locale, id, arrow, class: className, ...recommendations } = Astro.props
 const navigation = useTranslations(locale, "navigation")
@@ -29,7 +29,11 @@ const titleId = `${id ?? "recommendations"}-title`
 
 <section
   id={id}
-  class={cn("relative bg-saffron py-16 text-ink md:py-20", className)}
+  class={cn(
+    "relative py-16 text-ink md:py-20",
+    blockBackground("recommendations"),
+    className
+  )}
 >
   {arrow && <SectionArrow color={arrow} />}
   <div class="mx-auto max-w-6xl px-8 xl:px-0">

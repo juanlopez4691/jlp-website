@@ -1,24 +1,26 @@
 ---
-import type { ComponentProps } from "astro/types"
 import SectionArrow from "@/components/atoms/SectionArrow.astro"
 import SectionHeader from "@/components/molecules/SectionHeader.astro"
 import StackGroup from "@/components/molecules/StackGroup.astro"
 import { cn } from "@/libs/utils"
-import type { StackBlockCopy } from "@/libs/blocks"
+import {
+  blockBackground,
+  type BlockProps,
+  type StackBlockCopy,
+} from "@/libs/blocks"
 
-type Props = StackBlockCopy & {
-  id?: string
-  /** Color of the block above. Without it, the block has no arrow. */
-  arrow?: ComponentProps<typeof SectionArrow>["color"]
-  class?: string
-}
+type Props = StackBlockCopy & BlockProps
 
 const { id, arrow, class: className, ...stack } = Astro.props
 ---
 
 <section
   id={id}
-  class={cn("relative bg-navy py-16 text-mint md:py-20", className)}
+  class={cn(
+    "relative py-16 text-mint md:py-20",
+    blockBackground("stack"),
+    className
+  )}
 >
   {arrow && <SectionArrow color={arrow} />}
   <div class="mx-auto max-w-6xl px-8 xl:px-0">

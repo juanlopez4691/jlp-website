@@ -1,8 +1,8 @@
 import { defineCollection } from "astro:content"
 import { glob } from "astro/loaders"
 import { z } from "astro/zod"
-import { homeEntry } from "@/libs/home"
-import { notFoundEntry } from "@/libs/notFound"
+import { homeEntry } from "@/libs/homeEntry"
+import { notFoundEntry } from "@/libs/notFoundEntry"
 
 /** The home page of each language: `src/content/home/<lang>.yaml`. */
 const home = defineCollection({

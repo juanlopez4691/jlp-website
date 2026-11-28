@@ -1,21 +1,6 @@
-import type { ImageFunction } from "astro:content"
 import { getEntry } from "astro:content"
-import { z } from "astro/zod"
 import { useTranslations, type Locale } from "@/i18n"
-import { blocksSchema } from "@/libs/blocks"
 import { resolveBlocks, type PageBlock } from "@/libs/blocks/resolve"
-
-export function homeEntry(image: ImageFunction) {
-  return z
-    .object({
-      title: z.string(),
-      description: z.string(),
-      blocks: blocksSchema(image),
-    })
-    .strict()
-}
-
-export type HomeEntry = z.infer<ReturnType<typeof homeEntry>>
 
 export interface HomePageContent {
   title: string

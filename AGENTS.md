@@ -253,10 +253,11 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   the title, the description and the ordered blocks with their full copy. Each
   block type has a Zod schema in `src/libs/blocks/`, one file per block, and
   they are strict, so a missing, misspelled or unknown field fails the build.
-  `getHomePage(lang)` in `src/libs/home.ts` reads the entry, computes the arrow
-  of each block from the block order, and checks that each
-  `navigation.sections` key matches a block id on Home. An entry sets a block's
-  `id` for its anchor, and `arrow: false` to turn its arrow off.
+  `getHomePage(lang)` in `src/libs/home.ts` reads the entry and checks that each
+  `navigation.sections` key matches a block id on Home. `resolveBlocks` in
+  `src/libs/blocks/resolve.ts` computes the arrow of each block from the block
+  order. An entry sets a block's `id` for its anchor, and `arrow: false` to
+  turn its arrow off.
   `getNotFoundPage(lang)` reads the 404 entry.
   Build links with `getRelativeLocaleUrl` from `astro:i18n`. Adding a language
   means updating `astro.config.mjs`, `src/i18n/index.ts` and `pickLocale` in

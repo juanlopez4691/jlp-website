@@ -12,23 +12,30 @@ export async function getStaticPaths() {
   return pages.map((page) => {
     const [lang, slug] = page.id.split("/")
 
+    if (!isLocale(lang)) {
+      throw new Error(`Unsupported language "${lang}" in ${page.filePath}`)
+    }
+
     return {
       params: { lang, slug },
-      props: { page, translations: getTranslations(page, pages) },
+      props: { lang, page },
     }
   })
 }
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
-const { lang } = Astro.params
+const { lang, page } = Astro.props
 
-if (!isLocale(lang)) {
-  throw new Error(`Unsupported language: ${lang}`)
-}
+/*
+ * Computed here, not in getStaticPaths: it reads every language folder, and
+ * there a page in an unknown folder would make Astro throw its vague
+ * MissingLocale error before the "Unsupported language" check named the file.
+ */
+const translations = getTranslations(page, await getCollection("pages"))
 
-const { title, description, updated, noindex } = Astro.props.page.data
-const { Content: Body } = await render(Astro.props.page)
+const { title, description, updated, noindex } = page.data
+const { Content: Body } = await render(page)
 const contentPage = useTranslations(lang, "contentPage")
 const date = new Intl.DateTimeFormat(lang, {
   dateStyle: "long",
@@ -40,7 +47,7 @@ const date = new Intl.DateTimeFormat(lang, {
   title={`${title} | ${contentPage.siteName}`}
   description={description}
   locale={lang}
-  translations={Astro.props.translations}
+  translations={translations}
 >
   {noindex && <meta slot="head" name="robots" content="noindex, nofollow" />}
   <main class="flex-1">

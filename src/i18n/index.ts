@@ -44,9 +44,9 @@ export function useTranslations<S extends Section>(
 }
 
 /**
- * Narrows a route parameter to a supported language.
+ * Narrows a string to a supported language.
  *
- * @param value - The raw value, such as `Astro.params.lang`.
+ * @param value - The raw value, such as the language folder of a page id.
  *
  * @returns True if the value is one of the supported languages.
  */

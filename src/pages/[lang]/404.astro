@@ -1,16 +1,15 @@
 ---
+import type { InferGetStaticPropsType } from "astro"
 import NotFound from "@/layouts/NotFound.astro"
-import { isLocale, locales } from "@/i18n"
+import { locales } from "@/i18n"
 
 export function getStaticPaths() {
-  return locales.map((lang) => ({ params: { lang } }))
+  return locales.map((lang) => ({ params: { lang }, props: { lang } }))
 }
 
-const { lang } = Astro.params
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
-if (!isLocale(lang)) {
-  throw new Error(`Unsupported language: ${lang}`)
-}
+const { lang } = Astro.props
 ---
 
 <NotFound lang={lang} />

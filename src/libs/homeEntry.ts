@@ -11,5 +11,3 @@ export function homeEntry(image: ImageFunction) {
     })
     .strict()
 }
-
-export type HomeEntry = z.infer<ReturnType<typeof homeEntry>>

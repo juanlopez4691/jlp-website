@@ -5,7 +5,7 @@ export const meta = {
   /** The link preview image, in `public/`, 1200×630. */
   ogImage: "/og/og-es.png",
   ogImageAlt:
-    "Joan López, desarrollador web senior. Forjo sitios web fiables con WordPress, WooCommerce, Laravel y Statamic.",
+    "Joan López, desarrollador web senior. Construyo soluciones web de calidad con WordPress, WooCommerce, Laravel y Statamic.",
 }
 
 export type MetaCopy = typeof meta

@@ -5,5 +5,5 @@ export const meta: MetaCopy = {
   ogLocale: "en_US",
   ogImage: "/og/og-en.png",
   ogImageAlt:
-    "Joan López, senior web developer. I forge reliable websites with WordPress, WooCommerce, Laravel and Statamic.",
+    "Joan López, senior web developer. I forge high quality web solutions with WordPress, WooCommerce, Laravel and Statamic.",
 }

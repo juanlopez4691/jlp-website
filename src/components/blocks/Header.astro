@@ -167,6 +167,7 @@ const underline =
       .filter((section) => section !== null)
 
     // Last section past a third of the viewport, or the last one at the bottom.
+    let marked = ""
     const markSection = () => {
       const line = window.innerHeight / 3
       const atBottom =
@@ -177,6 +178,9 @@ const underline =
         if (atBottom || section.getBoundingClientRect().top <= line)
           current = `#${section.id}`
       })
+      // Writing `aria-current` restyles the links: only do it when the section changes.
+      if (current === marked) return
+      marked = current
       sectionLinks.forEach((link) => {
         if (link.hash === current) link.setAttribute("aria-current", "location")
         else link.removeAttribute("aria-current")

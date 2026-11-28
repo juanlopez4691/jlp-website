@@ -183,7 +183,10 @@ on pushes to `main`, and the Bun version lives in `packageManager` in
   prop means no arrow), so the block can follow any other. The page sets the
   prop from its own block order. Never hard-code the color inside a block.
   Tailwind only sees complete class names, so map each color to its class in a
-  lookup object and do not build class names from strings.
+  lookup object and do not build class names from strings. A block's background
+  is `blockBackground(<type>)`, never a hand-written `bg-<color>`. Its text,
+  buttons and focus colors still assume that color, so changing a color constant
+  means checking them too.
 - **Accessibility.** Semantic HTML, a visible focus state, alt text on images,
   and the `jsx-a11y` lint rules must pass.
 - **CSP.** The policy in `public/_headers` allows only same-origin styles,
